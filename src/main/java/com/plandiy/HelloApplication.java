@@ -1,4 +1,4 @@
-package com.plandiy.coursework;
+package com.plandiy;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

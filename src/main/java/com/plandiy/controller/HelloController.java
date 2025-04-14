@@ -1,4 +1,4 @@
-package com.plandiy.coursework;
+package com.plandiy.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -15,7 +15,7 @@ class ProjectTest {
 
     @BeforeEach  // // "Hey, run this before each test case."
     void setUp() { // standard name
-        dummyUser = new User("Test User", "test@example.com", "manager");
+        dummyUser = new User("Test User", "test@example.com", UserRole.TEAMMATE);
         project = new Project(
                 dummyUser,
                 "Test Project",

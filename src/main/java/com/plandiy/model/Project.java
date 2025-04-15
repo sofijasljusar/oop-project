@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 // TODO: class UML with all - + ~ #
+// Note: keep final for now, when add editing options - remove final, add setters
 public class Project {
-    private String id;
-    private String key;
+    private final String id;
+    private final String key;
 
     private final String name;
     private final String description;
@@ -21,6 +22,8 @@ public class Project {
     private final User owner;
     private ArrayList<User> contributors = new ArrayList<>();
 //  todo агрегація з User
+
+    private int taskCounter;
 
     public Project(User owner,
                    String name,
@@ -49,11 +52,25 @@ public class Project {
         return this.key;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public ArrayList<Task> getListOfTasks() {
+        return listOfTasks;
+    }
+
     public ProjectStatus getStatus() {
         return this.status;
     }
 
-    public void addTask() {
+    public String generateTaskId() {
+        taskCounter++;
+        return key + "-" + taskCounter;
+    }
+
+    public void addTask(String name, TaskStatus status, TaskPriority priority, LocalDate dateOfStart, LocalDate deadline) {
+        listOfTasks.add(new Task(generateTaskId(), name, status, priority, dateOfStart, deadline));
     }
 
     public void deleteTask(Task task) {
@@ -64,7 +81,30 @@ public class Project {
         this.status = newStatus;
     }
 
-    public void calculateProgress() {}
+    public int calculateProgress() {
+        if (listOfTasks.isEmpty()) return 0;
+
+        double numberOfCompletedTasks = 0;
+        for (Task task: listOfTasks) {
+            if (task.getStatus() == TaskStatus.DONE) {
+                System.out.println("yes");
+                numberOfCompletedTasks++;
+            }
+        }
+        return (int) (numberOfCompletedTasks/listOfTasks.size()*100);
+    }
+
+    public String projectInfo() {
+        return "PROJECT" +
+                "\nName: " + name +
+                "\nKey: " + key +
+                "\nOwner: " + owner.getName() +
+                "\nStatus: " + status +
+                "\nDescription: " + description +
+                "\nFrom: " + dateOfStart +
+                "\nTo: " + dateOfEnd +
+                "\nBudget: " + budget;
+    }
 
 
 

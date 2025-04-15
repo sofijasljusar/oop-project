@@ -33,20 +33,52 @@ public class Task {
         return status;
     }
 
-    private void addSubtask(String id, String name, String description, TaskStatus status, TaskPriority priority, LocalDate dateOfStart, LocalDate deadline, User assignedTo) {
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public TaskPriority getPriority() {
+        return priority;
+    }
+
+    public LocalDate getDateOfStart() {
+        return dateOfStart;
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public User getAssignedTo() {
+        return assignedTo;
+    }
+
+    public ArrayList<Subtask> getListOfSubtasks() {
+        return listOfSubtasks;
+    }
+
+    public void addSubtask(String id, String name, String description, TaskStatus status, TaskPriority priority, LocalDate dateOfStart, LocalDate deadline, User assignedTo) {
         listOfSubtasks.add(new Subtask(id, name, description, status, priority, dateOfStart, deadline));
     }
 
-    private void deleteSubtask(Subtask subtask) {
+    public void deleteSubtask(Subtask subtask) {
         listOfSubtasks.remove(subtask);
     }
 
 
-    private void assignTo(User assignee) {
+    public void assignTo(User assignee) {
         this.assignedTo = assignee;
     }
 
-    private void updateStatus(TaskStatus newStatus) {
+    public void updateStatus(TaskStatus newStatus) {
         this.status = newStatus;
     }
 

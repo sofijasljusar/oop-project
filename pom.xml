@@ -28,13 +28,13 @@
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
+            <artifactId>junit-jupiter-api</artifactId> <!--to write-->
             <version>${junit.version}</version>
-            <scope>test</scope>
+            <scope>test</scope> <!--only used during testing, not prod builds-->
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
+            <artifactId>junit-jupiter-engine</artifactId> <!--to run-->
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>

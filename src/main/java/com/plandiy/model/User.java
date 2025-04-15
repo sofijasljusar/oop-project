@@ -1,13 +1,33 @@
 package com.plandiy.model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class User {
-    private String id;
+    private final String id;
     private String name;
     private String email;
-    private String role;
-    private ArrayList<Task> listOfTasks = new ArrayList<>();
+    private UserRole role;
+    private final ArrayList<Task> listOfTasks = new ArrayList<>();
+
+    public User(String name, String email, UserRole role) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.email = email;
+        this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
 
     private void addTask(Task task) {
         listOfTasks.add(task);
@@ -20,10 +40,10 @@ public class User {
     // todo: make a couple of methods based on number of params to update only necessary params
     //  or separate totally with set, or make current default if not provided
 
-    private void updateInfo(String newName, String newEmail, String newRole) {
-        name = newName;
-        email = newEmail;
-        role = newRole;
-    } // todo this.name=name or newName?
+    public void updateInfo(String newName, String newEmail, UserRole newRole) {
+        this.name = newName;
+        this.email = newEmail;
+        this.role = newRole;
+    }
 
 }

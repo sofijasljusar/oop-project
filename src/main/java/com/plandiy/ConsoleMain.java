@@ -1,7 +1,7 @@
 package com.plandiy;
 
 import com.plandiy.model.Project;
-import com.plandiy.model.ProjectStatus;
+import com.plandiy.model.UserRole;
 import com.plandiy.model.User;
 
 import java.math.BigDecimal;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 public class ConsoleMain {
     public static void main(String[] args) {
-        User user1 = new User("Lola", "lola@gmail.com", "PM");
+        User user1 = new User("Lola", "lola@gmail.com", UserRole.MANAGER);
         Project project1 = new Project(user1,
                 "Moodle",
                 "very nice",
@@ -19,5 +19,6 @@ public class ConsoleMain {
 
         System.out.println(project1.getKey());
         System.out.println(project1.getStatus());
+        System.out.println(project1.projectInfo());
     }
 }

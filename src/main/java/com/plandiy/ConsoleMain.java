@@ -36,5 +36,12 @@ public class ConsoleMain {
         }
 
         System.out.println(project1.calculateProgress());
+
+        Budget budget = new Budget(BigDecimal.valueOf(10000));
+        budget.addExpense(BigDecimal.valueOf(100), "Coffee machine");
+        budget.addExpense(BigDecimal.valueOf(200), "Cookies");
+        budget.addExpense(BigDecimal.valueOf(300), "Microwave");
+        System.out.println(budget.getRemainingAmount());
+        System.out.println(budget.generateFinancialReport());
     }
 }

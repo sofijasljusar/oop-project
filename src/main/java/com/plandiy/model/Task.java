@@ -3,7 +3,7 @@ package com.plandiy.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Task {
+public class Task { //todo Factory Method
     private final String id;
     private final String name;
     private final String description;

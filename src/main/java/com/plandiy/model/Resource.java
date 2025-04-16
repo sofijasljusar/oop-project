@@ -35,6 +35,10 @@ public class Resource {
         availability = true;
     }
 
+    public String getId() {
+        return this.id;
+    }
+
     public String getName() {
         return name;
     }

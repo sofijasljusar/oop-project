@@ -3,7 +3,7 @@ package com.plandiy.model;
 
 import java.time.LocalDate;
 
-public class Report { //todo - can implement Strategy pattern here? YEP - but even better - Factory
+public class Report { //todo Factory Method: - can implement Strategy pattern here? YEP - but even better - Factory
     private ReportType reportType;
     private LocalDate startDate;
     private LocalDate endDate;

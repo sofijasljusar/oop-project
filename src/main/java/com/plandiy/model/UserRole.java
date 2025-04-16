@@ -4,4 +4,5 @@ public enum UserRole {
     MANAGER,
     TEAMMATE,
     VIEWER,
+    ADMIN,
 }

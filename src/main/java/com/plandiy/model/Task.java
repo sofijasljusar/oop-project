@@ -14,6 +14,8 @@ public class Task {
     private User assignedTo;
     private final ArrayList<Subtask> listOfSubtasks =  new ArrayList<>();
 
+    private int subtaskCounter = 0;
+
 
     public Task(String id, String name, String description, TaskStatus status, TaskPriority priority, LocalDate dateOfStart, LocalDate deadline) {
         this.id = id;
@@ -65,8 +67,13 @@ public class Task {
         return listOfSubtasks;
     }
 
-    public void addSubtask(String id, String name, String description, TaskStatus status, TaskPriority priority, LocalDate dateOfStart, LocalDate deadline, User assignedTo) {
-        listOfSubtasks.add(new Subtask(id, name, description, status, priority, dateOfStart, deadline));
+    private String generateSubtaskId() {
+        subtaskCounter++;
+        return id + "-" + subtaskCounter;
+    }
+
+    public void addSubtask(String name, String description, TaskStatus status, TaskPriority priority, LocalDate dateOfStart, LocalDate deadline, User assignedTo) {
+        listOfSubtasks.add(new Subtask(generateSubtaskId(), name, description, status, priority, dateOfStart, deadline));
     }
 
     public void deleteSubtask(Subtask subtask) {

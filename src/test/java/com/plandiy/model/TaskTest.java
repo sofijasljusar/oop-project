@@ -66,15 +66,22 @@ class TaskTest {
     }
 
     @Test
-    void testAddSubtask() {
-        task.addSubtask("SUB-1", "Fix bug", "Fix login issue", TaskStatus.TO_DO, TaskPriority.LOW, start, end, null);
-        assertEquals(1, task.getListOfSubtasks().size());
-        assertEquals("SUB-1", task.getListOfSubtasks().get(0).getId());
+    void testAddSubtaskAutoId() {
+        task.addSubtask("Fix bug", "Fix login issue", TaskStatus.TO_DO, TaskPriority.LOW, start, end, null);
+        task.addSubtask("Write tests", "Cover edge cases", TaskStatus.TO_DO, TaskPriority.MEDIUM, start, end, null);
+
+        assertEquals(2, task.getListOfSubtasks().size());
+
+        Subtask first = task.getListOfSubtasks().get(0);
+        Subtask second = task.getListOfSubtasks().get(1);
+
+        assertEquals("TASK-1-1", first.getId());
+        assertEquals("TASK-1-2", second.getId());
     }
 
     @Test
     void testDeleteSubtask() {
-        task.addSubtask("SUB-2", "Code review", "Review PR", TaskStatus.TO_DO, TaskPriority.MEDIUM, start, end, null);
+        task.addSubtask("Code review", "Review PR", TaskStatus.TO_DO, TaskPriority.MEDIUM, start, end, null);
         Subtask subtask = task.getListOfSubtasks().get(0);
         task.deleteSubtask(subtask);
         assertTrue(task.getListOfSubtasks().isEmpty());

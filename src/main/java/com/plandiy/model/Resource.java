@@ -1,23 +1,49 @@
 package com.plandiy.model;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 public class Resource {
     private String id;
     private String name;
-    private String type; //todo - human or material
+    private ResourceType type;
     private boolean availability;
-    private double price;
+    private BigDecimal price;
 
-    private boolean isAvailable() {
+    public Resource(String name, ResourceType type, BigDecimal price) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.type = type;
+        this.availability = true;
+        this.price = price;
+    }
+
+    public boolean isAvailable() {
         return availability;
     }
 
-    private void reserve() {
-        // todo: add check to make sure resource is not taken already
-        availability = false;
+    public void reserve() {
+        if (isAvailable()) {
+            availability = false;
+        }
+        else {
+            throw new IllegalStateException("Item is already reserved or unavailable.");
+        }
     }
 
-    private void makeAvailable() {
+    public void makeAvailable() {
         availability = true;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public ResourceType getType() {
+        return type;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
 }

@@ -1,18 +1,31 @@
 package com.plandiy.model;
 
+import java.math.BigDecimal;
+
 public class Budget {
-    private double totalBudget;
-    private double expenses;
+    private BigDecimal totalBudget;
+    private BigDecimal   expenses;
 
-    public double getRemainingAmount() {
-        return totalBudget - expenses;
+    public Budget(BigDecimal totalBudget) {
+        this.totalBudget = totalBudget;
+        this.expenses = BigDecimal.ZERO;
     }
 
-    public void addExpense(double expense) {
-        expenses += expense;
+    public BigDecimal getRemainingAmount() {
+        return totalBudget.subtract(expenses);
     }
 
-    public void checkBalance() {}  // i think same as getRemainingAmount
+    public void addExpense(BigDecimal expense) {
+        expenses = expenses.add(expense);
+    }
+
+    public BigDecimal getTotalBudget() {
+        return totalBudget;
+    }
+
+    public BigDecimal getExpenses() {
+        return expenses;
+    }
 
     public void generateFinancialReport() {}
 

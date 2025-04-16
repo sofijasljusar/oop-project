@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 // TODO: class UML with all - + ~ #
+//TODO: Strategy Для реалізації різних стратегій розрахунку прогресу.
+
 // Note: keep final for now, when add editing options - remove final, add setters
 public class Project {
     private final String id;
@@ -54,6 +56,18 @@ public class Project {
 
     public String getId() {
         return id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public BigDecimal getBudget() {
+        return this.budget;
     }
 
     public ArrayList<Task> getListOfTasks() {

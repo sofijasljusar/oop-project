@@ -5,6 +5,11 @@ import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.user.User;
+import com.plandiy.observer.Observer;
+import com.plandiy.observer.Subject;
+import com.plandiy.service.notification.Notification;
+import com.plandiy.service.notification.NotificationManager;
+import com.plandiy.service.notification.NotificationType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +20,7 @@ import java.util.UUID;
 //TODO: Strategy Для реалізації різних стратегій розрахунку прогресу.
 
 // Note: keep final for now, when add editing options - remove final, add setters
-public class Project {
+public class Project implements Subject {
     private final String id;
     private final String key;
 
@@ -28,7 +33,9 @@ public class Project {
 
     private final ArrayList<Task> listOfTasks =  new ArrayList<>(); // like backlog - so can add functionallity!!! todo композиція
     private final User owner;
-    private ArrayList<User> contributors = new ArrayList<>();
+    private final ArrayList<User> contributors = new ArrayList<>(); // todo
+    private final ArrayList<Observer> observers = new ArrayList<>();
+
 //  todo агрегація з User
 
     private int taskCounter;
@@ -49,6 +56,8 @@ public class Project {
 
         this.id = UUID.randomUUID().toString();
         this.key = generateKey();
+
+        attach(owner); // todo
     }
 
     private String generateKey() {
@@ -84,9 +93,23 @@ public class Project {
         return this.status;
     }
 
+    public ArrayList<User> getContributors() {
+        return contributors;
+    }
+
     public String generateTaskId() {
         taskCounter++;
         return key + "-" + taskCounter;
+    }
+
+    public void addContributor(User user) {
+        contributors.add(user); // todo add logic if already added
+        attach(user);
+    }
+
+    public void removeContributor(User user) {
+        contributors.remove(user);
+        detach(user);
     }
 
     public void addTask(String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
@@ -124,6 +147,25 @@ public class Project {
                 "\nFrom: " + dateOfStart +
                 "\nTo: " + dateOfEnd +
                 "\nBudget: " + budget;
+    }
+
+    @Override
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        NotificationManager manager = new NotificationManager();
+        String content = manager.generateProjectNotification(key, status);
+        for (Observer observer: observers) {
+            observer.update(new Notification(NotificationType.PROJECT_STATUS_CHANGE, content, observer));
+        }
     }
 
 

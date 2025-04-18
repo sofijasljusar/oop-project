@@ -1,4 +1,4 @@
-package com.plandiy.model.task;
+package com.plandiy.model.issue;
 
 import com.plandiy.model.user.User;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public abstract class Task extends Issue { //todo Factory Method
     private final ArrayList<Subtask> listOfSubtasks =  new ArrayList<>();
-    private TaskType type;
+    private final TaskType type;
 
     private int subtaskCounter = 0;
 

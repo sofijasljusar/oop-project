@@ -13,8 +13,8 @@ module com.plandiy.coursework {
     opens com.plandiy.service.report to javafx.fxml;
     exports com.plandiy.service;
     opens com.plandiy.service to javafx.fxml;
-    exports com.plandiy.model.task;
-    opens com.plandiy.model.task to javafx.fxml;
+    exports com.plandiy.model.issue;
+    opens com.plandiy.model.issue to javafx.fxml;
     exports com.plandiy.model.user;
     opens com.plandiy.model.user to javafx.fxml;
     exports com.plandiy.service.notification;

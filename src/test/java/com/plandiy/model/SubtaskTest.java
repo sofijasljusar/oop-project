@@ -1,8 +1,8 @@
 package com.plandiy.model;
 
-import com.plandiy.model.task.Subtask;
-import com.plandiy.model.task.IssueStatus;
-import com.plandiy.model.task.IssuePriority;
+import com.plandiy.model.issue.Subtask;
+import com.plandiy.model.issue.IssueStatus;
+import com.plandiy.model.issue.IssuePriority;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

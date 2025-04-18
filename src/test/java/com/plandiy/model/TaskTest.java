@@ -1,10 +1,8 @@
 package com.plandiy.model;
 
-import com.plandiy.model.task.*;
+import com.plandiy.model.issue.*;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
-import com.plandiy.model.task.TaskType;
-import com.plandiy.service.report.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +20,7 @@ class TaskTest {
 
     @BeforeEach
     void setUp() {
-        task = new Feature(
+        task = new FeatureTask(
                 "TASK-1",
                 "Implement feature X",
                 "Feature details",
@@ -30,8 +28,7 @@ class TaskTest {
                 IssuePriority.HIGH,
                 start,
                 end
-        ) {
-        }; // subclassed anonymously with {}
+        ); // can subclass anonymously with {}
     }
 
     @Test
@@ -49,7 +46,7 @@ class TaskTest {
 
     @Test
     void testConstructorWithoutDescription() {
-        Task taskWithoutDescription = new Feature(
+        Task taskWithoutDescription = new FeatureTask(
                 "TASK-2",
                 "Quick Task",
                 IssueStatus.IN_PROGRESS,
@@ -96,22 +93,28 @@ class TaskTest {
         assertTrue(task.getListOfSubtasks().isEmpty());
     }
 
-//    @Test
-//    void testTaskTypeMatchesConcreteClass() {
-//        List<ReportCreator> creators = new ArrayList<>();
-//        creators.add(new ProjectReportCreator());
-//        creators.add(new TeamReportCreator());
-//        creators.add(new BudgetReportCreator());
-//
-//        // Loop through and test each one
-//        for (ReportCreator creator : creators) {
-//            Report report = creator.createReport(start, end);
-//            switch (report.getClass().getSimpleName()) {
-//                case "TeamReport" -> assertEquals(ReportType.TEAM_PRODUCTIVITY, report.getType());
-//                case "ProjectReport" -> assertEquals(ReportType.PROJECT_PROGRESS, report.getType());
-//                case "BudgetReport" -> assertEquals(ReportType.BUDGET_USAGE, report.getType());
-//            }
-//        }
-//    }
+    @Test
+    void testTaskTypeMatchesConcreteClass() {
+        List<TaskCreator> creators = new ArrayList<>();
+        creators.add(new FeatureTaskCreator());
+        creators.add(new ResearchTaskCreator());
+        creators.add(new BugTaskCreator());
+
+        // Loop through and test each one
+        for (TaskCreator creator : creators) {
+            Task task = creator.createTask("TASK-1",
+                    "Do something useful, please!",
+                    "No tasks for today, so make sure to sweep the floor!!!",
+                    IssueStatus.TO_DO,
+                    IssuePriority.MEDIUM,
+                    start,
+                    end);
+            switch (task.getClass().getSimpleName()) {
+                case "FeatureTask" -> assertEquals(TaskType.FEATURE, task.getType());
+                case "ResearchTask" -> assertEquals(TaskType.RESEARCH, task.getType());
+                case "BugTask" -> assertEquals(TaskType.BUG, task.getType());
+            }
+        }
+    }
 
 }

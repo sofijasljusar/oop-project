@@ -1,8 +1,9 @@
 package com.plandiy.model.project;
 
-import com.plandiy.model.task.Task;
-import com.plandiy.model.task.IssuePriority;
-import com.plandiy.model.task.IssueStatus;
+import com.plandiy.model.issue.FeatureTask;
+import com.plandiy.model.issue.Task;
+import com.plandiy.model.issue.IssuePriority;
+import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.user.User;
 
 import java.math.BigDecimal;
@@ -89,7 +90,7 @@ public class Project {
     }
 
     public void addTask(String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
-//        listOfIssues.add(new Issue(generateTaskId(), name, status, priority, dateOfStart, deadline));
+        listOfTasks.add(new FeatureTask(generateTaskId(), name, status, priority, dateOfStart, deadline));
     }
 
     public void deleteTask(Task task) {

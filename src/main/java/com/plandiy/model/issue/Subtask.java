@@ -1,4 +1,4 @@
-package com.plandiy.model.task;
+package com.plandiy.model.issue;
 
 import java.time.LocalDate;
 

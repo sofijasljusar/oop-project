@@ -1,4 +1,4 @@
-package com.plandiy.model.task;
+package com.plandiy.model.issue;
 
 public enum IssueStatus {
     TO_DO,

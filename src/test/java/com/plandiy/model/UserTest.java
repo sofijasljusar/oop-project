@@ -1,4 +1,7 @@
 package com.plandiy.model;
+import com.plandiy.model.task.Task;
+import com.plandiy.model.user.User;
+import com.plandiy.model.user.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

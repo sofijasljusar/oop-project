@@ -1,5 +1,8 @@
 package com.plandiy.model;
 
+import com.plandiy.model.task.Subtask;
+import com.plandiy.model.task.TaskPriority;
+import com.plandiy.model.task.TaskStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,9 @@
 package com.plandiy.model;
 
+import com.plandiy.model.project.Project;
+import com.plandiy.model.project.ProjectStatus;
+import com.plandiy.model.user.User;
+import com.plandiy.model.user.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

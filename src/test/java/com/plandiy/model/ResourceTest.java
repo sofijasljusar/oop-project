@@ -1,5 +1,7 @@
 package com.plandiy.model;
 
+import com.plandiy.model.resource.Resource;
+import com.plandiy.model.resource.ResourceType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

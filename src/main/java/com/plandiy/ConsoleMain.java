@@ -1,8 +1,9 @@
 package com.plandiy;
 
-import com.plandiy.model.*;
+import com.plandiy.service.report.BudgetReportCreator;
+import com.plandiy.service.report.Report;
+import com.plandiy.service.report.ReportCreator;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ConsoleMain {

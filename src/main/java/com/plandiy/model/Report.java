@@ -2,14 +2,14 @@ package com.plandiy.model;
 
 
 import java.time.LocalDate;
-
-public class Report { //todo Factory Method: - can implement Strategy pattern here? YEP - but even better - Factory
+// todo: add date pickers
+public abstract class Report { //todo Factory Method: - can implement Strategy pattern here? YEP - but even better - Factory ??? tie logic to it!
     private ReportType reportType;
     private LocalDate startDate;
     private LocalDate endDate;
     private String reportData; // todo
 
-    private void generateReport() {}
-    private void exportToPdf() {} // todo
-    private void exportToCsv() {}
+    public abstract void generateReport();
+    public void exportToPdf() {} // todo
+    public void exportToCsv() {}
 }

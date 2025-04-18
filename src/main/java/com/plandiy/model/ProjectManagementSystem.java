@@ -14,7 +14,7 @@ public class ProjectManagementSystem {
     private static ProjectManagementSystem instance;
 
     private ProjectManagementSystem() {
-        // private constructor to prevent external instantiation
+        // private constructor to prevent external instantiation of singleton instance
     }
 
     public static ProjectManagementSystem getInstance() {

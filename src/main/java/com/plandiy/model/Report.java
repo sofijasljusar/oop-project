@@ -10,6 +10,12 @@ public abstract class Report { //todo Factory Method: - can implement Strategy p
     private String reportData; // todo
 
     public abstract void generateReport();
-    public void exportToPdf() {} // todo
-    public void exportToCsv() {}
+
+    public void exportToPdf() {
+        System.out.println("Exporting to PDF...");
+    } // todo
+
+    public void exportToCsv() {
+        System.out.println("Exporting to CSV...");
+    }
 }

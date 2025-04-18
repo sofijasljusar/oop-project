@@ -1,10 +1,17 @@
 package com.plandiy.model.issue;
 
 import com.plandiy.model.user.User;
+import com.plandiy.observer.Observer;
+import com.plandiy.observer.Subject;
+import com.plandiy.service.notification.Notification;
+import com.plandiy.service.notification.NotificationManager;
+import com.plandiy.service.notification.NotificationType;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Issue {
+public abstract class Issue implements Subject {
     private final String id;
     private final String name;
     private final String description;
@@ -13,6 +20,8 @@ public abstract class Issue {
     private final LocalDate dateOfStart;
     private final LocalDate deadline;
     private User assignedTo;
+//    private User reporter;
+    private final List<Observer> observers = new ArrayList<>();
 
     public Issue(String id, String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
         this.id = id;
@@ -22,6 +31,7 @@ public abstract class Issue {
         this.priority = priority;
         this.dateOfStart = dateOfStart;
         this.deadline = deadline;
+//        this.observers.add(reporter);
     }
 
     public Issue(String id, String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
@@ -60,16 +70,42 @@ public abstract class Issue {
         return assignedTo;
     }
 
+//    public User getReporter() {
+//        return reporter;
+//    }
+
     public void assignTo(User assignee) {
         this.assignedTo = assignee;
+        attach(assignedTo);
+        //todo: add changing logic
+    }
+    // for now not used, but provide option for assignee/reported to turn off/on notifications and other users to observe Issue
+    @Override
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        NotificationManager manager = new NotificationManager();
+        String content = manager.generateIssueNotification(id, status);
+        for (Observer observer: observers) {
+            observer.update(new Notification(NotificationType.ISSUE_STATUS_CHANGE, content, observer));
+        }
     }
 
     public void updateStatus(IssueStatus newStatus) {
         this.status = newStatus;
+        notifyObservers();
     }
 
     public String getInfo() { //todo
-        return "TASK" +
+        return "ISSUE" +
                 "\nID: " + id +
                 "\nName: " + name +
                 "\nDescription: " + (!description.isEmpty() ? description : "-") +

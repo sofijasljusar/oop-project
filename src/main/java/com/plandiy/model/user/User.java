@@ -1,16 +1,21 @@
 package com.plandiy.model.user;
 
 import com.plandiy.model.issue.task.Task;
+import com.plandiy.observer.Observer;
+import com.plandiy.service.notification.Notification;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class User {
+public class User implements Observer {
     private final String id;
     private String name;
     private String email;
     private UserRole role;
     private final ArrayList<Task> listOfTasks = new ArrayList<>();
+    private final List<Notification> notifications = new ArrayList<>();
+    // todo: after certain number clear history or clear manually with button or periodically
 
     public User(String name, String email, UserRole role) {
         this.id = UUID.randomUUID().toString();
@@ -47,5 +52,12 @@ public class User {
         this.email = newEmail;
         this.role = newRole;
     }
+
+    @Override
+    public void update(Notification notification) {
+        notifications.add(notification); // todo maybe show a pop-up in UI (toast)
+        System.out.println("[" + name + "] New notification: " + notification.getContents());
+    }
+
 
 }

@@ -1,10 +1,17 @@
 package com.plandiy;
 
+import com.plandiy.model.project.Project;
+import com.plandiy.model.project.ProjectStatus;
+import com.plandiy.model.user.User;
+import com.plandiy.model.user.UserRole;
+import com.plandiy.service.notification.NotificationType;
 import com.plandiy.service.report.BudgetReportCreator;
 import com.plandiy.service.report.Report;
 import com.plandiy.service.report.ReportCreator;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class ConsoleMain {
     public static void main(String[] args) {
@@ -44,10 +51,37 @@ public class ConsoleMain {
 //        budget.addExpense(BigDecimal.valueOf(300), "Microwave");
 //        System.out.println(budget.getRemainingAmount());
 //        System.out.println(budget.generateFinancialReport());
-        ReportCreator reportManager = new BudgetReportCreator();
-        Report budgetReport = reportManager.createReport(
-                LocalDate.of(2025, 4, 18),
-                LocalDate.of(2025, 4, 25));
-        System.out.println(budgetReport.formatReportData());
+//        ReportCreator reportManager = new BudgetReportCreator();
+//        Report budgetReport = reportManager.createReport(
+//                LocalDate.of(2025, 4, 18),
+//                LocalDate.of(2025, 4, 25));
+//        System.out.println(budgetReport.formatReportData());
+        // Create users
+        User owner = new User("Alice", "alice@example.com", UserRole.TEAMMATE);
+        User contributor1 = new User("Bob", "bob@example.com", UserRole.TEAMMATE);
+        User contributor2 = new User("Charlie", "charlie@example.com", UserRole.TEAMMATE);
+
+        // Create a project
+        Project project = new Project(
+                owner,
+                "Apollo",
+                "A rocket management project",
+                LocalDate.of(2025, 4, 1),
+                LocalDate.of(2025, 9, 30),
+                new BigDecimal("50000")
+        );
+
+        // Add contributors to project
+        project.addContributor(contributor1);
+        project.addContributor(contributor2);
+
+
+        // Simulate project status update
+        System.out.println("==== Updating project status ====");
+        project.updateStatus(ProjectStatus.IN_PROGRESS);
+
+        // Notify observers (owner + contributors)
+        project.notifyObservers();
+
     }
 }

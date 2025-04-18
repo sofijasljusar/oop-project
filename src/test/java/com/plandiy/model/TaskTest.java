@@ -1,15 +1,17 @@
 package com.plandiy.model;
 
-import com.plandiy.model.task.Subtask;
-import com.plandiy.model.task.Task;
-import com.plandiy.model.task.TaskPriority;
-import com.plandiy.model.task.TaskStatus;
+import com.plandiy.model.task.*;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
+import com.plandiy.model.task.TaskType;
+import com.plandiy.service.report.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,15 +22,16 @@ class TaskTest {
 
     @BeforeEach
     void setUp() {
-        task = new Task(
+        task = new Feature(
                 "TASK-1",
                 "Implement feature X",
                 "Feature details",
-                TaskStatus.TO_DO,
-                TaskPriority.HIGH,
+                IssueStatus.TO_DO,
+                IssuePriority.HIGH,
                 start,
                 end
-        );
+        ) {
+        }; // subclassed anonymously with {}
     }
 
     @Test
@@ -36,8 +39,8 @@ class TaskTest {
         assertEquals("TASK-1", task.getId());
         assertEquals("Implement feature X", task.getName());
         assertEquals("Feature details", task.getDescription());
-        assertEquals(TaskStatus.TO_DO, task.getStatus());
-        assertEquals(TaskPriority.HIGH, task.getPriority());
+        assertEquals(IssueStatus.TO_DO, task.getStatus());
+        assertEquals(IssuePriority.HIGH, task.getPriority());
         assertEquals(start, task.getDateOfStart());
         assertEquals(end, task.getDeadline());
         assertNull(task.getAssignedTo());
@@ -46,22 +49,22 @@ class TaskTest {
 
     @Test
     void testConstructorWithoutDescription() {
-        Task taskWithoutDesc = new Task(
+        Task taskWithoutDescription = new Feature(
                 "TASK-2",
                 "Quick Task",
-                TaskStatus.IN_PROGRESS,
-                TaskPriority.MEDIUM,
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.MEDIUM,
                 start,
                 end
         );
 
-        assertEquals("", taskWithoutDesc.getDescription());
+        assertEquals("", taskWithoutDescription.getDescription());
     }
 
     @Test
     void testUpdateStatus() {
-        task.updateStatus(TaskStatus.DONE);
-        assertEquals(TaskStatus.DONE, task.getStatus());
+        task.updateStatus(IssueStatus.DONE);
+        assertEquals(IssueStatus.DONE, task.getStatus());
     }
 
     @Test
@@ -73,8 +76,8 @@ class TaskTest {
 
     @Test
     void testAddSubtaskAutoId() {
-        task.addSubtask("Fix bug", "Fix login issue", TaskStatus.TO_DO, TaskPriority.LOW, start, end, null);
-        task.addSubtask("Write tests", "Cover edge cases", TaskStatus.TO_DO, TaskPriority.MEDIUM, start, end, null);
+        task.addSubtask("Fix bug", "Fix login task", IssueStatus.TO_DO, IssuePriority.LOW, start, end, null);
+        task.addSubtask("Write tests", "Cover edge cases", IssueStatus.TO_DO, IssuePriority.MEDIUM, start, end, null);
 
         assertEquals(2, task.getListOfSubtasks().size());
 
@@ -87,9 +90,28 @@ class TaskTest {
 
     @Test
     void testDeleteSubtask() {
-        task.addSubtask("Code review", "Review PR", TaskStatus.TO_DO, TaskPriority.MEDIUM, start, end, null);
-        Subtask subtask = task.getListOfSubtasks().get(0);
-        task.deleteSubtask(subtask);
+        task.addSubtask("Code review", "Review PR", IssueStatus.TO_DO, IssuePriority.MEDIUM, start, end, null);
+        Subtask childIssue = task.getListOfSubtasks().get(0);
+        task.deleteSubtask(childIssue);
         assertTrue(task.getListOfSubtasks().isEmpty());
     }
+
+//    @Test
+//    void testTaskTypeMatchesConcreteClass() {
+//        List<ReportCreator> creators = new ArrayList<>();
+//        creators.add(new ProjectReportCreator());
+//        creators.add(new TeamReportCreator());
+//        creators.add(new BudgetReportCreator());
+//
+//        // Loop through and test each one
+//        for (ReportCreator creator : creators) {
+//            Report report = creator.createReport(start, end);
+//            switch (report.getClass().getSimpleName()) {
+//                case "TeamReport" -> assertEquals(ReportType.TEAM_PRODUCTIVITY, report.getType());
+//                case "ProjectReport" -> assertEquals(ReportType.PROJECT_PROGRESS, report.getType());
+//                case "BudgetReport" -> assertEquals(ReportType.BUDGET_USAGE, report.getType());
+//            }
+//        }
+//    }
+
 }

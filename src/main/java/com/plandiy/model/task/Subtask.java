@@ -2,10 +2,10 @@ package com.plandiy.model.task;
 
 import java.time.LocalDate;
 
-public class Subtask extends Task{
+public class Subtask extends Issue {
     private boolean isBlocking;
 
-    public Subtask(String id, String name, String description, TaskStatus status, TaskPriority priority, LocalDate dateOfStart, LocalDate deadline) {
+    public Subtask(String id, String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
         super(id, name, description, status, priority, dateOfStart, deadline);
         this.isBlocking = false;
     }

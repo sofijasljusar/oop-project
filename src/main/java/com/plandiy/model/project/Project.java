@@ -1,8 +1,8 @@
 package com.plandiy.model.project;
 
 import com.plandiy.model.task.Task;
-import com.plandiy.model.task.TaskPriority;
-import com.plandiy.model.task.TaskStatus;
+import com.plandiy.model.task.IssuePriority;
+import com.plandiy.model.task.IssueStatus;
 import com.plandiy.model.user.User;
 
 import java.math.BigDecimal;
@@ -88,8 +88,8 @@ public class Project {
         return key + "-" + taskCounter;
     }
 
-    public void addTask(String name, TaskStatus status, TaskPriority priority, LocalDate dateOfStart, LocalDate deadline) {
-        listOfTasks.add(new Task(generateTaskId(), name, status, priority, dateOfStart, deadline));
+    public void addTask(String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
+//        listOfIssues.add(new Issue(generateTaskId(), name, status, priority, dateOfStart, deadline));
     }
 
     public void deleteTask(Task task) {
@@ -104,13 +104,13 @@ public class Project {
         if (listOfTasks.isEmpty()) return 0;
 
         double numberOfCompletedTasks = 0;
-        for (Task task: listOfTasks) {
-            if (task.getStatus() == TaskStatus.DONE) {
+        for (Task task : listOfTasks) {
+            if (task.getStatus() == IssueStatus.DONE) {
                 System.out.println("yes");
                 numberOfCompletedTasks++;
             }
         }
-        return (int) (numberOfCompletedTasks/listOfTasks.size()*100);
+        return (int) (numberOfCompletedTasks/ listOfTasks.size()*100);
     }
 
     public String projectInfo() {

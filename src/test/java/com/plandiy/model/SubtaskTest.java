@@ -1,8 +1,8 @@
 package com.plandiy.model;
 
 import com.plandiy.model.task.Subtask;
-import com.plandiy.model.task.TaskPriority;
-import com.plandiy.model.task.TaskStatus;
+import com.plandiy.model.task.IssueStatus;
+import com.plandiy.model.task.IssuePriority;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +22,8 @@ class SubtaskTest {
                 "SUB-1",
                 "Write unit tests",
                 "Add tests for core logic",
-                TaskStatus.TO_DO,
-                TaskPriority.MEDIUM,
+                IssueStatus.TO_DO,
+                IssuePriority.MEDIUM,
                 start,
                 end
 
@@ -35,12 +35,11 @@ class SubtaskTest {
         assertEquals("SUB-1", subtask.getId());
         assertEquals("Write unit tests", subtask.getName());
         assertEquals("Add tests for core logic", subtask.getDescription());
-        assertEquals(TaskStatus.TO_DO, subtask.getStatus());
-        assertEquals(TaskPriority.MEDIUM, subtask.getPriority());
+        assertEquals(IssueStatus.TO_DO, subtask.getStatus());
+        assertEquals(IssuePriority.MEDIUM, subtask.getPriority());
         assertEquals(start, subtask.getDateOfStart());
         assertEquals(end, subtask.getDeadline());
         assertNull(subtask.getAssignedTo());
-        assertTrue(subtask.getListOfSubtasks().isEmpty());
     }
 
     @Test

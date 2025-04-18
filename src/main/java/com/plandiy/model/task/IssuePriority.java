@@ -1,6 +1,6 @@
 package com.plandiy.model.task;
 
-public enum TaskPriority {
+public enum IssuePriority {
     LOW,
     MEDIUM,
     HIGH,

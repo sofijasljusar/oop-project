@@ -24,7 +24,7 @@ public abstract class Report { //todo Factory Method: - can implement Strategy p
         System.out.println("Exporting to CSV...");
     }
 
-    public ReportType getReportType() {
+    public ReportType getType() {
         return reportType;
     }
 

@@ -80,9 +80,9 @@ class ReportTest {
         for (ReportCreator creator : creators) {
             Report report = creator.createReport(startDate, endDate);
             switch (report.getClass().getSimpleName()) {
-                case "TeamReport" -> assertEquals(ReportType.TEAM_PRODUCTIVITY, report.getReportType());
-                case "ProjectReport" -> assertEquals(ReportType.PROJECT_PROGRESS, report.getReportType());
-                case "BudgetReport" -> assertEquals(ReportType.BUDGET_USAGE, report.getReportType());
+                case "TeamReport" -> assertEquals(ReportType.TEAM_PRODUCTIVITY, report.getType());
+                case "ProjectReport" -> assertEquals(ReportType.PROJECT_PROGRESS, report.getType());
+                case "BudgetReport" -> assertEquals(ReportType.BUDGET_USAGE, report.getType());
             }
         }
     }

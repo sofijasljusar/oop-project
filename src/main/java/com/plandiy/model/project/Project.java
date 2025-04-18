@@ -1,7 +1,7 @@
 package com.plandiy.model.project;
 
-import com.plandiy.model.issue.FeatureTask;
-import com.plandiy.model.issue.Task;
+import com.plandiy.model.issue.task.FeatureTask;
+import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.user.User;

@@ -1,12 +1,15 @@
-package com.plandiy.model.issue;
+package com.plandiy.model.issue.task;
+
+import com.plandiy.model.issue.IssuePriority;
+import com.plandiy.model.issue.IssueStatus;
 
 import java.time.LocalDate;
 
-public class ResearchTaskCreator extends TaskCreator {
+public class FeatureTaskCreator extends TaskCreator {
 
     @Override
     public Task createTask(String id, String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
-        return new ResearchTask(id, name, description, status, priority, dateOfStart, deadline);
+        return new FeatureTask(id, name, description, status, priority, dateOfStart, deadline);
     }
 
     public Task createTask(String id, String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {

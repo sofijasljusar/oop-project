@@ -27,4 +27,8 @@ module com.plandiy.coursework {
     opens com.plandiy.model.budget to javafx.fxml;
     exports com.plandiy.model.resource;
     opens com.plandiy.model.resource to javafx.fxml;
+    exports com.plandiy.model.issue.task;
+    opens com.plandiy.model.issue.task to javafx.fxml;
+    exports com.plandiy.model.issue.subtask;
+    opens com.plandiy.model.issue.subtask to javafx.fxml;
 }

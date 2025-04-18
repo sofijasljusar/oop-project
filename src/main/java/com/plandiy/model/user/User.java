@@ -1,6 +1,6 @@
 package com.plandiy.model.user;
 
-import com.plandiy.model.issue.Task;
+import com.plandiy.model.issue.task.Task;
 
 import java.util.ArrayList;
 import java.util.UUID;

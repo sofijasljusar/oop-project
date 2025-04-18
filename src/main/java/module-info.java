@@ -31,4 +31,5 @@ module com.plandiy.coursework {
     opens com.plandiy.model.issue.task to javafx.fxml;
     exports com.plandiy.model.issue.subtask;
     opens com.plandiy.model.issue.subtask to javafx.fxml;
+    exports com.plandiy.observer;
 }

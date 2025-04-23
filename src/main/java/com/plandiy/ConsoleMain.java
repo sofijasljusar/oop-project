@@ -73,7 +73,7 @@ public class ConsoleMain {
 
         // Add contributors to project
         project.addContributor(contributor1);
-        project.addContributor(contributor2);
+        project.addContributor(contributor2 );
 
 
         // Simulate project status update

@@ -36,7 +36,6 @@ public class Project implements Subject {
     private final ArrayList<User> contributors = new ArrayList<>(); // todo
     private final ArrayList<Observer> observers = new ArrayList<>();
 
-//  todo агрегація з User
 
     private int taskCounter;
 

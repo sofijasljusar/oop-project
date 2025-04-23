@@ -46,6 +46,19 @@ public abstract class Task extends Issue { //todo Factory Method
         return this.type;
     }
 
+    public int calculateProgress() {
+        if (listOfSubtasks.isEmpty()) return 0;
+
+        double numberOfCompletedSubtasks = 0;
+        for (Subtask subtask : listOfSubtasks) {
+            if (subtask.getStatus() == IssueStatus.DONE) {
+                System.out.println("yes");
+                numberOfCompletedSubtasks++;
+            }
+        }
+        return (int) (numberOfCompletedSubtasks/ listOfSubtasks.size()*100);
+    }
+
 
 
 }

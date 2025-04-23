@@ -1,5 +1,6 @@
 package com.plandiy.model.user;
 
+import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.Task;
 import com.plandiy.observer.Observer;
 import com.plandiy.service.notification.Notification;
@@ -57,6 +58,19 @@ public class User implements Observer {
     public void update(Notification notification) {
         notifications.add(notification); // todo maybe show a pop-up in UI (toast)
         System.out.println("[" + name + "] New notification: " + notification.getContents());
+    }
+
+    public int calculateProgress() {
+        if (listOfTasks.isEmpty()) return 0;
+
+        double numberOfCompletedTasks = 0;
+        for (Task task : listOfTasks) {
+            if (task.getStatus() == IssueStatus.DONE) {
+                System.out.println("yes");
+                numberOfCompletedTasks++;
+            }
+        }
+        return (int) (numberOfCompletedTasks/ listOfTasks.size()*100);
     }
 
 

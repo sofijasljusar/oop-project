@@ -4,16 +4,19 @@ import com.plandiy.model.issue.Issue;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.subtask.Subtask;
-import com.plandiy.model.user.User;
+import com.plandiy.service.progress.ProgressContext;
+import com.plandiy.service.progress.ProgressStrategy;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Task extends Issue { //todo Factory Method
+public abstract class Task extends Issue implements ProgressContext { //todo Factory Method
     private final ArrayList<Subtask> listOfSubtasks =  new ArrayList<>();
     private final TaskType type;
 
     private int subtaskCounter = 0;
+    private ProgressStrategy progressStrategy;
+
 
 
     public Task(String id, String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, TaskType type) {
@@ -34,7 +37,7 @@ public abstract class Task extends Issue { //todo Factory Method
         return getId() + "-" + subtaskCounter;
     }
 
-    public void addSubtask(String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, User assignedTo) {
+    public void addSubtask(String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
         listOfSubtasks.add(new Subtask(generateSubtaskId(), name, description, status, priority, dateOfStart, deadline));
     }
 
@@ -46,17 +49,14 @@ public abstract class Task extends Issue { //todo Factory Method
         return this.type;
     }
 
-    public int calculateProgress() {
-        if (listOfSubtasks.isEmpty()) return 0;
+    @Override
+    public void setProgressStrategy(ProgressStrategy strategy) {
+        this.progressStrategy = strategy;
+    }
 
-        double numberOfCompletedSubtasks = 0;
-        for (Subtask subtask : listOfSubtasks) {
-            if (subtask.getStatus() == IssueStatus.DONE) {
-                System.out.println("yes");
-                numberOfCompletedSubtasks++;
-            }
-        }
-        return (int) (numberOfCompletedSubtasks/ listOfSubtasks.size()*100);
+    @Override
+    public int calculateProgress() {
+        return progressStrategy.calculateProgress(getListOfSubtasks(), getDateOfStart(), getDeadline());
     }
 
 

@@ -6,12 +6,13 @@ import com.plandiy.observer.Subject;
 import com.plandiy.service.notification.Notification;
 import com.plandiy.service.notification.NotificationManager;
 import com.plandiy.service.notification.NotificationType;
+import com.plandiy.service.progress.ProgressContext;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Issue implements Subject {
+public abstract class Issue implements Subject, ProgressContext {
     private final String id;
     private final String name;
     private final String description;

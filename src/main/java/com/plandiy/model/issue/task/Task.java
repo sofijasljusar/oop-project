@@ -6,11 +6,12 @@ import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.subtask.Subtask;
 import com.plandiy.service.progress.ProgressContext;
 import com.plandiy.service.progress.ProgressStrategy;
+import com.plandiy.service.progress.TaskCompletionProgress;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Task extends Issue implements ProgressContext { //todo Factory Method
+public abstract class Task extends Issue { //todo Factory Method
     private final ArrayList<Subtask> listOfSubtasks =  new ArrayList<>();
     private final TaskType type;
 
@@ -56,11 +57,13 @@ public abstract class Task extends Issue implements ProgressContext { //todo Fac
 
     @Override
     public int calculateProgress() {  //if task has no subtasks - 100 if completed, else 0
-        if (getListOfSubtasks().isEmpty()) {
-            return getStatus() == IssueStatus.DONE ? 100 : 0;
-        } else {
-            return progressStrategy.calculateProgress(getListOfSubtasks(), getDateOfStart(), getDeadline());
+        if (progressStrategy instanceof TaskCompletionProgress) {
+            if (getListOfSubtasks().isEmpty()) {
+                return getStatus() == IssueStatus.DONE ? 100 : 0;
+            }
         }
+        return progressStrategy.calculateProgress(getListOfSubtasks(), getDateOfStart(), getDeadline());
+
     }
 
 

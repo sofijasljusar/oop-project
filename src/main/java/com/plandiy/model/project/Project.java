@@ -1,5 +1,6 @@
 package com.plandiy.model.project;
 
+import com.plandiy.model.issue.Issue;
 import com.plandiy.model.issue.task.FeatureTask;
 import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.issue.IssuePriority;
@@ -10,6 +11,8 @@ import com.plandiy.observer.Subject;
 import com.plandiy.service.notification.Notification;
 import com.plandiy.service.notification.NotificationManager;
 import com.plandiy.service.notification.NotificationType;
+import com.plandiy.service.progress.ProgressContext;
+import com.plandiy.service.progress.ProgressStrategy;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,14 +23,14 @@ import java.util.UUID;
 //TODO: Strategy Для реалізації різних стратегій розрахунку прогресу.
 
 // Note: keep final for now, when add editing options - remove final, add setters
-public class Project implements Subject {
+public class Project implements Subject, ProgressContext {
     private final String id;
     private final String key;
 
     private final String name;
     private final String description;
-    private final LocalDate dateOfStart;
-    private final LocalDate dateOfEnd;
+    private LocalDate dateOfStart;
+    private LocalDate dateOfEnd;
     private ProjectStatus status;
     private final BigDecimal budget;
 
@@ -38,6 +41,7 @@ public class Project implements Subject {
 
 
     private int taskCounter;
+    private ProgressStrategy progressStrategy;
 
     public Project(User owner,
                    String name,
@@ -92,6 +96,14 @@ public class Project implements Subject {
         return this.status;
     }
 
+    public void setDateOfStart(LocalDate dateOfStart) {
+        this.dateOfStart = dateOfStart;
+    }
+
+    public void setDateOfEnd(LocalDate dateOfEnd) {
+        this.dateOfEnd = dateOfEnd;
+    }
+
     public ArrayList<User> getContributors() {
         return contributors;
     }
@@ -123,17 +135,14 @@ public class Project implements Subject {
         this.status = newStatus;
     }
 
-    public int calculateProgress() {
-        if (listOfTasks.isEmpty()) return 0;
+    @Override
+    public void setProgressStrategy(ProgressStrategy strategy) {
+        this.progressStrategy = strategy;
+    }
 
-        double numberOfCompletedTasks = 0;
-        for (Task task : listOfTasks) {
-            if (task.getStatus() == IssueStatus.DONE) {
-                System.out.println("yes");
-                numberOfCompletedTasks++;
-            }
-        }
-        return (int) (numberOfCompletedTasks/ listOfTasks.size()*100);
+    @Override
+    public int calculateProgress() {
+        return progressStrategy.calculateProgress(listOfTasks, dateOfStart, dateOfEnd);
     }
 
     public String projectInfo() {

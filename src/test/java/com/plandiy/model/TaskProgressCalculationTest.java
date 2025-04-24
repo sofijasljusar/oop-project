@@ -34,22 +34,22 @@ class TaskProgressCalculationTest {
 
     @Test
     void testCalculateProgress_AllDone_Returns100() {
-        task.addSubtask("S1", "desc", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1), null);
-        task.addSubtask("S2", "desc", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1), null);
+        task.addSubtask("S1", "desc", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1));
+        task.addSubtask("S2", "desc", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1));
         assertEquals(100, task.calculateProgress());
     }
 
     @Test
     void testCalculateProgress_HalfDone_Returns50() {
-        task.addSubtask("S1", "desc", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1), null);
-        task.addSubtask("S2", "desc", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1), null);
+        task.addSubtask("S1", "desc", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1));
+        task.addSubtask("S2", "desc", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1));
         assertEquals(50, task.calculateProgress());
     }
 
     @Test
     void testCalculateProgress_NoneDone_ReturnsZero() {
-        task.addSubtask("S1", "desc", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1), null);
-        task.addSubtask("S2", "desc", IssueStatus.IN_PROGRESS, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1), null);
+        task.addSubtask("S1", "desc", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1));
+        task.addSubtask("S2", "desc", IssueStatus.IN_PROGRESS, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1));
         assertEquals(0, task.calculateProgress());
     }
 }

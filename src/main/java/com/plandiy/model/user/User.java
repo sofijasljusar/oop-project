@@ -1,22 +1,27 @@
 package com.plandiy.model.user;
 
+import com.plandiy.model.issue.Issue;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.Task;
 import com.plandiy.observer.Observer;
 import com.plandiy.service.notification.Notification;
+import com.plandiy.service.progress.ProgressContext;
+import com.plandiy.service.progress.ProgressStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class User implements Observer {
+public class User implements Observer, ProgressContext {
     private final String id;
     private String name;
     private String email;
     private UserRole role;
-    private final ArrayList<Task> listOfTasks = new ArrayList<>();
+    private final ArrayList<Issue> listOfTasks = new ArrayList<>();
     private final List<Notification> notifications = new ArrayList<>();
     // todo: after certain number clear history or clear manually with button or periodically
+    private ProgressStrategy progressStrategy;
+
 
     public User(String name, String email, UserRole role) {
         this.id = UUID.randomUUID().toString();
@@ -37,7 +42,11 @@ public class User implements Observer {
         return role;
     }
 
-    private void addTask(Task task) {
+    public ArrayList<Issue> getListOfTasks() {
+        return listOfTasks;
+    }
+
+    public void addTask(Task task) {
         listOfTasks.add(task);
     }
 
@@ -60,18 +69,14 @@ public class User implements Observer {
         System.out.println("[" + name + "] New notification: " + notification.getContents());
     }
 
-    public int calculateProgress() {
-        if (listOfTasks.isEmpty()) return 0;
 
-        double numberOfCompletedTasks = 0;
-        for (Task task : listOfTasks) {
-            if (task.getStatus() == IssueStatus.DONE) {
-                System.out.println("yes");
-                numberOfCompletedTasks++;
-            }
-        }
-        return (int) (numberOfCompletedTasks/ listOfTasks.size()*100);
+    @Override
+    public void setProgressStrategy(ProgressStrategy strategy) {
+        this.progressStrategy = strategy;
     }
 
-
+    @Override
+    public int calculateProgress() {
+        return progressStrategy.calculateProgress(listOfTasks, null, null);
+    }
 }

@@ -1,6 +1,7 @@
 module com.plandiy.coursework {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.naming;
 
 
     opens com.plandiy to javafx.fxml;
@@ -32,4 +33,5 @@ module com.plandiy.coursework {
     exports com.plandiy.model.issue.subtask;
     opens com.plandiy.model.issue.subtask to javafx.fxml;
     exports com.plandiy.observer;
+    exports com.plandiy.service.progress;
 }

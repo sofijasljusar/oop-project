@@ -55,8 +55,12 @@ public abstract class Task extends Issue implements ProgressContext { //todo Fac
     }
 
     @Override
-    public int calculateProgress() {
-        return progressStrategy.calculateProgress(getListOfSubtasks(), getDateOfStart(), getDeadline());
+    public int calculateProgress() {  //if task has no subtasks - 100 if completed, else 0
+        if (getListOfSubtasks().isEmpty()) {
+            return getStatus() == IssueStatus.DONE ? 100 : 0;
+        } else {
+            return progressStrategy.calculateProgress(getListOfSubtasks(), getDateOfStart(), getDeadline());
+        }
     }
 
 

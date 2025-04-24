@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class TaskCompletionProgress implements ProgressStrategy {
+    // used in user, project, task with subtasks
     @Override
     public int calculateProgress(List<? extends Issue> listOfIssues, LocalDate dateOfStart, LocalDate dateOfEnd) {
 

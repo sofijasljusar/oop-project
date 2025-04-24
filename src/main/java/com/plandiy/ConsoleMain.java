@@ -1,10 +1,16 @@
 package com.plandiy;
 
+import com.plandiy.model.issue.IssuePriority;
+import com.plandiy.model.issue.IssueStatus;
+import com.plandiy.model.issue.task.ResearchTask;
+import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.project.Project;
 import com.plandiy.model.project.ProjectStatus;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
 import com.plandiy.service.notification.NotificationType;
+import com.plandiy.service.progress.TaskCompletionProgress;
+import com.plandiy.service.progress.TimeProgress;
 import com.plandiy.service.report.BudgetReportCreator;
 import com.plandiy.service.report.Report;
 import com.plandiy.service.report.ReportCreator;
@@ -57,31 +63,65 @@ public class ConsoleMain {
 //                LocalDate.of(2025, 4, 25));
 //        System.out.println(budgetReport.formatReportData());
         // Create users
-        User owner = new User("Alice", "alice@example.com", UserRole.TEAMMATE);
-        User contributor1 = new User("Bob", "bob@example.com", UserRole.TEAMMATE);
-        User contributor2 = new User("Charlie", "charlie@example.com", UserRole.TEAMMATE);
+//        User owner = new User("Alice", "alice@example.com", UserRole.TEAMMATE);
+//        User contributor1 = new User("Bob", "bob@example.com", UserRole.TEAMMATE);
+//        User contributor2 = new User("Charlie", "charlie@example.com", UserRole.TEAMMATE);
+//
+//        // Create a project
+//        Project project = new Project(
+//                owner,
+//                "Apollo",
+//                "A rocket management project",
+//                LocalDate.of(2025, 4, 1),
+//                LocalDate.of(2025, 9, 30),
+//                new BigDecimal("50000")
+//        );
+//
+//        // Add contributors to project
+//        project.addContributor(contributor1);
+//        project.addContributor(contributor2 );
+//
+//
+//        // Simulate project status update
+//        System.out.println("==== Updating project status ====");
+//        project.updateStatus(ProjectStatus.IN_PROGRESS);
+//
+//        // Notify observers (owner + contributors)
+//        project.notifyObservers();
+//
 
-        // Create a project
-        Project project = new Project(
-                owner,
-                "Apollo",
-                "A rocket management project",
-                LocalDate.of(2025, 4, 1),
-                LocalDate.of(2025, 9, 30),
-                new BigDecimal("50000")
-        );
+        TaskCompletionProgress taskCompletionProgress;
+        TimeProgress timeProgress;
+        Project project;
+        User user;
+        taskCompletionProgress = new TaskCompletionProgress();
+        timeProgress = new TimeProgress();
 
-        // Add contributors to project
-        project.addContributor(contributor1);
-        project.addContributor(contributor2 );
+        user = new User("John Doe", "john.doe@example.com", UserRole.TEAMMATE);
+        project = new Project(user,"Project 1", "", LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), new BigDecimal(70000));
+
+        project.addTask("Task 1", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
+        project.addTask("Task 2", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3));
+
+        Task task3 = new ResearchTask("T-3", "Task 3", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3));
+        Task task4 = new ResearchTask("T-4", "Task 4", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3));
+        user.addTask(task3);
+        user.addTask(task4);
+
+        LocalDate start = LocalDate.now().minusDays(10);
+        LocalDate end = LocalDate.now().plusDays(5);
+
+        project.setDateOfStart(start);
+        project.setDateOfEnd(end);
+        project.setProgressStrategy(timeProgress);
+
+        int progress = project.calculateProgress();
+        System.out.println(progress);
 
 
-        // Simulate project status update
-        System.out.println("==== Updating project status ====");
-        project.updateStatus(ProjectStatus.IN_PROGRESS);
-
-        // Notify observers (owner + contributors)
-        project.notifyObservers();
-
+        double totalDays = start.until(end, java.time.temporal.ChronoUnit.DAYS); //todo
+        double passedDays = start.until(LocalDate.now(), java.time.temporal.ChronoUnit.DAYS);
+        int expectedProgress = (int) ( passedDays / totalDays * 100);
+        System.out.println(expectedProgress);
     }
 }

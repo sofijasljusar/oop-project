@@ -1,26 +1,13 @@
 package com.plandiy;
 
 import com.plandiy.command.CommandManager;
-import com.plandiy.command.RenameIssueCommand;
+import com.plandiy.command.issue.RenameIssueCommand;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.FeatureTask;
-import com.plandiy.model.issue.task.ResearchTask;
 import com.plandiy.model.issue.task.Task;
-import com.plandiy.model.project.Project;
-import com.plandiy.model.project.ProjectStatus;
-import com.plandiy.model.user.User;
-import com.plandiy.model.user.UserRole;
-import com.plandiy.service.notification.NotificationType;
-import com.plandiy.service.progress.TaskCompletionProgress;
-import com.plandiy.service.progress.TimeProgress;
-import com.plandiy.service.report.BudgetReportCreator;
-import com.plandiy.service.report.Report;
-import com.plandiy.service.report.ReportCreator;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 public class ConsoleMain {
     public static void main(String[] args) {

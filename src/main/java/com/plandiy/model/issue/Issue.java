@@ -18,8 +18,8 @@ public abstract class Issue implements Subject, ProgressContext {
     private String description;
     private IssueStatus status;
     private IssuePriority priority;
-    private final LocalDate dateOfStart;
-    private final LocalDate deadline;
+    private LocalDate dateOfStart;
+    private LocalDate deadline;
     private User assignedTo;
 //    private User reporter;
     private final List<Observer> observers = new ArrayList<>();
@@ -115,6 +115,14 @@ public abstract class Issue implements Subject, ProgressContext {
 
     public void updatePriority(IssuePriority priority) {
         this.priority = priority;
+    }
+
+    public void updateDateOfStart(LocalDate dateOfStart) {
+        this.dateOfStart = dateOfStart;
+    }
+
+    public void updateDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
 
     public String getInfo() { //todo

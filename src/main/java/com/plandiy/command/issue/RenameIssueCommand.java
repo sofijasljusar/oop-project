@@ -1,8 +1,9 @@
-package com.plandiy.command;
+package com.plandiy.command.issue;
 
+import com.plandiy.command.Command;
 import com.plandiy.model.issue.Issue;
 
-public class RenameIssueCommand implements Command{
+public class RenameIssueCommand implements Command {
     private final Issue issue;
     private final String newName;
     private String oldName;

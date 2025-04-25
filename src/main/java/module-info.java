@@ -2,6 +2,8 @@ module com.plandiy.coursework {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.naming;
+    requires static lombok;
+    requires org.slf4j;
 
 
     opens com.plandiy to javafx.fxml;
@@ -34,4 +36,6 @@ module com.plandiy.coursework {
     opens com.plandiy.model.issue.subtask to javafx.fxml;
     exports com.plandiy.observer;
     exports com.plandiy.service.progress;
+    exports com.plandiy.model.issue.task.factory;
+    opens com.plandiy.model.issue.task.factory to javafx.fxml;
 }

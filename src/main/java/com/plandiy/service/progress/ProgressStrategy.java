@@ -1,7 +1,6 @@
 package com.plandiy.service.progress;
 
 import com.plandiy.model.issue.Issue;
-import com.plandiy.model.user.User;
 
 import java.time.LocalDate;
 import java.util.List;

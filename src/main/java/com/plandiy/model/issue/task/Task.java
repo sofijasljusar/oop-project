@@ -16,7 +16,7 @@ public abstract class Task extends Issue { //todo Factory Method
     private final TaskType type;
 
     private int subtaskCounter = 0;
-    private ProgressStrategy progressStrategy;
+    private ProgressStrategy progressStrategy = new TaskCompletionProgress();
 
 
 

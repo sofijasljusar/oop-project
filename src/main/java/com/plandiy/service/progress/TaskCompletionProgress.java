@@ -2,10 +2,12 @@ package com.plandiy.service.progress;
 
 import com.plandiy.model.issue.Issue;
 import com.plandiy.model.issue.IssueStatus;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 public class TaskCompletionProgress implements ProgressStrategy {
     // used in user, project, task with subtasks
     @Override
@@ -16,7 +18,7 @@ public class TaskCompletionProgress implements ProgressStrategy {
         double numberOfCompletedTasks = 0;
         for (Issue issue : listOfIssues) {
             if (issue.getStatus() == IssueStatus.DONE) {
-                System.out.println("yes");
+                log.info("yes");
                 numberOfCompletedTasks++;
             }
         }

@@ -1,7 +1,9 @@
-package com.plandiy.model.issue.task;
+package com.plandiy.model.issue.task.factory;
 
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
+import com.plandiy.model.issue.task.ResearchTask;
+import com.plandiy.model.issue.task.Task;
 
 import java.time.LocalDate;
 

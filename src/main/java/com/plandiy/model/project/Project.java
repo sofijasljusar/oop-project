@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 // TODO: class UML with all - + ~ #
-//TODO: Strategy Для реалізації різних стратегій розрахунку прогресу.
 
 // Note: keep final for now, when add editing options - remove final, add setters
 public class Project implements Subject, ProgressContext {

@@ -14,10 +14,10 @@ import java.util.List;
 
 public abstract class Issue implements Subject, ProgressContext {
     private final String id;
-    private final String name;
-    private final String description;
+    private String name;
+    private String description;
     private IssueStatus status;
-    private final IssuePriority priority;
+    private IssuePriority priority;
     private final LocalDate dateOfStart;
     private final LocalDate deadline;
     private User assignedTo;
@@ -103,6 +103,18 @@ public abstract class Issue implements Subject, ProgressContext {
     public void updateStatus(IssueStatus newStatus) {
         this.status = newStatus;
         notifyObservers();
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateDescription(String description) {
+        this.description = description;
+    }
+
+    public void updatePriority(IssuePriority priority) {
+        this.priority = priority;
     }
 
     public String getInfo() { //todo

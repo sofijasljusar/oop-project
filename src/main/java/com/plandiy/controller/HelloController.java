@@ -1,22 +1,24 @@
     package com.plandiy.controller;
 
+    import com.plandiy.model.issue.task.*;
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
     import javafx.fxml.FXML;
     import javafx.fxml.Initializable;
     import com.plandiy.model.issue.IssueStatus;
     import com.plandiy.model.issue.IssuePriority;
-    import com.plandiy.model.issue.task.Task;
-    import com.plandiy.model.issue.task.FeatureTask;
     import com.plandiy.model.user.User;
     import com.plandiy.model.user.UserRole;
 
     import javafx.scene.control.TableView;
     import javafx.scene.control.TableColumn;
     import javafx.scene.control.cell.PropertyValueFactory;
+    import javafx.scene.image.Image;
+    import javafx.scene.image.ImageView;
 
     import java.net.URL;
     import java.time.LocalDate;
+    import java.util.Random;
     import java.util.ResourceBundle;
     public class HelloController implements Initializable {
 
@@ -38,6 +40,8 @@
         @FXML
         private TableColumn<Task, String> tcAssignedTo;
 
+        @FXML
+        private TableColumn<Task, ImageView> tcTaskIcon;
 
         private ObservableList<Task> data;
 
@@ -53,23 +57,44 @@
                 return (user != null) ? new javafx.beans.property.SimpleStringProperty(user.getName()) : new javafx.beans.property.SimpleStringProperty("Unassigned");
             });
 
+            tcTaskIcon.setCellValueFactory(cellData -> {
+                Task task = cellData.getValue();
+                TaskType taskType = task.getType(); // Assuming each task has a type
+
+                // Load the icon based on task type
+                String iconPath = "/com/plandiy/images/" + taskType.getIconFileName();
+                Image image = new Image(getClass().getResourceAsStream(iconPath));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(18);  // Set the size of the icon
+                imageView.setFitHeight(18);
+
+                return new javafx.beans.property.SimpleObjectProperty<>(imageView);
+            });
+
             User user = new User("John Doe", "john.doe@example.com", UserRole.TEAMMATE);
 
 
             data = FXCollections.observableArrayList();
+            Random rnd = new Random();
 
             for (int i = 1; i <= 31; i++) {
-                FeatureTask featureTask = new FeatureTask(
-                        "FT-" + String.format("%03d", i),  // Task ID like FT-001, FT-002, ...
-                        "Task #" + i + " description",
-                        "Description for task #" + i,
-                        IssueStatus.TO_DO,
-                        IssuePriority.HIGH,
-                        LocalDate.of(2025, 5, 1),
-                        LocalDate.of(2025, 5, 30)
-                );
-                featureTask.assignTo(user);  // Assign user to the task
-                data.add(featureTask);  // Add task to data
+                String id = String.format("T-%03d", i);
+                String name = "Drink " + i + " bottles of water";
+                String desc = "Auto-generated description for task #" + i;
+                IssueStatus st = IssueStatus.values()[rnd.nextInt(IssueStatus.values().length)];
+                IssuePriority pr = IssuePriority.values()[rnd.nextInt(IssuePriority.values().length)];
+                LocalDate start = LocalDate.of(2025,5,1);
+                LocalDate end   = LocalDate.of(2025,5,30);
+
+                // pick a random TaskType
+                TaskType type = TaskType.values()[ rnd.nextInt(TaskType.values().length) ];
+                Task task = switch (type) {
+                    case FEATURE -> new FeatureTask(id, name, desc, st, pr, start, end);
+                    case BUG -> new BugTask(id, name, desc, st, pr, start, end);
+                    case RESEARCH -> new ResearchTask(id, name, desc, st, pr, start, end);
+                };
+                task.assignTo(user);
+                data.add(task);
             }
 
             tbVTasks.setItems(data);

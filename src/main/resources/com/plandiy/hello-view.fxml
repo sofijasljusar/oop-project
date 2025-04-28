@@ -136,7 +136,7 @@
                                  <center>
                                     <TableView fx:id="tbVTasks" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/styling.css">
                                       <columns>
-                                        <TableColumn prefWidth="36.0" />
+                                        <TableColumn  fx:id="tcTaskIcon" prefWidth="36.0" text="Icon"/>
                                         <TableColumn fx:id="tcId" prefWidth="85.16300964355469" text="ID" />
                                           <TableColumn fx:id="tcName" prefWidth="411.83697509765625" text="Name" />
                                           <TableColumn fx:id="tcStatus" minWidth="0.0" prefWidth="86.42062377929688" text="Status" />

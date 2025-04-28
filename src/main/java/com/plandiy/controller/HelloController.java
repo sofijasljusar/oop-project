@@ -18,6 +18,7 @@
 
     import java.net.URL;
     import java.time.LocalDate;
+    import java.util.List;
     import java.util.Random;
     import java.util.ResourceBundle;
     public class HelloController implements Initializable {
@@ -78,7 +79,7 @@
             Random rnd = new Random();
 
             for (int i = 1; i <= 31; i++) {
-                String id = String.format("T-%03d", i);
+                String id = String.format("RFRE-%d", i);
                 String name = "Drink " + i + " bottles of water";
                 String desc = "Auto-generated description for task #" + i;
                 IssueStatus st = IssueStatus.values()[rnd.nextInt(IssueStatus.values().length)];
@@ -98,5 +99,28 @@
             }
 
             tbVTasks.setItems(data);
+
+            // 1. ALWAYS fill the table’s width
+            tbVTasks.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+            // 2. Fix the width of all columns except “Name”
+            List<TableColumn<Task,?>> fixedCols = List.of(
+                    tcTaskIcon, tcId, tcStatus, tcPriority, tcAssignedTo
+            );
+            fixedCols.forEach(col -> {
+                double w = col.getPrefWidth();
+                // lock min/max/pref all to the same value
+                col.setMinWidth(w);
+                col.setMaxWidth(w);
+                col.setResizable(false);
+            });
+
+            // 3. Let “Name” expand
+            //    (it already has a prefWidth in your FXML, but we now allow it to grow)
+            //    You can also give it a reasonable minimum so that very small windows don’t squash it too far:
+            tcName.setMinWidth(100);
+            tcName.setMaxWidth(Double.MAX_VALUE);
+            tcName.setResizable(true);
+
         }
     }

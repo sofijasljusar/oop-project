@@ -15,13 +15,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plandiy.controller.HelloController">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plandiy.controller.HelloController">
    <children>
-      <BorderPane layoutY="-1.0" prefHeight="569.0" prefWidth="967.0">
-         <left>
+      <BorderPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+      <left>
             <VBox prefHeight="513.0" prefWidth="184.0" style="-fx-background-color: #6F5CC2             ;" stylesheets="@css/styling.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="Project" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="MedSync" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -32,7 +32,7 @@
                      <padding>
                         <Insets left="30.0" />
                      </padding></Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="Project" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="Energy" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -44,7 +44,7 @@
                         <Insets left="30.0" />
                      </padding>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="Project" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="CyberCloud" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -56,7 +56,7 @@
                         <Insets left="30.0" />
                      </padding>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="Project" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="MagnetBoss" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -68,7 +68,7 @@
                         <Insets left="30.0" />
                      </padding>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="Project" textFill="WHITE">
+                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="SweetClothes" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -115,8 +115,9 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <BorderPane prefHeight="501.0" prefWidth="785.0">
-                                 <top>
+                              <BorderPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+                              <top>
                                     <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="785.0" spacing="10.0" BorderPane.alignment="CENTER">
                                        <children>
                                           <Label graphicTextGap="10.0" text="Tasks" textFill="#464646">
@@ -134,15 +135,18 @@
                                     </HBox>
                                  </top>
                                  <center>
-                                    <TableView fx:id="tbVTasks" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/styling.css">
+                                    <TableView fx:id="tbVTasks" stylesheets="@css/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                       <columns>
-                                        <TableColumn  fx:id="tcTaskIcon" prefWidth="36.0" text="Icon"/>
+                                        <TableColumn fx:id="tcTaskIcon" prefWidth="36.0" />
                                         <TableColumn fx:id="tcId" prefWidth="85.16300964355469" text="ID" />
                                           <TableColumn fx:id="tcName" prefWidth="411.83697509765625" text="Name" />
                                           <TableColumn fx:id="tcStatus" minWidth="0.0" prefWidth="86.42062377929688" text="Status" />
                                           <TableColumn fx:id="tcPriority" prefWidth="84.36276245117188" text="Priority" />
                                           <TableColumn fx:id="tcAssignedTo" prefWidth="81.93109130859375" text="Assignee" />
                                       </columns>
+                                       <BorderPane.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </BorderPane.margin>
                                     </TableView>
                                  </center>
                               </BorderPane>

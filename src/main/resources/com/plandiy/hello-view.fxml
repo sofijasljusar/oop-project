@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plandiy.controller.HelloController">
    <children>
       <BorderPane layoutY="-1.0" prefHeight="569.0" prefWidth="967.0">
          <left>
@@ -134,14 +134,14 @@
                                     </HBox>
                                  </top>
                                  <center>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@css/styling.css">
+                                    <TableView fx:id="tbVTasks" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/styling.css">
                                       <columns>
                                         <TableColumn prefWidth="36.0" />
-                                        <TableColumn prefWidth="85.16300964355469" text="ID" />
-                                          <TableColumn prefWidth="411.83697509765625" text="Name" />
-                                          <TableColumn minWidth="0.0" prefWidth="86.42062377929688" text="Status" />
-                                          <TableColumn prefWidth="84.36276245117188" text="Priority" />
-                                          <TableColumn prefWidth="81.93109130859375" text="Assignee" />
+                                        <TableColumn fx:id="tcId" prefWidth="85.16300964355469" text="ID" />
+                                          <TableColumn fx:id="tcName" prefWidth="411.83697509765625" text="Name" />
+                                          <TableColumn fx:id="tcStatus" minWidth="0.0" prefWidth="86.42062377929688" text="Status" />
+                                          <TableColumn fx:id="tcPriority" prefWidth="84.36276245117188" text="Priority" />
+                                          <TableColumn fx:id="tcAssignedTo" prefWidth="81.93109130859375" text="Assignee" />
                                       </columns>
                                     </TableView>
                                  </center>

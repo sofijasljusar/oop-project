@@ -4,6 +4,7 @@ module com.plandiy.coursework {
     requires java.naming;
     requires static lombok;
     requires org.slf4j;
+    requires java.desktop;
 
 
     opens com.plandiy to javafx.fxml;

@@ -42,6 +42,11 @@
 
 }
 
+.table-view:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+
+}
 
 .table-view .column-header,
 .table-view .column-header-background filler {
@@ -62,7 +67,7 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #EBE9F6;
+    -fx-background-color: rgb(226, 222, 242);
 }
 
 .table-row-cell:selected .text {
@@ -76,14 +81,14 @@
 
 .table-view .scroll-bar:horizontal .track, .table-view .scroll-bar:vertical .track {
     -fx-background-color: transparent;
-    -fx-border-color: derive(#715600, 80%);
+    -fx-border-color: rgb(226, 222, 242);
     -fx-background-radius: 2em;
     -fx-border-radius: 2em;
 }
 
     /* The nain scrollbar **thumb** CSS class which we drag every time (movable) */
 .table-view .scroll-bar:horizontal .thumb, .table-view .scroll-bar:vertical .thumb {
-    -fx-background-color: derive(#71560D, 90%);
+    -fx-background-color: rgb(226, 222, 242);
     -fx-background-insets: 2, 0, 0;
     -fx-background-radius: 2em;
 }
@@ -137,11 +142,6 @@
     -fx-text-fill: #6F5CC2;
 }
 
-.tab-pane {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-}
+
 
 

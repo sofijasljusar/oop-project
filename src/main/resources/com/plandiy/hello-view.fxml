@@ -138,10 +138,10 @@
                                     <TableView fx:id="tbVTasks" stylesheets="@css/styling.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                                       <columns>
                                         <TableColumn fx:id="tcTaskIcon" prefWidth="36.0" />
-                                        <TableColumn fx:id="tcId" prefWidth="85.16300964355469" text="ID" />
+                                        <TableColumn fx:id="tcId" prefWidth="120.42062377929688" text="ID" />
                                           <TableColumn fx:id="tcName" prefWidth="411.83697509765625" text="Name" />
                                           <TableColumn fx:id="tcStatusIcon" minWidth="0.0" prefWidth="120.42062377929688" text="Status" />
-                                          <TableColumn fx:id="tcPriorityIcon" prefWidth="36.0" text="Priority" />
+                                          <TableColumn fx:id="tcPriorityIcon" prefWidth="81.93109130859375" text="Priority" />
                                           <TableColumn fx:id="tcAssignedTo" prefWidth="81.93109130859375" text="Assignee" />
                                       </columns>
                                        <BorderPane.margin>

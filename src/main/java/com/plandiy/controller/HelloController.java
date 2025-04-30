@@ -1,6 +1,7 @@
     package com.plandiy.controller;
 
     import com.plandiy.model.issue.task.*;
+    import com.plandiy.util.IconCache;
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
     import javafx.fxml.FXML;
@@ -56,7 +57,7 @@
 
                 // Load the icon based on task type
                 String iconPath = "/com/plandiy/images/" + issueStatus.getIconFileName();
-                Image image = new Image(getClass().getResourceAsStream(iconPath));
+                Image image = IconCache.get(issueStatus.getIconFileName());
                 ImageView imageView = new ImageView(image);
                 imageView.setFitHeight(14);
                 imageView.setPreserveRatio(true);
@@ -70,7 +71,7 @@
 
                 // Load the icon based on task type
                 String iconPath = "/com/plandiy/images/" + issuePriority.getIconFileName();
-                Image image = new Image(getClass().getResourceAsStream(iconPath));
+                Image image = IconCache.get(issuePriority.getIconFileName());
                 ImageView imageView = new ImageView(image);
                 imageView.setFitHeight(18);
                 imageView.setPreserveRatio(true);
@@ -89,7 +90,7 @@
 
                 // Load the icon based on task type
                 String iconPath = "/com/plandiy/images/" + taskType.getIconFileName();
-                Image image = new Image(getClass().getResourceAsStream(iconPath));
+                Image image = IconCache.get(taskType.getIconFileName());
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(20);  // Set the size of the icon
                 imageView.setFitHeight(20);

@@ -33,7 +33,7 @@
         private TableColumn<Task, String> tcName;
 
         @FXML
-        private TableColumn<Task, IssueStatus> tcStatus;
+        private TableColumn<Task, ImageView> tcStatusIcon;
 
         @FXML
         private TableColumn<Task, IssuePriority> tcPriority;
@@ -50,7 +50,20 @@
         public void initialize(URL url, ResourceBundle resourceBundle) {
             tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
             tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            tcStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+//            tcStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+            tcStatusIcon.setCellValueFactory(cellData -> {
+                Task task = cellData.getValue();
+                IssueStatus issueStatus = task.getStatus(); // Assuming each task has a type
+
+                // Load the icon based on task type
+                String iconPath = "/com/plandiy/images/" + issueStatus.getIconFileName();
+                Image image = new Image(getClass().getResourceAsStream(iconPath));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(14);
+                imageView.setPreserveRatio(true);
+                return new javafx.beans.property.SimpleObjectProperty<>(imageView);
+            });
+
             tcPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
             tcAssignedTo.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));
             tcAssignedTo.setCellValueFactory(cellData -> {
@@ -105,7 +118,7 @@
 
             // 2. Fix the width of all columns except “Name”
             List<TableColumn<Task,?>> fixedCols = List.of(
-                    tcTaskIcon, tcId, tcStatus, tcPriority, tcAssignedTo
+                    tcTaskIcon, tcId, tcStatusIcon, tcPriority, tcAssignedTo
             );
             fixedCols.forEach(col -> {
                 double w = col.getPrefWidth();

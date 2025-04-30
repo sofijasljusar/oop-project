@@ -36,7 +36,7 @@
         private TableColumn<Task, ImageView> tcStatusIcon;
 
         @FXML
-        private TableColumn<Task, IssuePriority> tcPriority;
+        private TableColumn<Task, ImageView> tcPriorityIcon;
 
         @FXML
         private TableColumn<Task, String> tcAssignedTo;
@@ -50,7 +50,6 @@
         public void initialize(URL url, ResourceBundle resourceBundle) {
             tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
             tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//            tcStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
             tcStatusIcon.setCellValueFactory(cellData -> {
                 Task task = cellData.getValue();
                 IssueStatus issueStatus = task.getStatus(); // Assuming each task has a type
@@ -64,7 +63,20 @@
                 return new javafx.beans.property.SimpleObjectProperty<>(imageView);
             });
 
-            tcPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
+//            tcPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
+            tcPriorityIcon.setCellValueFactory(cellData -> {
+                Task task = cellData.getValue();
+                IssuePriority issuePriority = task.getPriority(); // Assuming each task has a type
+
+                // Load the icon based on task type
+                String iconPath = "/com/plandiy/images/" + issuePriority.getIconFileName();
+                Image image = new Image(getClass().getResourceAsStream(iconPath));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(18);
+                imageView.setPreserveRatio(true);
+                return new javafx.beans.property.SimpleObjectProperty<>(imageView);
+            });
+
             tcAssignedTo.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));
             tcAssignedTo.setCellValueFactory(cellData -> {
                 User user = cellData.getValue().getAssignedTo();  // Assuming getAssignedTo() exists
@@ -79,8 +91,8 @@
                 String iconPath = "/com/plandiy/images/" + taskType.getIconFileName();
                 Image image = new Image(getClass().getResourceAsStream(iconPath));
                 ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(18);  // Set the size of the icon
-                imageView.setFitHeight(18);
+                imageView.setFitWidth(20);  // Set the size of the icon
+                imageView.setFitHeight(20);
 
                 return new javafx.beans.property.SimpleObjectProperty<>(imageView);
             });
@@ -118,7 +130,7 @@
 
             // 2. Fix the width of all columns except “Name”
             List<TableColumn<Task,?>> fixedCols = List.of(
-                    tcTaskIcon, tcId, tcStatusIcon, tcPriority, tcAssignedTo
+                    tcTaskIcon, tcId, tcStatusIcon, tcPriorityIcon, tcAssignedTo
             );
             fixedCols.forEach(col -> {
                 double w = col.getPrefWidth();

@@ -1,17 +1,17 @@
-.button {
+.button1 {
     -fx-background-color: #6F5CC2;
     -fx-background-radius :0em;
 }
 
-.button:hover {
+.button1:hover {
     -fx-background-color : #A89DDA;
 }
 
-.button:pressed {
+.button1:pressed {
     -fx-background-color : #7156DD ;
 }
 
-.button:focused {
+.button1:focused {
     -fx-background-color: #7D6CC8;
     -fx-border-color : #CDD1D6;
     -fx-border-width: 0px 0px 0px 3px;
@@ -144,5 +144,80 @@
 }
 
 
+/* Hovered item */
+.taskTypeDropdown .combo-box-popup .list-cell:hover,
+.issueStatusDropdown .combo-box-popup .list-cell:hover,
+.issuePriorityDropdown .combo-box-popup .list-cell:hover
+{
+    -fx-background-color: #6F5CC2;
+}
+
+/* Selected item */
+.taskTypeDropdown .combo-box-popup .list-cell:selected,
+.issueStatusDropdown .combo-box-popup .list-cell:selected,
+.issuePriorityDropdown .combo-box-popup .list-cell:selected {
+    -fx-background-color: #6F5CC2;
+}
+
+.taskTypeDropdown {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-border-color: #FFFFFF;
+}
+
+.issueStatusDropdown, .issuePriorityDropdown {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-border-color: #52438F;
+}
+
+.issueStatusDropdown:hover,
+.issuePriorityDropdown:hover,
+.date-picker > .arrow-button:hover {
+    -fx-background-color: #e0e0e0;
+    -fx-cursor: hand;
+}
+
+.taskTypeDropdown:hover {
+    -fx-background-color: #7A6FBC;
+    -fx-cursor: hand;
+}
 
 
+.date-picker {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-border-color: #52438F;
+}
+
+.combo-box .arrow-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-shape: null;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+    -fx-max-width: 0;
+    -fx-opacity: 0;
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-size: 20px 20px; /* adjust as needed */
+}
+
+.date-picker > .arrow-button .arrow {
+    -fx-background-color: #52438F; /* Or any color */
+    -fx-pref-height: 14px;
+    -fx-pref-width: 14px;
+}
+
+.text-field, .text-area {
+    -fx-font-size: 14px;
+}

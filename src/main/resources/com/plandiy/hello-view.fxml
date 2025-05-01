@@ -125,7 +125,7 @@
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
-                                          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" styleClass="button2" stylesheets="@css/styling.css" text="Add task" textFill="#52438f" />
+                                          <Button fx:id="btnAddTask" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="30.0" prefWidth="70.0" styleClass="button2" stylesheets="@css/styling.css" text="Add task" textFill="#52438f" />
                                           <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" styleClass="button2" stylesheets="@css/styling.css" text="Import task" textFill="#52438f" />
                                           <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" styleClass="button2" stylesheets="@css/styling.css" text="Export task" textFill="#52438f" />
                                        </children>

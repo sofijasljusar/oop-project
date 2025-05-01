@@ -4,24 +4,34 @@
     import com.plandiy.util.IconCache;
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
+    import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
+    import javafx.fxml.FXMLLoader;
     import javafx.fxml.Initializable;
     import com.plandiy.model.issue.IssueStatus;
     import com.plandiy.model.issue.IssuePriority;
     import com.plandiy.model.user.User;
     import com.plandiy.model.user.UserRole;
 
+    import javafx.scene.Parent;
+    import javafx.scene.Scene;
+    import javafx.scene.control.Button;
     import javafx.scene.control.TableView;
     import javafx.scene.control.TableColumn;
     import javafx.scene.control.cell.PropertyValueFactory;
     import javafx.scene.image.Image;
     import javafx.scene.image.ImageView;
+    import javafx.stage.Modality;
+    import javafx.stage.Stage;
 
+    import java.io.IOException;
     import java.net.URL;
     import java.time.LocalDate;
     import java.util.List;
     import java.util.Random;
     import java.util.ResourceBundle;
+    import java.util.Stack;
+
     public class HelloController implements Initializable {
 
         @FXML
@@ -46,6 +56,11 @@
         private TableColumn<Task, ImageView> tcTaskIcon;
 
         private ObservableList<Task> data;
+
+        @FXML
+        private Button btnAddTask;
+
+        public static Stage pStage;
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -149,4 +164,38 @@
             tcName.setResizable(true);
 
         }
+
+        @FXML
+        void handleButtonClick(ActionEvent event) {
+            if (event.getSource() == btnAddTask) {
+                showDialogue("add-task");
+            }
+        }
+
+        private void showDialogue(String fxml) {
+            try {
+                Parent parent = FXMLLoader.load(getClass().getResource("/com/plandiy/"+fxml+".fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(parent);
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.setAlwaysOnTop(true);
+                stage.setX(pStage.getX() + 50);
+                stage.setY(pStage.getY() + 50);
+                stage.initOwner(pStage);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
+                // Center the dialog on the screen
+                stage.setOnShown(e -> {
+                    javafx.geometry.Rectangle2D screenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
+                    stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+                    stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+                });
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }

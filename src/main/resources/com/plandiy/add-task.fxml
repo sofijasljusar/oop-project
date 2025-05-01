@@ -20,7 +20,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/Frame 19.png" />
+                        <Image url="@images/close-icon.png" />
                      </image>
                   </ImageView>
                </graphic>

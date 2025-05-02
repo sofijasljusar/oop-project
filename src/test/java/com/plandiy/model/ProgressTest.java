@@ -35,8 +35,8 @@ class ProgressTest {
         user = new User("John Doe", "john.doe@example.com", UserRole.TEAMMATE);
         project = new Project(user,"Project 1", "", LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), new BigDecimal(70000));
 
-        project.addTask("Task 1", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
-        project.addTask("Task 2", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3));
+        project.addTask("Task 1", IssueStatus.DONE, IssuePriority.MEDIUM, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5), TaskType.BUG);
+        project.addTask("Task 2", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3), TaskType.BUG);
 
         Task task3 = new ResearchTask("T-3", "Task 3", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3));
         Task task4 = new ResearchTask("T-4", "Task 4", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3));

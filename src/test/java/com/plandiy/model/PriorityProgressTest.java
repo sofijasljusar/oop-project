@@ -4,6 +4,7 @@ import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.FeatureTask;
 import com.plandiy.model.issue.task.Task;
+import com.plandiy.model.issue.task.TaskType;
 import com.plandiy.model.project.Project;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
@@ -45,8 +46,8 @@ class PriorityProgressTest {
 
     @Test
     void testProjectPriorityProgress() {
-        project.addTask("Task 1", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(2));
-        project.addTask("Task 2", IssueStatus.TO_DO, IssuePriority.LOW, LocalDate.now(), LocalDate.now().plusDays(3));
+        project.addTask("Task 1", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(2), TaskType.FEATURE);
+        project.addTask("Task 2", IssueStatus.TO_DO, IssuePriority.LOW, LocalDate.now(), LocalDate.now().plusDays(3), TaskType.RESEARCH);
         project.setProgressStrategy(priorityProgress);
 
         int progress = project.calculateProgress();

@@ -1,8 +1,7 @@
 package com.plandiy.model.project;
 
 import com.plandiy.model.issue.Issue;
-import com.plandiy.model.issue.task.FeatureTask;
-import com.plandiy.model.issue.task.Task;
+import com.plandiy.model.issue.task.*;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.user.User;
@@ -122,8 +121,22 @@ public class Project implements Subject, ProgressContext {
         detach(user);
     }
 
-    public void addTask(String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
-        listOfTasks.add(new FeatureTask(generateTaskId(), name, status, priority, dateOfStart, deadline));
+    public void addTask(String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, TaskType taskType) {
+        Task task = switch (taskType) {
+            case FEATURE -> new FeatureTask(generateTaskId(), name, status, priority, dateOfStart, deadline);
+            case BUG -> new BugTask(generateTaskId(), name, status, priority, dateOfStart, deadline);
+            case RESEARCH -> new ResearchTask(generateTaskId(), name, status, priority, dateOfStart, deadline);
+        };
+        listOfTasks.add(task);
+    }
+
+    public void addTask(String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, TaskType taskType) {
+        Task task = switch (taskType) {
+            case FEATURE -> new FeatureTask(generateTaskId(), name, description, status, priority, dateOfStart, deadline);
+            case BUG -> new BugTask(generateTaskId(), name, description, status, priority, dateOfStart, deadline);
+            case RESEARCH -> new ResearchTask(generateTaskId(), name, description, status, priority, dateOfStart, deadline);
+        };
+        listOfTasks.add(task);
     }
 
     public void deleteTask(Task task) {

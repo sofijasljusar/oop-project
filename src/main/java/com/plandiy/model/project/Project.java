@@ -130,13 +130,14 @@ public class Project implements Subject, ProgressContext {
         listOfTasks.add(task);
     }
 
-    public void addTask(String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, TaskType taskType) {
+    public Task addTask(String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, TaskType taskType) {
         Task task = switch (taskType) {
             case FEATURE -> new FeatureTask(generateTaskId(), name, description, status, priority, dateOfStart, deadline);
             case BUG -> new BugTask(generateTaskId(), name, description, status, priority, dateOfStart, deadline);
             case RESEARCH -> new ResearchTask(generateTaskId(), name, description, status, priority, dateOfStart, deadline);
         };
         listOfTasks.add(task);
+        return task;
     }
 
     public void deleteTask(Task task) {

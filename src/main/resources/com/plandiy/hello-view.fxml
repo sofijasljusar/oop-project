@@ -19,69 +19,7 @@
    <children>
       <BorderPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
       <left>
-            <VBox prefHeight="513.0" prefWidth="184.0" style="-fx-background-color: #6F5CC2             ;" stylesheets="@css/styling.css" BorderPane.alignment="CENTER">
-               <children>
-                  <Button styleClass="button1" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="MedSync" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/board.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding></Button>
-                  <Button alignment="BASELINE_LEFT" styleClass="button1" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="Energy" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/board.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </Button>
-                  <Button alignment="BASELINE_LEFT" styleClass="button1" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="CyberCloud" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/board.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </Button>
-                  <Button alignment="BASELINE_LEFT" styleClass="button1" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="MagnetBoss" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/board.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </Button>
-                  <Button alignment="BASELINE_LEFT" styleClass="button1" mnemonicParsing="false" prefHeight="36.0" prefWidth="184.0" text="SweetClothes" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/board.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </VBox>
+            <VBox fx:id="projectListVBox" prefHeight="513.0" prefWidth="184.0" style="-fx-background-color: #6F5CC2             ;" stylesheets="@css/styling.css" BorderPane.alignment="CENTER"></VBox>
          </left>
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="967.0" style="-fx-background-color: #52438F;" BorderPane.alignment="CENTER">

@@ -18,6 +18,8 @@
     import com.plandiy.model.user.User;
     import com.plandiy.model.user.UserRole;
 
+    import javafx.geometry.Insets;
+    import javafx.geometry.Pos;
     import javafx.scene.Parent;
     import javafx.scene.Scene;
     import javafx.scene.control.Button;
@@ -26,16 +28,15 @@
     import javafx.scene.control.cell.PropertyValueFactory;
     import javafx.scene.image.Image;
     import javafx.scene.image.ImageView;
+    import javafx.scene.layout.VBox;
     import javafx.stage.Modality;
     import javafx.stage.Stage;
 
     import java.io.IOException;
     import java.net.URL;
-    import java.time.LocalDate;
     import java.util.List;
-    import java.util.Random;
+    import java.util.Map;
     import java.util.ResourceBundle;
-    import java.util.Stack;
 
     public class HelloController implements Initializable {
         private final Dao<User> userDao = DemoUserDao.getInstance();
@@ -69,6 +70,10 @@
         private Button btnAddTask;
 
         public static Stage pStage;
+
+        @FXML
+        private VBox projectListVBox;
+
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -115,6 +120,32 @@
 
                 return new javafx.beans.property.SimpleObjectProperty<>(imageView);
             });
+
+            Map<String, Project> projects = projectDao.getAll();
+            for (Project project : projects.values()) {
+                Button projectButton = new Button(project.getName());
+                projectButton.setPrefWidth(184);
+                projectButton.setPrefHeight(36);
+                projectButton.setStyle("-fx-text-fill: white;");
+                projectButton.getStyleClass().add("button1");
+                projectButton.setAlignment(Pos.BASELINE_LEFT);
+                projectButton.setPadding(new Insets(0, 0, 0, 30));
+
+                // Optional: add icon
+                ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/com/plandiy/images/board.png")));
+                icon.setFitHeight(18);
+                icon.setFitWidth(22);
+                icon.setPreserveRatio(true);
+                projectButton.setGraphic(icon);
+
+                // Optional: action when project is clicked
+                projectButton.setOnAction(e -> {
+                    // handle loading project data
+                    System.out.println("Project selected: " + project.getName());
+                });
+
+                projectListVBox.getChildren().add(projectButton);
+            }
 
             Project demoProject = projectDao.read("STAF");
 

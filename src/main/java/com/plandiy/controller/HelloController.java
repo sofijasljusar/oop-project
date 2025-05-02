@@ -1,5 +1,8 @@
     package com.plandiy.controller;
 
+    import com.plandiy.model.dao.Dao;
+    import com.plandiy.model.dao.DemoTaskDao;
+    import com.plandiy.model.dao.DemoUserDao;
     import com.plandiy.model.issue.task.*;
     import com.plandiy.util.IconCache;
     import javafx.collections.FXCollections;
@@ -33,6 +36,7 @@
     import java.util.Stack;
 
     public class HelloController implements Initializable {
+        private final Dao<User, String> userDao = new DemoUserDao();
 
         @FXML
         private TableView tbVTasks;
@@ -79,7 +83,6 @@
                 return new javafx.beans.property.SimpleObjectProperty<>(imageView);
             });
 
-//            tcPriority.setCellValueFactory(new PropertyValueFactory<>("priority"));
             tcPriorityIcon.setCellValueFactory(cellData -> {
                 Task task = cellData.getValue();
                 IssuePriority issuePriority = task.getPriority(); // Assuming each task has a type
@@ -113,8 +116,7 @@
                 return new javafx.beans.property.SimpleObjectProperty<>(imageView);
             });
 
-            User user = new User("John Doe", "john.doe@example.com", UserRole.TEAMMATE);
-
+            User user = userDao.read("dana.lee@example.com");
 
             data = FXCollections.observableArrayList();
             Random rnd = new Random();

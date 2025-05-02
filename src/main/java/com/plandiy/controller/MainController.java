@@ -7,6 +7,7 @@
     import com.plandiy.model.issue.task.*;
     import com.plandiy.model.project.Project;
     import com.plandiy.util.IconCache;
+    import com.plandiy.util.Toast;
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
     import javafx.event.ActionEvent;
@@ -146,7 +147,7 @@
                 projectListVBox.getChildren().add(projectButton);
             }
 
-            Project demoProject = projectDao.read("STAF");
+            Project demoProject = projectDao.read("STAF");  // todo: change from demo's hardcoded
 
             data = FXCollections.observableArrayList(demoProject.getListOfTasks());
             tbVTasks.setItems(data);
@@ -182,7 +183,11 @@
 
         private void showDialogue(String fxml) {
             try {
-                Parent parent = FXMLLoader.load(getClass().getResource("/com/plandiy/"+fxml+".fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/plandiy/"+fxml+".fxml")); //todo
+                Parent parent = loader.load();
+                AddTaskController controller = loader.getController();
+                controller.setProject(projectDao.read("STAF"));
+                controller.setMainController(this);
                 Stage stage = new Stage();
                 Scene scene = new Scene(parent);
                 stage.setScene(scene);
@@ -204,5 +209,13 @@
             }
 
         }
+
+        public void addTaskToTable(Task task) {
+            data.add(task); // 'data' is the ObservableList bound to your TableView
+            tbVTasks.refresh(); // ensure the table updates
+            Toast.show((Stage) btnAddTask.getScene().getWindow(), "Task added!", 3000);
+
+        }
+
 
     }

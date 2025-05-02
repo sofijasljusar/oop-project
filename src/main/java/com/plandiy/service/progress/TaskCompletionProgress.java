@@ -18,7 +18,6 @@ public class TaskCompletionProgress implements ProgressStrategy {
         double numberOfCompletedTasks = 0;
         for (Issue issue : listOfIssues) {
             if (issue.getStatus() == IssueStatus.DONE) {
-                log.info("yes");
                 numberOfCompletedTasks++;
             }
         }

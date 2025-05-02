@@ -74,6 +74,9 @@
         @FXML
         private VBox projectListVBox;
 
+        public Stage getPrimaryStage() {
+            return pStage;
+        }
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {

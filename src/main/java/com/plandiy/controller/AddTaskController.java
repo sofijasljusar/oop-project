@@ -8,6 +8,7 @@ import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.issue.task.TaskType;
 import com.plandiy.model.project.Project;
 import com.plandiy.util.IconCache;
+import com.plandiy.util.Toast;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -208,6 +209,10 @@ public class AddTaskController implements Initializable {
         IssuePriority priority = comboIssuePriority.getValue();
 
         // todo: add empty fields validation - all required except description
+        if (name.isEmpty() || start == null || end == null) {
+            Toast.show(mainController.getPrimaryStage(), "All fields are required!", 3000);
+            return;
+        }
         Task newTask = project.addTask(name, description, status, priority, start, end, type);
         taskDao.create(newTask);
         System.out.println(taskDao.getAll().size());

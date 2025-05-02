@@ -2,6 +2,10 @@ package com.plandiy.model.dao;
 
 import com.plandiy.model.project.Project;
 import com.plandiy.model.user.User;
+import com.plandiy.model.issue.task.Task;
+import com.plandiy.model.issue.IssueStatus;
+import com.plandiy.model.issue.IssuePriority;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,22 +15,40 @@ import java.util.NoSuchElementException;
 
 public class DemoProjectDao implements Dao<Project> {
     private final Dao<User> userDao;
+    private final Dao<Task> taskDao;
     private final Map<String, Project> projectMap = new HashMap<>();
+    private static DemoProjectDao instance;
 
-    public DemoProjectDao(Dao<User> userDao) {
+    private DemoProjectDao(Dao<User> userDao, Dao<Task> taskDao) {
         this.userDao = userDao;
+        this.taskDao = taskDao;
 
         User owner = userDao.read("alice.johnson@example.com");
 
-        create(new Project(
+        Project project = new Project(
                 owner,
                 "Health Monitor",
                 "Track health vitals with a wearable device.",
                 LocalDate.of(2025, 1, 10),
                 LocalDate.of(2025, 6, 30),
                 new BigDecimal("150000")
-        ));
+        );
 
+        project.addTask("Build sensor", IssueStatus.TO_DO, IssuePriority.HIGH, LocalDate.now(), LocalDate.now().plusDays(10));
+        for (Task task : project.getListOfTasks()) {
+            taskDao.create(task);
+        }
+
+        create(project);
+
+
+    }
+
+    public static DemoProjectDao getInstance(Dao<User> userDao, Dao<Task> taskDao) {
+        if (instance == null) {
+            instance = new DemoProjectDao(userDao, taskDao);
+        }
+        return instance;
     }
 
     @Override

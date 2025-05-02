@@ -16,7 +16,6 @@
     import com.plandiy.model.issue.IssueStatus;
     import com.plandiy.model.issue.IssuePriority;
     import com.plandiy.model.user.User;
-    import com.plandiy.model.user.UserRole;
 
     import javafx.geometry.Insets;
     import javafx.geometry.Pos;
@@ -38,7 +37,7 @@
     import java.util.Map;
     import java.util.ResourceBundle;
 
-    public class HelloController implements Initializable {
+    public class MainController implements Initializable {
         private final Dao<User> userDao = DemoUserDao.getInstance();
         private final Dao<Task> taskDao = DemoTaskDao.getInstance();
         private final Dao<Project> projectDao = DemoProjectDao.getInstance(userDao, taskDao);

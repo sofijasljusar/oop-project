@@ -1,25 +1,24 @@
 package com.plandiy;
 
-import com.plandiy.controller.HelloController;
+import com.plandiy.controller.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.Screen;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Objects;
 
-public class HelloApplication extends Application {
+public class MainApplication extends Application {
     double x, y = 0;
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Scene sc = new Scene(root);
-        HelloController.pStage = stage;
+        MainController.pStage = stage;
 
         // Get the screen size (visual bounds)
         Screen screen = Screen.getPrimary();

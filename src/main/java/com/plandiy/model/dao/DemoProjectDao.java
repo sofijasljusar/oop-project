@@ -38,7 +38,6 @@ public class DemoProjectDao implements Dao<Project> {
         Random random = new Random();
         for (Task task : project.getListOfTasks()) {
             if (!users.isEmpty()) {
-                System.out.println("assigning");
                 User randomUser = users.get(random.nextInt(users.size()));
                 task.assignTo(randomUser);
             }

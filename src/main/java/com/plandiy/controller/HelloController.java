@@ -1,9 +1,11 @@
     package com.plandiy.controller;
 
     import com.plandiy.model.dao.Dao;
+    import com.plandiy.model.dao.DemoProjectDao;
     import com.plandiy.model.dao.DemoTaskDao;
     import com.plandiy.model.dao.DemoUserDao;
     import com.plandiy.model.issue.task.*;
+    import com.plandiy.model.project.Project;
     import com.plandiy.util.IconCache;
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
@@ -37,6 +39,8 @@
 
     public class HelloController implements Initializable {
         private final Dao<User> userDao = DemoUserDao.getInstance();
+        private final Dao<Task> taskDao = DemoTaskDao.getInstance();
+        private final Dao<Project> projectDao = DemoProjectDao.getInstance(userDao, taskDao);
 
         @FXML
         private TableView tbVTasks;
@@ -69,11 +73,12 @@
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
             tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
+
             tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
             tcStatusIcon.setCellValueFactory(cellData -> {
                 Task task = cellData.getValue();
-                IssueStatus issueStatus = task.getStatus(); // Assuming each task has a type
-
+                IssueStatus issueStatus = task.getStatus();
                 // Load the icon based on task type
                 String iconPath = "/com/plandiy/images/" + issueStatus.getIconFileName();
                 Image image = IconCache.get(issueStatus.getIconFileName());
@@ -85,9 +90,7 @@
 
             tcPriorityIcon.setCellValueFactory(cellData -> {
                 Task task = cellData.getValue();
-                IssuePriority issuePriority = task.getPriority(); // Assuming each task has a type
-
-                // Load the icon based on task type
+                IssuePriority issuePriority = task.getPriority();
                 String iconPath = "/com/plandiy/images/" + issuePriority.getIconFileName();
                 Image image = IconCache.get(issuePriority.getIconFileName());
                 ImageView imageView = new ImageView(image);
@@ -96,7 +99,6 @@
                 return new javafx.beans.property.SimpleObjectProperty<>(imageView);
             });
 
-            tcAssignedTo.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));
             tcAssignedTo.setCellValueFactory(cellData -> {
                 User user = cellData.getValue().getAssignedTo();  // Assuming getAssignedTo() exists
                 return (user != null) ? new javafx.beans.property.SimpleStringProperty(user.getName()) : new javafx.beans.property.SimpleStringProperty("Unassigned");
@@ -104,9 +106,7 @@
 
             tcTaskIcon.setCellValueFactory(cellData -> {
                 Task task = cellData.getValue();
-                TaskType taskType = task.getType(); // Assuming each task has a type
-
-                // Load the icon based on task type
+                TaskType taskType = task.getType();
                 String iconPath = "/com/plandiy/images/" + taskType.getIconFileName();
                 Image image = IconCache.get(taskType.getIconFileName());
                 ImageView imageView = new ImageView(image);
@@ -116,34 +116,12 @@
                 return new javafx.beans.property.SimpleObjectProperty<>(imageView);
             });
 
-            User user = userDao.read("dana.lee@example.com");
+            Project demoProject = projectDao.read("STAF");
 
-            data = FXCollections.observableArrayList();
-            Random rnd = new Random();
-
-            for (int i = 1; i <= 31; i++) {
-                String id = String.format("RFRE-%d", i);
-                String name = "Drink " + i + " bottles of water";
-                String desc = "Auto-generated description for task #" + i;
-                IssueStatus st = IssueStatus.values()[rnd.nextInt(IssueStatus.values().length)];
-                IssuePriority pr = IssuePriority.values()[rnd.nextInt(IssuePriority.values().length)];
-                LocalDate start = LocalDate.of(2025,5,1);
-                LocalDate end   = LocalDate.of(2025,5,30);
-
-                // pick a random TaskType
-                TaskType type = TaskType.values()[ rnd.nextInt(TaskType.values().length) ];
-                Task task = switch (type) {
-                    case FEATURE -> new FeatureTask(id, name, desc, st, pr, start, end);
-                    case BUG -> new BugTask(id, name, desc, st, pr, start, end);
-                    case RESEARCH -> new ResearchTask(id, name, desc, st, pr, start, end);
-                };
-                task.assignTo(user);
-                data.add(task);
-            }
-
+            data = FXCollections.observableArrayList(demoProject.getListOfTasks());
             tbVTasks.setItems(data);
 
-            // 1. ALWAYS fill the table’s width
+            // 1. Always fill the table’s width
             tbVTasks.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
             // 2. Fix the width of all columns except “Name”
@@ -159,8 +137,6 @@
             });
 
             // 3. Let “Name” expand
-            //    (it already has a prefWidth in your FXML, but we now allow it to grow)
-            //    You can also give it a reasonable minimum so that very small windows don’t squash it too far:
             tcName.setMinWidth(100);
             tcName.setMaxWidth(Double.MAX_VALUE);
             tcName.setResizable(true);
@@ -187,7 +163,6 @@
                 stage.initOwner(pStage);
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
-                // Center the dialog on the screen
                 stage.setOnShown(e -> {
                     javafx.geometry.Rectangle2D screenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
                     stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);

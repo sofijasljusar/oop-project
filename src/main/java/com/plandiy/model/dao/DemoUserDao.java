@@ -23,19 +23,18 @@ public class DemoUserDao implements Dao<User> {
     @Override
     public void create(User entity) {
         // Add the user to the map (acting as a database)
-        if (userMap.containsKey(entity.getEmail())) {
+        String email = entity.getEmail();
+        if (userMap.containsKey(email)) {
             throw new IllegalArgumentException("User already exists with this email.");
         }
-        userMap.put(entity.getEmail(), entity);
+        userMap.put(email, entity);
     }
 
     @Override
     public User read(String email) {
         // Find the user by unique Email
         User user = userMap.get(email);
-        if (!userMap.containsKey(email)) {
-            throw new NoSuchElementException("User not found: " + email);
-        }
+        if (user == null) throw new NoSuchElementException("User not found: " + email);
         return user;
     }
 

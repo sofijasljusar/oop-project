@@ -22,9 +22,7 @@
     import javafx.geometry.Pos;
     import javafx.scene.Parent;
     import javafx.scene.Scene;
-    import javafx.scene.control.Button;
-    import javafx.scene.control.TableView;
-    import javafx.scene.control.TableColumn;
+    import javafx.scene.control.*;
     import javafx.scene.control.cell.PropertyValueFactory;
     import javafx.scene.image.Image;
     import javafx.scene.image.ImageView;
@@ -37,6 +35,7 @@
     import java.util.List;
     import java.util.Map;
     import java.util.ResourceBundle;
+    import java.util.function.Consumer;
 
     public class MainController implements Initializable {
         private final Dao<User> userDao = DemoUserDao.getInstance();
@@ -81,6 +80,31 @@
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
             tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            tcId.setCellFactory(column -> {
+                return new TableCell<Task, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (empty || item == null) {
+                            setText(null);
+                            setGraphic(null);
+                        } else {
+                            Label label = new Label(item);
+                            label.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.8); -fx-underline: true;"); // make it look clickable
+                            label.setOnMouseClicked(e -> {
+                                Task task = getTableView().getItems().get(getIndex());
+                                showDialogue("task-detail", controller -> {
+                                    EditTaskController c = (EditTaskController) controller;
+                                    c.setTask(task);
+                                });
+                            });
+                            setGraphic(label);
+                        }
+                    }
+                };
+            });
+
 
             tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -180,38 +204,50 @@
         @FXML
         void handleButtonClick(ActionEvent event) {
             if (event.getSource() == btnAddTask) {
-                showDialogue("add-task");
+                showDialogue("add-task", controller-> {
+                    AddTaskController c = (AddTaskController) controller;
+                    c.setProject(projectDao.read("STAF"));
+                    c.setMainController(this);
+                });
             }
         }
-
-        private void showDialogue(String fxml) {
+        private void showDialogue(String fxml, Consumer<Object> controllerConfigurator) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/plandiy/"+fxml+".fxml")); //todo
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/plandiy/" + fxml + ".fxml"));
                 Parent parent = loader.load();
-                AddTaskController controller = loader.getController();
-                controller.setProject(projectDao.read("STAF"));
-                controller.setMainController(this);
+                Object controller = loader.getController();
+                controllerConfigurator.accept(controller);
+//                controller.setProject(projectDao.read("STAF"));
+//                controller.setMainController(this);
+
                 Stage stage = new Stage();
                 Scene scene = new Scene(parent);
                 stage.setScene(scene);
                 stage.setResizable(false);
                 stage.setAlwaysOnTop(true);
-                stage.setX(pStage.getX() + 50);
-                stage.setY(pStage.getY() + 50);
                 stage.initOwner(pStage);
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
-                stage.setOnShown(e -> {
-                    javafx.geometry.Rectangle2D screenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
-                    stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
-                    stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
-                });
+
+                // Force layout pass so we can get the proper dimensions
+                parent.applyCss();
+                parent.layout();
+
+                // Now get proper width/height
+                double dialogWidth = parent.prefWidth(-1);
+                double dialogHeight = parent.prefHeight(-1);
+
+                // Center BEFORE showing
+                javafx.geometry.Rectangle2D screenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
+                stage.setX((screenBounds.getWidth() - dialogWidth) / 2);
+                stage.setY((screenBounds.getHeight() - dialogHeight) / 2);
+
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
+
 
         public void addTaskToTable(Task task) {
             data.add(task); // 'data' is the ObservableList bound to your TableView

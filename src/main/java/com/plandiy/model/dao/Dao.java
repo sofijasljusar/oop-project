@@ -1,11 +1,11 @@
 package com.plandiy.model.dao;
 
-import java.util.List;
+import java.util.Map;
 
-public interface Dao<T, ID> {
+public interface Dao<T> {
     void create(T entity);
-    T read(ID id);
+    T read(String id);
     void update(T entity);
-    void delete(ID id);
-    List<T> getAll();
+    void delete(String id);
+    Map<String, T> getAll();
 }

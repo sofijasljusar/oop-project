@@ -36,7 +36,7 @@
     import java.util.Stack;
 
     public class HelloController implements Initializable {
-        private final Dao<User> userDao = new DemoUserDao();
+        private final Dao<User> userDao = DemoUserDao.getInstance();
 
         @FXML
         private TableView tbVTasks;

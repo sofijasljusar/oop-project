@@ -30,18 +30,19 @@ public class DemoUserDao implements Dao<User> {
     }
 
     @Override
-    public User read(String email) { //todo - return null
+    public User read(String email) {
         // Find the user by unique Email
-        return userMap.get(email);
+        User user = userMap.get(email);
+        if (!userMap.containsKey(email)) {
+            throw new NoSuchElementException("User not found: " + email);
+        }
+        return user;
     }
 
 
     @Override
     public void update(User entity) {
         // Find the user in the map and update it
-        if (!userMap.containsKey(entity.getEmail())) {
-            throw new NoSuchElementException("User not found: " + entity.getEmail());
-        }
         userMap.put(entity.getEmail(), entity);
     }
 

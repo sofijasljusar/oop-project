@@ -10,9 +10,7 @@ import com.plandiy.model.issue.IssuePriority;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class DemoProjectDao implements Dao<Project> {
     private final Dao<User> userDao;
@@ -34,12 +32,76 @@ public class DemoProjectDao implements Dao<Project> {
                 LocalDate.of(2025, 5, 30),
                 new BigDecimal("50000")
         );
+
         createTasks(project);
+        List<User> users = new ArrayList<>(userDao.getAll().values());
+        Random random = new Random();
         for (Task task : project.getListOfTasks()) {
+            if (!users.isEmpty()) {
+                System.out.println("assigning");
+                User randomUser = users.get(random.nextInt(users.size()));
+                task.assignTo(randomUser);
+            }
             taskDao.create(task);
         }
 
         create(project);
+        create(new Project(
+                owner,
+                "BugHawk",
+                "Create an automated bug tracking platform integrating with Git repositories and providing real-time notifications.",
+                LocalDate.of(2025, 6, 1),
+                LocalDate.of(2025, 7, 15),
+                new BigDecimal("28000")
+        ));
+
+        create(new Project(
+                owner,
+                "FinScope",
+                "Develop a secure cloud-based SaaS product for small businesses to manage invoices, budgeting, and expenses.",
+                LocalDate.of(2025, 5, 10),
+                LocalDate.of(2025, 8, 1),
+                new BigDecimal("120000")
+        ));
+
+        create(new Project(
+                owner,
+                "QuickForm AI",
+                "Design an AI-driven form builder for websites with natural language to form conversion and data integration.",
+                LocalDate.of(2025, 4, 20),
+                LocalDate.of(2025, 6, 20),
+                new BigDecimal("45000")
+        ));
+
+        create(new Project(
+                owner,
+                "PulseTrack",
+                "Build a health monitoring app to track vitals, medication reminders, and sync with wearable devices.",
+                LocalDate.of(2025, 6, 5),
+                LocalDate.of(2025, 9, 30),
+                new BigDecimal("98000")
+        ));
+
+        create(new Project(
+                owner,
+                "SecureMeet",
+                "Develop an end-to-end encrypted video conferencing tool tailored for corporate and legal meetings.",
+                LocalDate.of(2025, 5, 15),
+                LocalDate.of(2025, 10, 1),
+                new BigDecimal("200000")
+        ));
+
+        create(new Project(
+                owner,
+                "TaskHive",
+                "Create a Kanban-based task management system with collaboration tools, Gantt charts, and team analytics.",
+                LocalDate.of(2025, 5, 1),
+                LocalDate.of(2025, 7, 1),
+                new BigDecimal("60000")
+        ));
+
+
+
 
 
     }
@@ -85,7 +147,7 @@ public class DemoProjectDao implements Dao<Project> {
     private void createTasks(Project project) {
         project.addTask(
                 "Research employee data protection regulations",
-                IssueStatus.TO_DO,
+                IssueStatus.DONE,
                 IssuePriority.HIGH,
                 LocalDate.of(2025, 5, 1),
                 LocalDate.of(2025, 5, 3),
@@ -94,7 +156,7 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Implement employee record CRUD operations",
-                IssueStatus.TO_DO,
+                IssueStatus.IN_QA,
                 IssuePriority.HIGH,
                 LocalDate.of(2025, 5, 3),
                 LocalDate.of(2025, 5, 7),
@@ -112,7 +174,7 @@ public class DemoProjectDao implements Dao<Project> {
                         No validation error message appears.
                         Expected result:
                         A validation error message should appear, stating 'Invalid credentials'.""",
-                IssueStatus.TO_DO,
+                IssueStatus.QA_FAILED,
                 IssuePriority.HIGH,
                 LocalDate.of(2025, 5, 5),
                 LocalDate.of(2025, 5, 6),
@@ -148,7 +210,7 @@ public class DemoProjectDao implements Dao<Project> {
                         Expected result:
                         The employee data should be saved successfully, and a confirmation message should appear.""",
                 IssueStatus.TO_DO,
-                IssuePriority.HIGH,
+                IssuePriority.LOW,
                 LocalDate.of(2025, 5, 8),
                 LocalDate.of(2025, 5, 10),
                 TaskType.BUG
@@ -156,7 +218,7 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Research employee performance tracking system",
-                IssueStatus.TO_DO,
+                IssueStatus.QA_FAILED,
                 IssuePriority.MEDIUM,
                 LocalDate.of(2025, 5, 9),
                 LocalDate.of(2025, 5, 12),
@@ -165,7 +227,7 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Develop UI for employee profile page",
-                IssueStatus.TO_DO,
+                IssueStatus.DONE,
                 IssuePriority.MEDIUM,
                 LocalDate.of(2025, 5, 10),
                 LocalDate.of(2025, 5, 13),
@@ -182,7 +244,7 @@ public class DemoProjectDao implements Dao<Project> {
                         The report includes incorrect attendance data for some employees.
                         Expected result:
                         The report should display accurate attendance data for the selected period.""",
-                IssueStatus.TO_DO,
+                IssueStatus.DONE,
                 IssuePriority.HIGH,
                 LocalDate.of(2025, 5, 12),
                 LocalDate.of(2025, 5, 13),
@@ -200,7 +262,7 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Research GDPR compliance for employee data storage",
-                IssueStatus.TO_DO,
+                IssueStatus.DONE,
                 IssuePriority.MEDIUM,
                 LocalDate.of(2025, 5, 14),
                 LocalDate.of(2025, 5, 16),
@@ -217,8 +279,8 @@ public class DemoProjectDao implements Dao<Project> {
                         The time-off request does not appear in the employee's calendar.
                         Expected result:
                         The time-off request should appear on the employee's calendar after approval.""",
-                IssueStatus.TO_DO,
-                IssuePriority.HIGH,
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.LOW,
                 LocalDate.of(2025, 5, 15),
                 LocalDate.of(2025, 5, 17),
                 TaskType.BUG
@@ -226,7 +288,7 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Design database schema for employee information",
-                IssueStatus.TO_DO,
+                IssueStatus.IN_PROGRESS,
                 IssuePriority.HIGH,
                 LocalDate.of(2025, 5, 16),
                 LocalDate.of(2025, 5, 18),
@@ -236,7 +298,7 @@ public class DemoProjectDao implements Dao<Project> {
         project.addTask(
                 "Research best practices for managing employee benefits",
                 IssueStatus.TO_DO,
-                IssuePriority.MEDIUM,
+                IssuePriority.LOW,
                 LocalDate.of(2025, 5, 17),
                 LocalDate.of(2025, 5, 19),
                 TaskType.RESEARCH
@@ -270,7 +332,7 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Research integration of employee payroll with banking systems",
-                IssueStatus.TO_DO,
+                IssueStatus.IN_PROGRESS,
                 IssuePriority.MEDIUM,
                 LocalDate.of(2025, 5, 20),
                 LocalDate.of(2025, 5, 22),
@@ -279,8 +341,8 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Implement employee attendance management system",
-                IssueStatus.TO_DO,
-                IssuePriority.HIGH,
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.LOW,
                 LocalDate.of(2025, 5, 21),
                 LocalDate.of(2025, 5, 25),
                 TaskType.FEATURE
@@ -296,7 +358,7 @@ public class DemoProjectDao implements Dao<Project> {
                         Attendance data is not synced with HR software.
                         Expected result:
                         Attendance data should sync with the HR software in real-time.""",
-                IssueStatus.TO_DO,
+                IssueStatus.QA_FAILED,
                 IssuePriority.HIGH,
                 LocalDate.of(2025, 5, 22),
                 LocalDate.of(2025, 5, 24),
@@ -305,7 +367,7 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Research employee self-service portal for benefits enrollment",
-                IssueStatus.TO_DO,
+                IssueStatus.DONE,
                 IssuePriority.MEDIUM,
                 LocalDate.of(2025, 5, 23),
                 LocalDate.of(2025, 5, 25),
@@ -314,8 +376,8 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Develop notification system for employee leave requests",
-                IssueStatus.TO_DO,
-                IssuePriority.MEDIUM,
+                IssueStatus.IN_QA,
+                IssuePriority.LOW,
                 LocalDate.of(2025, 5, 24),
                 LocalDate.of(2025, 5, 26),
                 TaskType.FEATURE
@@ -331,7 +393,7 @@ public class DemoProjectDao implements Dao<Project> {
                         The employee does not receive an approval email.
                         Expected result:
                         An approval email should be sent to the employee after the leave is approved.""",
-                IssueStatus.TO_DO,
+                IssueStatus.IN_QA,
                 IssuePriority.HIGH,
                 LocalDate.of(2025, 5, 25),
                 LocalDate.of(2025, 5, 27),
@@ -340,8 +402,8 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Research employee benefits administration tools",
-                IssueStatus.TO_DO,
-                IssuePriority.MEDIUM,
+                IssueStatus.DONE,
+                IssuePriority.LOW,
                 LocalDate.of(2025, 5, 26),
                 LocalDate.of(2025, 5, 28),
                 TaskType.RESEARCH
@@ -349,7 +411,7 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Implement tax deduction calculations for employee payroll",
-                IssueStatus.TO_DO,
+                IssueStatus.IN_QA,
                 IssuePriority.HIGH,
                 LocalDate.of(2025, 5, 27),
                 LocalDate.of(2025, 5, 29),
@@ -375,8 +437,8 @@ public class DemoProjectDao implements Dao<Project> {
 
         project.addTask(
                 "Research biometric authentication for employee login",
-                IssueStatus.TO_DO,
-                IssuePriority.MEDIUM,
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.LOW,
                 LocalDate.of(2025, 5, 29),
                 LocalDate.of(2025, 5, 31),
                 TaskType.RESEARCH
@@ -385,11 +447,156 @@ public class DemoProjectDao implements Dao<Project> {
         project.addTask(
                 "Implement employee role-based access control",
                 IssueStatus.TO_DO,
-                IssuePriority.HIGH,
+                IssuePriority.LOW,
                 LocalDate.of(2025, 5, 30),
                 LocalDate.of(2025, 6, 2),
                 TaskType.FEATURE
         );
+
+        project.addTask(
+                "Design user dashboard for employee statistics",
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.MEDIUM,
+                LocalDate.of(2025, 5, 2),
+                LocalDate.of(2025, 5, 10),
+                TaskType.FEATURE
+        );
+
+        project.addTask(
+                "Fix department dropdown not loading on Firefox",
+                """
+                Steps to reproduce:
+                1. Open Firefox and navigate to the employee creation form.
+                2. Click on the 'Department' dropdown.
+                Actual result:
+                Dropdown is unresponsive.
+                Expected result:
+                List of departments should appear.
+                """,
+                IssueStatus.TO_DO,
+                IssuePriority.LOW,
+                LocalDate.of(2025, 5, 3),
+                LocalDate.of(2025, 5, 4),
+                TaskType.BUG
+        );
+
+        project.addTask(
+                "Research biometric attendance system integration",
+                IssueStatus.TO_DO,
+                IssuePriority.HIGH,
+                LocalDate.of(2025, 5, 7),
+                LocalDate.of(2025, 5, 14),
+                TaskType.RESEARCH
+        );
+
+        project.addTask(
+                "Implement employee filtering by role and status",
+                IssueStatus.QA_FAILED,
+                IssuePriority.CRITICAL,
+                LocalDate.of(2025, 5, 6),
+                LocalDate.of(2025, 5, 11),
+                TaskType.FEATURE
+        );
+
+        project.addTask(
+                "Fix crash when uploading employee profile picture",
+                """
+                Steps to reproduce:
+                1. Go to the employee edit page.
+                2. Upload a .bmp image over 5MB.
+                Actual result:
+                Application crashes with a 500 error.
+                Expected result:
+                Graceful error message and size validation.
+                """,
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.CRITICAL,
+                LocalDate.of(2025, 5, 8),
+                LocalDate.of(2025, 5, 9),
+                TaskType.BUG
+        );
+
+        project.addTask(
+                "Research OAuth2 implementation for SSO login",
+                IssueStatus.TO_DO,
+                IssuePriority.HIGH,
+                LocalDate.of(2025, 5, 5),
+                LocalDate.of(2025, 5, 10),
+                TaskType.RESEARCH
+        );
+
+        project.addTask(
+                "Develop export to CSV for employee reports",
+                IssueStatus.DONE,
+                IssuePriority.MEDIUM,
+                LocalDate.of(2025, 5, 2),
+                LocalDate.of(2025, 5, 5),
+                TaskType.FEATURE
+        );
+
+        project.addTask(
+                "Fix incorrect total count in attendance summary",
+                IssueStatus.QA_FAILED,
+                IssuePriority.HIGH,
+                LocalDate.of(2025, 5, 3),
+                LocalDate.of(2025, 5, 4),
+                TaskType.BUG
+        );
+
+        project.addTask(
+                "Enable password reset via email link",
+                IssueStatus.TO_DO,
+                IssuePriority.CRITICAL,
+                LocalDate.of(2025, 5, 9),
+                LocalDate.of(2025, 5, 12),
+                TaskType.FEATURE
+        );
+
+        project.addTask(
+                "Fix layout misalignment on mobile devices",
+                """
+                Steps to reproduce:
+                1. Open employee dashboard on iPhone SE.
+                2. Observe card layout.
+                Actual result:
+                Cards overflow screen boundaries.
+                Expected result:
+                Responsive grid layout should adjust.
+                """,
+                IssueStatus.TO_DO,
+                IssuePriority.MEDIUM,
+                LocalDate.of(2025, 5, 5),
+                LocalDate.of(2025, 5, 6),
+                TaskType.BUG
+        );
+
+        project.addTask(
+                "Research on employee data encryption standards",
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.HIGH,
+                LocalDate.of(2025, 5, 7),
+                LocalDate.of(2025, 5, 9),
+                TaskType.RESEARCH
+        );
+
+        project.addTask(
+                "Implement bulk import of employees via Excel",
+                IssueStatus.TO_DO,
+                IssuePriority.HIGH,
+                LocalDate.of(2025, 5, 10),
+                LocalDate.of(2025, 5, 15),
+                TaskType.FEATURE
+        );
+
+        project.addTask(
+                "Fix role permissions not saving correctly",
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.CRITICAL,
+                LocalDate.of(2025, 5, 3),
+                LocalDate.of(2025, 5, 5),
+                TaskType.BUG
+        );
+
 
     }
 }

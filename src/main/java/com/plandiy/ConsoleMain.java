@@ -6,7 +6,14 @@ import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.FeatureTask;
 import com.plandiy.model.issue.task.Task;
+import com.plandiy.model.issue.task.TaskType;
+import com.plandiy.model.project.Project;
+import com.plandiy.model.user.User;
+import com.plandiy.model.user.UserRole;
+import com.plandiy.service.risk.Risk;
+import com.plandiy.service.risk.RiskManager;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ConsoleMain {
@@ -114,37 +121,109 @@ public class ConsoleMain {
 //        int expectedProgress = (int) ( passedDays / totalDays * 100);
 //        System.out.println(expectedProgress);
 
-        Task task = new FeatureTask(
-                "TASK-1",
-                "Initial Name",
-                IssueStatus.TO_DO,
-                IssuePriority.MEDIUM,
-                LocalDate.now(),
-                LocalDate.now().plusDays(7)
+//        Task task = new FeatureTask(
+//                "TASK-1",
+//                "Initial Name",
+//                IssueStatus.TO_DO,
+//                IssuePriority.MEDIUM,
+//                LocalDate.now(),
+//                LocalDate.now().plusDays(7)
+//        );
+//
+//        CommandManager manager = new CommandManager();
+//        System.out.println("Before any command: " + task.getName());
+//
+//        // 4) Execute a rename
+//        manager.executeCommand(new RenameIssueCommand(task, "First Rename"));
+//        System.out.println("After execute(): "  + task.getName());
+//
+//        manager.undo();
+//        System.out.println("After undo(): "     + task.getName());
+//
+//        manager.redo();
+//        System.out.println("After redo(): "     + task.getName());
+//        manager.executeCommand(new RenameIssueCommand(task, "First Rename"));
+//        System.out.println("After execute(): "  + task.getName());
+//        manager.executeCommand(new RenameIssueCommand(task, "Second Rename"));
+//        System.out.println("After execute(): "  + task.getName());
+//        manager.executeCommand(new RenameIssueCommand(task, "Third Rename"));
+//        System.out.println("After execute(): "  + task.getName());
+//        manager.undo();
+//        System.out.println("After undo(): "     + task.getName());
+//        manager.redo();
+//        System.out.println("After redo(): "     + task.getName());
+
+        User testUser = new User("Test User", "testuser@example.com", UserRole.ADMIN);
+
+
+        // Initializing the Project with necessary parameters
+        Project project = new Project(
+                testUser,
+                "Risk Analysis Project",
+                "Project to test risk evaluation.",
+                LocalDate.now().minusDays(10),
+                LocalDate.now().plusDays(20),
+                new BigDecimal("10000.00")
         );
 
-        CommandManager manager = new CommandManager();
-        System.out.println("Before any command: " + task.getName());
+        project.addTask(
+                "Fix Critical Bug",
+                "Fix it now!",
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.CRITICAL,
+                LocalDate.now().minusDays(5),
+                LocalDate.now(),
+                TaskType.BUG
+        );
 
-        // 4) Execute a rename
-        manager.executeCommand(new RenameIssueCommand(task, "First Rename"));
-        System.out.println("After execute(): "  + task.getName());
+        // Low risk task
+        project.addTask(
+                "Add Help Page",
+                "Not urgent",
+                IssueStatus.TO_DO,
+                IssuePriority.LOW,
+                LocalDate.now(),
+                LocalDate.now().plusDays(10),
+                TaskType.FEATURE
+        );
 
-        manager.undo();
-        System.out.println("After undo(): "     + task.getName());
+        // Medium risk task
+        project.addTask(
+                "Refactor module",
+                "Improve maintainability",
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.MEDIUM,
+                LocalDate.now().minusDays(3),
+                LocalDate.now().plusDays(2),
+                TaskType.FEATURE
+        );
 
-        manager.redo();
-        System.out.println("After redo(): "     + task.getName());
-        manager.executeCommand(new RenameIssueCommand(task, "First Rename"));
-        System.out.println("After execute(): "  + task.getName());
-        manager.executeCommand(new RenameIssueCommand(task, "Second Rename"));
-        System.out.println("After execute(): "  + task.getName());
-        manager.executeCommand(new RenameIssueCommand(task, "Third Rename"));
-        System.out.println("After execute(): "  + task.getName());
-        manager.undo();
-        System.out.println("After undo(): "     + task.getName());
-        manager.redo();
-        System.out.println("After redo(): "     + task.getName());
+        // Very high risk task
+        project.addTask(
+                "Fix Login",
+                "Users can't login!",
+                IssueStatus.IN_PROGRESS,
+                IssuePriority.HIGH,
+                LocalDate.now().minusDays(10),
+                LocalDate.now().minusDays(1),
+                TaskType.BUG
+        );
+
+        // Initializing the RiskManager and adding creators
+        RiskManager riskManager = new RiskManager();
+
+        // Identify risks based on tasks in the project
+        riskManager.identifyRisks(project);  // Identify risks for the project
+
+        // Print risks and evaluate their probability/impact
+        System.out.println("Identified Risks: ");
+        for (Risk risk : riskManager.getRisks()) {
+            System.out.printf("%s | Prob: %.2f | Impact: %.2f%n",
+                    risk.getDescription(), risk.getProbability(), risk.getImpact());
+        }
+
+        // Evaluate risks
+        riskManager.evaluateRisks();
 
 
 

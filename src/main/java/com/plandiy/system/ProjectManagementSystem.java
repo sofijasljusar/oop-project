@@ -5,6 +5,12 @@ import com.plandiy.model.resource.ResourceType;
 import com.plandiy.model.project.Project;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
+import com.plandiy.service.report.Report;
+import com.plandiy.service.report.ReportType;
+import com.plandiy.service.report.factory.BudgetReportCreator;
+import com.plandiy.service.report.factory.ProjectReportCreator;
+import com.plandiy.service.report.factory.ReportCreator;
+import com.plandiy.service.report.factory.TeamReportCreator;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,7 +18,6 @@ import java.util.ArrayList;
 
 public class ProjectManagementSystem {
     //TODO: Strategy Для реалізації різних стратегій розподілу ресурсів.
-    //TODO: Command Для реалізації операцій відміни та повтору дій в системі.
     private ArrayList<Project> projects = new ArrayList<>();
     private ArrayList<User> users = new ArrayList<>();
     private ArrayList<Resource> resources = new ArrayList<>();
@@ -106,10 +111,14 @@ public class ProjectManagementSystem {
         resource.makeAvailable();
     }
 
-
-
-//    public void generateReports(Project project, ReportType reportType) {
-//
-//    }
+    public void generateReport(ReportType reportType, LocalDate start, LocalDate end) {
+        ReportCreator creator = switch (reportType) {
+            case PROJECT_PROGRESS -> new ProjectReportCreator();
+            case TEAM_PRODUCTIVITY -> new TeamReportCreator();
+            case BUDGET_USAGE -> new BudgetReportCreator();
+        };
+        Report report = creator.createReport(start, end);
+        report.generateReport();
+    }
 
 }

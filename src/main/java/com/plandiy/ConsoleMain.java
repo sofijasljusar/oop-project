@@ -1,9 +1,11 @@
 package com.plandiy;
 
 import com.plandiy.model.budget.Budget;
+import com.plandiy.service.report.ReportType;
 import com.plandiy.service.report.factory.BudgetReportCreator;
 import com.plandiy.service.report.Report;
 import com.plandiy.service.report.factory.ReportCreator;
+import com.plandiy.system.ProjectManagementSystem;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -40,17 +42,17 @@ public class ConsoleMain {
 //
 //        System.out.println(project1.calculateProgress());
 //
-        Budget budget = new Budget(BigDecimal.valueOf(10000));
-        budget.addExpense(BigDecimal.valueOf(100), "Coffee machine");
-        budget.addExpense(BigDecimal.valueOf(200), "Cookies");
-        budget.addExpense(BigDecimal.valueOf(300), "Microwave");
-        System.out.println(budget.getRemainingAmount());
-        System.out.println(budget.generateFinancialReport());
-        ReportCreator reportManager = new BudgetReportCreator();
-        Report budgetReport = reportManager.createReport(
-                LocalDate.of(2025, 4, 18),
-                LocalDate.of(2025, 4, 25));
-        System.out.println(budgetReport.formatReportData());
+//        Budget budget = new Budget(BigDecimal.valueOf(10000));
+//        budget.addExpense(BigDecimal.valueOf(100), "Coffee machine");
+//        budget.addExpense(BigDecimal.valueOf(200), "Cookies");
+//        budget.addExpense(BigDecimal.valueOf(300), "Microwave");
+//        System.out.println(budget.getRemainingAmount());
+//        System.out.println(budget.generateFinancialReport());
+//        ReportCreator reportManager = new BudgetReportCreator();
+//        Report budgetReport = reportManager.createReport(
+//                LocalDate.of(2025, 4, 18),
+//                LocalDate.of(2025, 4, 25));
+//        System.out.println(budgetReport.formatReportData());
         // Create users
 //        User owner = new User("Alice", "alice@example.com", UserRole.TEAMMATE);
 //        User contributor1 = new User("Bob", "bob@example.com", UserRole.TEAMMATE);
@@ -217,7 +219,14 @@ public class ConsoleMain {
 //        // Evaluate risks
 //        riskManager.evaluateRisks();
 
-
+//        ProjectManagementSystem pms = ProjectManagementSystem.getInstance();
+//
+//        LocalDate start = LocalDate.of(2024, 1, 1);
+//        LocalDate end = LocalDate.of(2024, 12, 31);
+//
+//        pms.generateReport(ReportType.PROJECT_PROGRESS, start, end);
+//        pms.generateReport(ReportType.BUDGET_USAGE, start, end);
+//        pms.generateReport(ReportType.TEAM_PRODUCTIVITY, start, end);
 
 
     }

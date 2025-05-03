@@ -236,37 +236,37 @@ public class ConsoleMain {
 //        pms.generateReport(ReportType.BUDGET_USAGE, start, end);
 //        pms.generateReport(ReportType.TEAM_PRODUCTIVITY, start, end);
 
-        User alice = new User("Alice", "alice@example.com", UserRole.TEAMMATE);
-        User bob = new User("Bob", "bob@example.com", UserRole.TEAMMATE);
-
-        // Create project
-        Project project = new Project(
-                alice,
-                "Test Project",
-                "Project for analytics test",
-                LocalDate.now().minusDays(5),
-                LocalDate.now().plusDays(10),
-                new BigDecimal("1000")
-        );
-
-        // Assign contributors
-        project.addContributor(alice);
-        project.addContributor(bob);
-        LocalDate start = LocalDate.now().plusDays(2);
-        LocalDate end = start.plusDays(5);
-        // Create tasks
-        Task task1 = new FeatureTask("Task 1", "Basic task", IssueStatus.DONE ,IssuePriority.LOW, start, end);
-        task1.assignTo(alice);
-
-        Task task2 = new FeatureTask("Task 2", "High priority task", IssueStatus.TO_DO, IssuePriority.HIGH, start, end);
-        task2.assignTo(bob);
-
-        Task task3 = new FeatureTask("Task 3", "Another high priority", IssueStatus.DONE, IssuePriority.HIGH, start, end);
-        task3.assignTo(bob);
-
-        // Analytics
-        AnalyticsEngine analyticsEngine = new AnalyticsEngine();
-        analyticsEngine.printTeamProductivity(project);
+//        User alice = new User("Alice", "alice@example.com", UserRole.TEAMMATE);
+//        User bob = new User("Bob", "bob@example.com", UserRole.TEAMMATE);
+//
+//        // Create project
+//        Project project = new Project(
+//                alice,
+//                "Test Project",
+//                "Project for analytics test",
+//                LocalDate.now().minusDays(5),
+//                LocalDate.now().plusDays(10),
+//                new BigDecimal("1000")
+//        );
+//
+//        // Assign contributors
+//        project.addContributor(alice);
+//        project.addContributor(bob);
+//        LocalDate start = LocalDate.now().plusDays(2);
+//        LocalDate end = start.plusDays(5);
+//        // Create tasks
+//        Task task1 = new FeatureTask("Task 1", "Basic task", IssueStatus.DONE ,IssuePriority.LOW, start, end);
+//        task1.assignTo(alice);
+//
+//        Task task2 = new FeatureTask("Task 2", "High priority task", IssueStatus.TO_DO, IssuePriority.HIGH, start, end);
+//        task2.assignTo(bob);
+//
+//        Task task3 = new FeatureTask("Task 3", "Another high priority", IssueStatus.DONE, IssuePriority.HIGH, start, end);
+//        task3.assignTo(bob);
+//
+//        // Analytics
+//        AnalyticsEngine analyticsEngine = new AnalyticsEngine();
+//        analyticsEngine.printTeamProductivity(project);
 
     }
 }

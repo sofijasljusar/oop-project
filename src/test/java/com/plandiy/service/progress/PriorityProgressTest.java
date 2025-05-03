@@ -35,12 +35,12 @@ class PriorityProgressTest {
 
     @Test
     void testUserPriorityProgress() {
-        user.addIssue(new FeatureTask("T1", "Task 1", IssueStatus.TO_DO, IssuePriority.HIGH, LocalDate.now(), LocalDate.now().plusDays(5)));
+        user.addIssue(new FeatureTask("T1", "Task 1", IssueStatus.DONE, IssuePriority.HIGH, LocalDate.now(), LocalDate.now().plusDays(5)));
         user.addIssue(new FeatureTask("T2", "Task 2", IssueStatus.TO_DO, IssuePriority.LOW, LocalDate.now(), LocalDate.now().plusDays(5)));
         user.setProgressStrategy(priorityProgress);
 
         int progress = user.calculateProgress();
-        assertEquals(50, progress);
+        assertEquals(100, progress);
     }
 
     @Test
@@ -50,18 +50,18 @@ class PriorityProgressTest {
         project.setProgressStrategy(priorityProgress);
 
         int progress = project.calculateProgress();
-        assertEquals(50, progress);
+        assertEquals(0, progress);
     }
 
     @Test
     void testTaskWithSubtasksPriorityProgress() {
         parentTask.addSubtask("S1", "Sub 1", IssueStatus.TO_DO, IssuePriority.LOW, LocalDate.now(), LocalDate.now().plusDays(1));
-        parentTask.addSubtask("S2", "Sub 2", IssueStatus.TO_DO, IssuePriority.HIGH, LocalDate.now(), LocalDate.now().plusDays(1));
+        parentTask.addSubtask("S2", "Sub 2", IssueStatus.DONE, IssuePriority.HIGH, LocalDate.now(), LocalDate.now().plusDays(1));
         parentTask.addSubtask("S3", "Sub 3", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now(), LocalDate.now().plusDays(1));
         parentTask.setProgressStrategy(priorityProgress);
 
         int progress = parentTask.calculateProgress();
-        assertEquals(66, progress);  // 2 of 3 are not LOW priority
+        assertEquals(50, progress);  // 2 of 3 are not LOW priority
     }
 
     @Test

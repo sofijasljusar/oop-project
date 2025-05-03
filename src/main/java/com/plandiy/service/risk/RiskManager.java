@@ -1,5 +1,6 @@
 package com.plandiy.service.risk;
 
+import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.project.Project;
 import com.plandiy.service.risk.factory.DeadlineRiskCreator;
@@ -18,12 +19,14 @@ public class RiskManager {
 
     public void identifyRisks(Project project) {
         for (Task task: project.getListOfTasks()) {
-            for (RiskCreator creator: creators) {
-                Risk risk = creator.createRisk(task);
-                log.info(String.format("    [%s] Description: %s | Probability: %.2f | Impact: %.2f",
-                        risk.getDescription(), task.getId(), risk.getProbability(), risk.getImpact()));
-                if (risk != null &&(risk.getImpact() >= 0.5 || risk.getProbability() >= 0.5)) {
-                    risks.add(risk);
+            if (task.getStatus() != IssueStatus.DONE) {
+                for (RiskCreator creator : creators) {
+                    Risk risk = creator.createRisk(task);
+                    log.info(String.format("    [%s] Description: %s | Probability: %.2f | Impact: %.2f",
+                            risk.getDescription(), task.getId(), risk.getProbability(), risk.getImpact()));
+                    if (risk != null && (risk.getImpact() >= 0.5 || risk.getProbability() >= 0.5)) {
+                        risks.add(risk);
+                    }
                 }
             }
         }

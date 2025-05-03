@@ -297,9 +297,9 @@ public class ConsoleMain {
         project.assignTaskToUser("TEST-1", alice);
         project.assignTaskToUser("TEST-2", bob);
 
-        String projectId = project.getId();
-        pms.runProjectAnalytics(projectId);
-
+//        String projectId = project.getId();
+//        pms.runProjectAnalytics(projectId);
+        project.showTimeline();
 
     }
 }

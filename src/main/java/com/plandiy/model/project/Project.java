@@ -8,6 +8,7 @@ import com.plandiy.model.resource.Resource;
 import com.plandiy.model.user.User;
 import com.plandiy.observer.Observer;
 import com.plandiy.observer.Subject;
+import com.plandiy.service.Timeline;
 import com.plandiy.service.notification.Notification;
 import com.plandiy.service.notification.NotificationManager;
 import com.plandiy.service.notification.NotificationType;
@@ -44,7 +45,7 @@ public class Project implements Subject, ProgressContext {
     private ProgressStrategy progressStrategy;
     private final RiskManager riskManager = new RiskManager();
     private final NotificationManager manager = new NotificationManager();
-
+    private final Timeline timeline = new Timeline();
 
     public Project(User owner,
                    String name,
@@ -103,6 +104,9 @@ public class Project implements Subject, ProgressContext {
         this.dateOfStart = dateOfStart;
     }
 
+    public LocalDate getDateOfStart() {
+        return dateOfStart;
+    }
     public void setDateOfEnd(LocalDate dateOfEnd) {
         this.dateOfEnd = dateOfEnd;
     }
@@ -225,11 +229,8 @@ public class Project implements Subject, ProgressContext {
         riskManager.manageRisks();
     }
 
-
-
-
-
-
-
+    public void showTimeline() {
+        timeline.displayProjectTimeline(this);
+    }
 
 }

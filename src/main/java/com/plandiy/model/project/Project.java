@@ -33,9 +33,9 @@ public class Project implements Subject, ProgressContext {
     private ProjectStatus status;
     private final BigDecimal budget;
 
-    private final ArrayList<Task> listOfTasks =  new ArrayList<>(); // like backlog - so can add functionallity!!! todo композиція
+    private final ArrayList<Task> listOfTasks =  new ArrayList<>(); // review  UI backlog
     private final User owner;
-    private final ArrayList<User> contributors = new ArrayList<>(); // todo
+    private final ArrayList<User> contributors = new ArrayList<>();
     private final ArrayList<Observer> observers = new ArrayList<>();
 
 

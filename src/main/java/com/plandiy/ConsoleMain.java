@@ -5,6 +5,7 @@ import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.FeatureTask;
 import com.plandiy.model.issue.task.Task;
+import com.plandiy.model.issue.task.TaskType;
 import com.plandiy.model.project.Project;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
@@ -267,6 +268,38 @@ public class ConsoleMain {
 //        // Analytics
 //        AnalyticsEngine analyticsEngine = new AnalyticsEngine();
 //        analyticsEngine.printTeamProductivity(project);
+
+        // Create Users
+        User alice = new User("Alice", "alice@example.com", UserRole.TEAMMATE);
+        User bob = new User("Bob", "bob@example.com", UserRole.TEAMMATE);
+
+// Create the Project Management System instance (Singleton)
+        ProjectManagementSystem pms = ProjectManagementSystem.getInstance();
+
+// Create a project
+        Project project = new Project(
+                alice,
+                "Test Project",
+                "Project for Analytics Test",
+                LocalDate.now().minusDays(5),
+                LocalDate.now().plusDays(10),
+                new BigDecimal("1000")
+        );
+
+        project.addTask("Task 1", "Basic task", IssueStatus.TO_DO, IssuePriority.LOW,
+                LocalDate.now().minusDays(3), LocalDate.now().plusDays(3), TaskType.FEATURE);
+        project.addTask("Task 2", "Another task", IssueStatus.TO_DO, IssuePriority.HIGH,
+                LocalDate.now().minusDays(2), LocalDate.now().plusDays(6), TaskType.FEATURE);
+        project.addContributor(alice);
+        project.addContributor(bob);
+        pms.getProjects().add(project);
+
+        project.assignTaskToUser("TEST-1", alice);
+        project.assignTaskToUser("TEST-2", bob);
+
+        String projectId = project.getId();
+        pms.runProjectAnalytics(projectId);
+
 
     }
 }

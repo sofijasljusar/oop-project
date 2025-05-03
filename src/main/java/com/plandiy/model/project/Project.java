@@ -4,6 +4,7 @@ import com.plandiy.model.issue.Issue;
 import com.plandiy.model.issue.task.*;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
+import com.plandiy.model.resource.Resource;
 import com.plandiy.model.user.User;
 import com.plandiy.observer.Observer;
 import com.plandiy.observer.Subject;
@@ -150,6 +151,28 @@ public class Project implements Subject, ProgressContext {
 
     public void deleteTask(Task task) {
         listOfTasks.remove(task);
+    }
+
+    public Task findTaskById(String taskId) {
+        for (Task task : listOfTasks) {
+            if (task.getId().equals(taskId)) {
+                return task;
+            }
+        }
+        throw new IllegalArgumentException("Task with ID not found: " + taskId);
+    }
+
+    public void assignTaskToUser(String taskId, User user) {
+        Task task = findTaskById(taskId);
+
+        if (task.getAssignedTo() != null) {
+            User previousUser = task.getAssignedTo();
+            previousUser.removeIssue(task);
+            task.detach(previousUser);
+        }
+        task.assignTo(user);
+        user.addIssue(task);
+        task.attach(user);
     }
 
     public void updateStatus(ProjectStatus newStatus) {

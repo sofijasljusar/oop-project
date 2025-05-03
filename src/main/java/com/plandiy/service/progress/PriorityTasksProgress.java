@@ -16,7 +16,6 @@ public class PriorityTasksProgress implements ProgressStrategy {
         int dismissedTasks = 0;
         for (Issue issue : listOfIssues) {
             if (issue.getPriority() == IssuePriority.LOW) {
-                System.out.println("no");
                 dismissedTasks++;
             }
         }

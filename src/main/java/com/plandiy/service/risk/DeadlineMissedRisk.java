@@ -8,13 +8,12 @@ import java.time.temporal.ChronoUnit;
 public class DeadlineMissedRisk extends Risk {
     public DeadlineMissedRisk() {
         super("Risk of deadline missed.", "Reassign resources or adjust timeline.", RiskType.DEADLINE_MISSED);
-
     }
 
     @Override
     public void calculateProbability(Task task) {
         long daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), task.getDeadline());
-        this.setProbability(daysLeft < 0 ? 1.0 : (daysLeft < 3 ? 0.9 : 0.4));
+        this.setProbability(daysLeft < 0 ? 1.0 : (daysLeft < 3 ? 0.7 : 0.4));
     }
 
     @Override

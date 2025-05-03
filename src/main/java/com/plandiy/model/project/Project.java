@@ -12,6 +12,7 @@ import com.plandiy.service.notification.NotificationManager;
 import com.plandiy.service.notification.NotificationType;
 import com.plandiy.service.progress.ProgressContext;
 import com.plandiy.service.progress.ProgressStrategy;
+import com.plandiy.service.risk.RiskManager;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -40,6 +41,7 @@ public class Project implements Subject, ProgressContext {
 
     private int taskCounter;
     private ProgressStrategy progressStrategy;
+    private final RiskManager riskManager = new RiskManager();
 
     public Project(User owner,
                    String name,
@@ -187,6 +189,12 @@ public class Project implements Subject, ProgressContext {
         for (Observer observer: observers) {
             observer.update(new Notification(NotificationType.PROJECT_STATUS_CHANGE, content, observer));
         }
+    }
+
+    public void monitorRisks() {
+        riskManager.identifyRisks(this);
+        riskManager.evaluateRisks();
+        riskManager.manageRisks();
     }
 
 

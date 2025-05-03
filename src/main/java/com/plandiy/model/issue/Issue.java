@@ -76,9 +76,13 @@ public abstract class Issue implements Subject, ProgressContext {
 //    }
 
     public void assignTo(User assignee) {
+        if (this.assignedTo != null) {
+            this.assignedTo.removeIssue(this);
+            detach(assignedTo);
+        }
         this.assignedTo = assignee;
+        assignee.addIssue(this);
         attach(assignedTo);
-        //todo: add changing logic
     }
     // for now not used, but provide option for assignee/reported to turn off/on notifications and other users to observe Issue
     @Override

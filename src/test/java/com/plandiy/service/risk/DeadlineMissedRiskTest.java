@@ -1,11 +1,9 @@
-package com.plandiy.model;
+package com.plandiy.service.risk;
 
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.FeatureTask;
 import com.plandiy.model.issue.task.Task;
-import com.plandiy.service.risk.Risk;
-import com.plandiy.service.risk.RiskType;
 import com.plandiy.service.risk.factory.DeadlineRiskCreator;
 import com.plandiy.service.risk.factory.RiskCreator;
 import org.junit.jupiter.api.Test;

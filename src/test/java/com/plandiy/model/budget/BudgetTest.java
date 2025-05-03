@@ -1,5 +1,4 @@
-package com.plandiy.model;
-import com.plandiy.model.budget.Budget;
+package com.plandiy.model.budget;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

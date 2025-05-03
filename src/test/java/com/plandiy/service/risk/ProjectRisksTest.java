@@ -1,15 +1,11 @@
-package com.plandiy.model;
+package com.plandiy.service.risk;
 
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
-import com.plandiy.model.issue.task.FeatureTask;
-import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.issue.task.TaskType;
 import com.plandiy.model.project.Project;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
-import com.plandiy.service.risk.Risk;
-import com.plandiy.service.risk.RiskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

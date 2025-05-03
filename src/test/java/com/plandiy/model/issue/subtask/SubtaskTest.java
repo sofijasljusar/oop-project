@@ -1,6 +1,5 @@
-package com.plandiy.model;
+package com.plandiy.model.issue.subtask;
 
-import com.plandiy.model.issue.subtask.Subtask;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.IssuePriority;
 import org.junit.jupiter.api.BeforeEach;

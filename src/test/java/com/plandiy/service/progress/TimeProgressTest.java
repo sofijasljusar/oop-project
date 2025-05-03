@@ -1,11 +1,10 @@
-package com.plandiy.model;
+package com.plandiy.service.progress;
 
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.subtask.Subtask;
 import com.plandiy.model.issue.task.FeatureTask;
 import com.plandiy.model.issue.task.Task;
-import com.plandiy.service.progress.TimeProgress;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

@@ -168,7 +168,7 @@
                 projectButton.setPadding(new Insets(0, 0, 0, 30));
 
                 // Optional: add icon
-                ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/com/plandiy/images/board.png")));
+                ImageView icon = new ImageView(IconCache.get("board.png"));
                 icon.setFitHeight(18);
                 icon.setFitWidth(22);
                 icon.setPreserveRatio(true);

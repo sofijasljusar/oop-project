@@ -1,23 +1,18 @@
-package com.plandiy.model;
+package com.plandiy.service.progress;
 
-import com.plandiy.model.issue.Issue;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.ResearchTask;
 import com.plandiy.model.issue.task.Task;
-import com.plandiy.model.issue.task.FeatureTask;
 import com.plandiy.model.issue.task.TaskType;
 import com.plandiy.model.project.Project;
 import com.plandiy.model.user.User;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.user.UserRole;
-import com.plandiy.service.progress.TaskCompletionProgress;
-import com.plandiy.service.progress.TimeProgress;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 class ProgressTest {

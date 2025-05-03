@@ -1,4 +1,4 @@
-package com.plandiy.model;
+package com.plandiy.service.progress;
 
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;

@@ -1,6 +1,5 @@
-package com.plandiy.model;
+package com.plandiy.service.report;
 
-import com.plandiy.service.report.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

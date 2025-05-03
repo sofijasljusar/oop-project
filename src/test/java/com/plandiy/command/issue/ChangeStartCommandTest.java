@@ -1,6 +1,5 @@
-package com.plandiy.model;
+package com.plandiy.command.issue;
 
-import com.plandiy.command.issue.ChangeStartCommand;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.FeatureTask;

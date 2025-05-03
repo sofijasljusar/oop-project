@@ -1,11 +1,10 @@
-package com.plandiy.model;
+package com.plandiy.system;
 
 import com.plandiy.model.project.Project;
 import com.plandiy.model.resource.Resource;
 import com.plandiy.model.resource.ResourceType;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
-import com.plandiy.system.ProjectManagementSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

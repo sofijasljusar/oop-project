@@ -1,8 +1,7 @@
-package com.plandiy.model;
+package com.plandiy.model.issue.task;
 
 import com.plandiy.model.issue.*;
 import com.plandiy.model.issue.subtask.Subtask;
-import com.plandiy.model.issue.task.*;
 import com.plandiy.model.issue.task.factory.BugTaskCreator;
 import com.plandiy.model.issue.task.factory.FeatureTaskCreator;
 import com.plandiy.model.issue.task.factory.ResearchTaskCreator;

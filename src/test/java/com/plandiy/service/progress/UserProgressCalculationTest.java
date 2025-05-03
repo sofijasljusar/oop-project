@@ -1,10 +1,9 @@
-package com.plandiy.model;
+package com.plandiy.service.progress;
 
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.FeatureTask;
 import com.plandiy.model.issue.task.Task;
-import com.plandiy.model.issue.task.TaskType;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
 import org.junit.jupiter.api.BeforeEach;

@@ -7,7 +7,9 @@ import com.plandiy.service.risk.factory.RiskCreator;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class RiskManager {
     private final List<RiskCreator> creators = List.of(
             new DeadlineRiskCreator()
@@ -18,7 +20,9 @@ public class RiskManager {
         for (Task task: project.getListOfTasks()) {
             for (RiskCreator creator: creators) {
                 Risk risk = creator.createRisk(task);
-                if (risk != null && risk.getImpact() > 0.5 && risk.getProbability() > 0.5) {
+                log.info(String.format("    [%s] Description: %s | Probability: %.2f | Impact: %.2f",
+                        risk.getDescription(), task.getId(), risk.getProbability(), risk.getImpact()));
+                if (risk != null &&(risk.getImpact() >= 0.5 || risk.getProbability() >= 0.5)) {
                     risks.add(risk);
                 }
             }

@@ -42,6 +42,8 @@ public class Project implements Subject, ProgressContext {
     private int taskCounter;
     private ProgressStrategy progressStrategy;
     private final RiskManager riskManager = new RiskManager();
+    private final NotificationManager manager = new NotificationManager();
+
 
     public Project(User owner,
                    String name,
@@ -184,7 +186,6 @@ public class Project implements Subject, ProgressContext {
 
     @Override
     public void notifyObservers() {
-        NotificationManager manager = new NotificationManager();
         String content = manager.generateProjectNotification(key, status);
         for (Observer observer: observers) {
             observer.update(new Notification(NotificationType.PROJECT_STATUS_CHANGE, content, observer));

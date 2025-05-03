@@ -35,8 +35,8 @@ class ProgressTest {
 
         Task task3 = new ResearchTask("T-3", "Task 3", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3));
         Task task4 = new ResearchTask("T-4", "Task 4", IssueStatus.TO_DO, IssuePriority.MEDIUM, LocalDate.now().minusDays(7), LocalDate.now().plusDays(3));
-        user.addTask(task3);
-        user.addTask(task4);
+        user.addIssue(task3);
+        user.addIssue(task4);
     }
 
     @Test
@@ -102,7 +102,7 @@ class ProgressTest {
 
     @Test
     void testTaskCompletionProgress_user_allCompleted() {
-        user.getListOfTasks().forEach(task -> task.updateStatus(IssueStatus.DONE));
+        user.getListOfIssues().forEach(task -> task.updateStatus(IssueStatus.DONE));
 
         user.setProgressStrategy(taskCompletionProgress);
         int progress = user.calculateProgress();
@@ -112,7 +112,7 @@ class ProgressTest {
 
     @Test
     void testTaskCompletionProgress_user_someCompleted() {
-        user.getListOfTasks().get(1).updateStatus(IssueStatus.DONE);
+        user.getListOfIssues().get(1).updateStatus(IssueStatus.DONE);
 
         user.setProgressStrategy(taskCompletionProgress);
         int progress = user.calculateProgress();

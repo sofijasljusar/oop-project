@@ -1,5 +1,6 @@
 package com.plandiy.service.progress;
 
+import com.plandiy.model.issue.Issue;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.FeatureTask;
@@ -37,7 +38,7 @@ class UserProgressCalculationTest {
         var t1 = createTask("T1", IssueStatus.TO_DO);
         var t2 = createTask("T2", IssueStatus.IN_PROGRESS);
 
-        var addTaskMethod = User.class.getDeclaredMethod("addTask", Task.class);
+        var addTaskMethod = User.class.getDeclaredMethod("addIssue", Issue.class);
         addTaskMethod.setAccessible(true);
         addTaskMethod.invoke(user, t1);
         addTaskMethod.invoke(user, t2);
@@ -51,7 +52,7 @@ class UserProgressCalculationTest {
         var t2 = createTask("T2", IssueStatus.IN_PROGRESS);
         var t3 = createTask("T3", IssueStatus.DONE);
 
-        var addTaskMethod = User.class.getDeclaredMethod("addTask", Task.class);
+        var addTaskMethod = User.class.getDeclaredMethod("addIssue", Issue.class);
         addTaskMethod.setAccessible(true);
         addTaskMethod.invoke(user, t1);
         addTaskMethod.invoke(user, t2);
@@ -65,7 +66,7 @@ class UserProgressCalculationTest {
         var t1 = createTask("T1", IssueStatus.DONE);
         var t2 = createTask("T2", IssueStatus.DONE);
 
-        var addTaskMethod = User.class.getDeclaredMethod("addTask", Task.class);
+        var addTaskMethod = User.class.getDeclaredMethod("addIssue", Issue.class);
         addTaskMethod.setAccessible(true);
         addTaskMethod.invoke(user, t1);
         addTaskMethod.invoke(user, t2);

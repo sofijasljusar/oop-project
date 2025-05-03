@@ -35,8 +35,8 @@ class PriorityProgressTest {
 
     @Test
     void testUserPriorityProgress() {
-        user.addTask(new FeatureTask("T1", "Task 1", IssueStatus.TO_DO, IssuePriority.HIGH, LocalDate.now(), LocalDate.now().plusDays(5)));
-        user.addTask(new FeatureTask("T2", "Task 2", IssueStatus.TO_DO, IssuePriority.LOW, LocalDate.now(), LocalDate.now().plusDays(5)));
+        user.addIssue(new FeatureTask("T1", "Task 1", IssueStatus.TO_DO, IssuePriority.HIGH, LocalDate.now(), LocalDate.now().plusDays(5)));
+        user.addIssue(new FeatureTask("T2", "Task 2", IssueStatus.TO_DO, IssuePriority.LOW, LocalDate.now(), LocalDate.now().plusDays(5)));
         user.setProgressStrategy(priorityProgress);
 
         int progress = user.calculateProgress();

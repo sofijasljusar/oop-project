@@ -1,7 +1,6 @@
 package com.plandiy.model.user;
 
 import com.plandiy.model.issue.Issue;
-import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.Task;
 import com.plandiy.observer.Observer;
 import com.plandiy.service.notification.Notification;
@@ -18,7 +17,7 @@ public class User implements Observer, ProgressContext {
     private String name;
     private String email;
     private UserRole role;
-    private final ArrayList<Issue> listOfTasks = new ArrayList<>();
+    private final ArrayList<Issue> listOfIssues = new ArrayList<>();
     private final List<Notification> notifications = new ArrayList<>();
     // todo: after certain number clear history or clear manually with button or periodically
     private ProgressStrategy progressStrategy = new TaskCompletionProgress();
@@ -43,16 +42,16 @@ public class User implements Observer, ProgressContext {
         return role;
     }
 
-    public ArrayList<Issue> getListOfTasks() {
-        return listOfTasks;
+    public ArrayList<Issue> getListOfIssues() {
+        return listOfIssues;
     }
 
-    public void addTask(Task task) {
-        listOfTasks.add(task);
+    public void addIssue(Issue issue) {
+        listOfIssues.add(issue);
     }
 
-    private void removeTask(Task task) {
-        listOfTasks.remove(task);
+    public void removeIssue(Issue issue) {
+        listOfIssues.remove(issue);
     }
 
     // todo: make a couple of methods based on number of params to update only necessary params
@@ -78,6 +77,6 @@ public class User implements Observer, ProgressContext {
 
     @Override
     public int calculateProgress() {
-        return progressStrategy.calculateProgress(listOfTasks, null, null);
+        return progressStrategy.calculateProgress(listOfIssues, null, null);
     }
 }

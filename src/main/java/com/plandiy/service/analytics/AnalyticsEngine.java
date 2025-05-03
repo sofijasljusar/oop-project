@@ -1,10 +1,12 @@
 package com.plandiy.service.analytics;
 
+import com.plandiy.model.issue.Issue;
 import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.project.Project;
 import com.plandiy.model.user.User;
 import com.plandiy.service.progress.PriorityTasksProgress;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,12 +33,15 @@ public class AnalyticsEngine {
         }
     }
 
-    public void predictProjectEndDate(Project project) {
-
+    public LocalDate predictProjectEndDate(Project project) {
+        return project.getListOfTasks().stream()
+                .map(Issue::getDeadline) //get each task's deadline
+                .max(LocalDate::compareTo) //find max
+                .orElse(project.getDateOfEnd()); //if there are no tasks, return the original planned project end date
     }
 
     public void identifyRisks(Project project) {
-
+        project.monitorRisks();
     }
 
 }

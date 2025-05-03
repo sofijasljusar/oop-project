@@ -106,6 +106,10 @@ public class Project implements Subject, ProgressContext {
         this.dateOfEnd = dateOfEnd;
     }
 
+    public LocalDate getDateOfEnd() {
+        return dateOfEnd;
+    }
+
     public ArrayList<User> getContributors() {
         return contributors;
     }

@@ -44,11 +44,6 @@
          <center>
             <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@css/styling.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                <tabs>
-                  <Tab text="Board">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </Tab>
                   <Tab text="Backlog">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -90,6 +85,11 @@
                               </BorderPane>
                            </children>
                         </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Board">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                      </content>
                   </Tab>
                </tabs>

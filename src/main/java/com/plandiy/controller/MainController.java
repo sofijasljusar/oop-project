@@ -167,18 +167,15 @@
                 projectButton.setAlignment(Pos.BASELINE_LEFT);
                 projectButton.setPadding(new Insets(0, 0, 0, 30));
 
-                // Optional: add icon
                 ImageView icon = new ImageView(IconCache.get("board.png"));
                 icon.setFitHeight(18);
                 icon.setFitWidth(22);
                 icon.setPreserveRatio(true);
                 projectButton.setGraphic(icon);
 
-                // Optional: action when project is clicked
-                projectButton.setOnAction(e -> {
-                    // handle loading project data
-                    System.out.println("Project selected: " + project.getName());
-                });
+//                projectButton.setOnAction(e -> {
+//                    // handle loading project data
+//                });
 
                 projectListVBox.getChildren().add(projectButton);
             }

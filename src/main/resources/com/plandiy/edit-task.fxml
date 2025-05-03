@@ -18,7 +18,7 @@
             <children>
                 <Label layoutX="49.0" layoutY="12.0" prefHeight="30.0" prefWidth="67.0" style="-fx-font-size: 14px" text="Create task" textFill="WHITE" />
                 <ComboBox fx:id="comboTaskType" layoutX="126.0" layoutY="14.0" prefHeight="20.0" prefWidth="120.0" styleClass="taskTypeDropdown" stylesheets="@css/styling.css" />
-                <Button fx:id="btnClose" depthTest="DISABLE" graphicTextGap="0.0" layoutX="440.0" layoutY="11.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-width: 1px; -fx-border-color: #FFFFFF; -fx-border-radius: 4px;">
+                <Button fx:id="btnClose" onAction="#handleClose" depthTest="DISABLE" graphicTextGap="0.0" layoutX="440.0" layoutY="11.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-width: 1px; -fx-border-color: #FFFFFF; -fx-border-radius: 4px;">
                     <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                             <image>

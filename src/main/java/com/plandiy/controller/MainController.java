@@ -91,14 +91,23 @@
                             setGraphic(null);
                         } else {
                             Label label = new Label(item);
-                            label.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.8); -fx-underline: true;"); // make it look clickable
+                            label.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.8);");
+
+                            // Add hover effect for underline
+                            label.setOnMouseEntered(e -> label.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.8); -fx-underline: true; -fx-cursor: hand"));
+                            label.setOnMouseExited(e -> label.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.8);"));
+//                            label.setOnMouseClicked(e -> {
+//                                Task task = getTableView().getItems().get(getIndex());
+//                                showDialogue("task-detail", controller -> {
+//                                    EditTaskController c = (EditTaskController) controller;
+//                                    c.setTask(task);
+//                                });
+//                            });
                             label.setOnMouseClicked(e -> {
-                                Task task = getTableView().getItems().get(getIndex());
-                                showDialogue("task-detail", controller -> {
-                                    EditTaskController c = (EditTaskController) controller;
-                                    c.setTask(task);
-                                });
-                            });
+                                Toast.show(getPrimaryStage(), "Feature in development :D", 2000);
+                                }
+                            );
+
                             setGraphic(label);
                         }
                     }
@@ -252,7 +261,8 @@
         public void addTaskToTable(Task task) {
             data.add(task); // 'data' is the ObservableList bound to your TableView
             tbVTasks.refresh(); // ensure the table updates
-            Toast.show((Stage) btnAddTask.getScene().getWindow(), "Task added!", 3000);
+
+            Toast.show(getPrimaryStage(), "Task added!", 3000);
 
         }
 

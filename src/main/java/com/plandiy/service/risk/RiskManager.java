@@ -1,4 +1,4 @@
-package com.plandiy.service.analytics;
+package com.plandiy.service.risk;
 
 public class RiskManager {
 }

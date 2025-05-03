@@ -2,8 +2,8 @@ package com.plandiy.service.report;
 
 
 import java.time.LocalDate;
-// todo: add date pickers
-public abstract class Report { //todo Factory Method: - can implement Strategy pattern here? YEP - but even better - Factory ??? tie logic to it!
+
+public abstract class Report {
     private final ReportType reportType;
     private final LocalDate startDate;
     private final LocalDate endDate;

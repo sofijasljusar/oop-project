@@ -1,17 +1,9 @@
 package com.plandiy;
 
-import com.plandiy.command.CommandManager;
-import com.plandiy.command.issue.RenameIssueCommand;
-import com.plandiy.model.issue.IssuePriority;
-import com.plandiy.model.issue.IssueStatus;
-import com.plandiy.model.issue.task.FeatureTask;
-import com.plandiy.model.issue.task.Task;
-import com.plandiy.model.issue.task.TaskType;
-import com.plandiy.model.project.Project;
-import com.plandiy.model.user.User;
-import com.plandiy.model.user.UserRole;
-import com.plandiy.service.risk.Risk;
-import com.plandiy.service.risk.RiskManager;
+import com.plandiy.model.budget.Budget;
+import com.plandiy.service.report.factory.BudgetReportCreator;
+import com.plandiy.service.report.Report;
+import com.plandiy.service.report.factory.ReportCreator;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -48,17 +40,17 @@ public class ConsoleMain {
 //
 //        System.out.println(project1.calculateProgress());
 //
-//        Budget budget = new Budget(BigDecimal.valueOf(10000));
-//        budget.addExpense(BigDecimal.valueOf(100), "Coffee machine");
-//        budget.addExpense(BigDecimal.valueOf(200), "Cookies");
-//        budget.addExpense(BigDecimal.valueOf(300), "Microwave");
-//        System.out.println(budget.getRemainingAmount());
-//        System.out.println(budget.generateFinancialReport());
-//        ReportCreator reportManager = new BudgetReportCreator();
-//        Report budgetReport = reportManager.createReport(
-//                LocalDate.of(2025, 4, 18),
-//                LocalDate.of(2025, 4, 25));
-//        System.out.println(budgetReport.formatReportData());
+        Budget budget = new Budget(BigDecimal.valueOf(10000));
+        budget.addExpense(BigDecimal.valueOf(100), "Coffee machine");
+        budget.addExpense(BigDecimal.valueOf(200), "Cookies");
+        budget.addExpense(BigDecimal.valueOf(300), "Microwave");
+        System.out.println(budget.getRemainingAmount());
+        System.out.println(budget.generateFinancialReport());
+        ReportCreator reportManager = new BudgetReportCreator();
+        Report budgetReport = reportManager.createReport(
+                LocalDate.of(2025, 4, 18),
+                LocalDate.of(2025, 4, 25));
+        System.out.println(budgetReport.formatReportData());
         // Create users
 //        User owner = new User("Alice", "alice@example.com", UserRole.TEAMMATE);
 //        User contributor1 = new User("Bob", "bob@example.com", UserRole.TEAMMATE);
@@ -153,77 +145,77 @@ public class ConsoleMain {
 //        manager.redo();
 //        System.out.println("After redo(): "     + task.getName());
 
-        User testUser = new User("Test User", "testuser@example.com", UserRole.ADMIN);
-
-
-        // Initializing the Project with necessary parameters
-        Project project = new Project(
-                testUser,
-                "Risk Analysis Project",
-                "Project to test risk evaluation.",
-                LocalDate.now().minusDays(10),
-                LocalDate.now().plusDays(20),
-                new BigDecimal("10000.00")
-        );
-
-        project.addTask(
-                "Fix Critical Bug",
-                "Fix it now!",
-                IssueStatus.IN_PROGRESS,
-                IssuePriority.CRITICAL,
-                LocalDate.now().minusDays(5),
-                LocalDate.now(),
-                TaskType.BUG
-        );
-
-        // Low risk task
-        project.addTask(
-                "Add Help Page",
-                "Not urgent",
-                IssueStatus.TO_DO,
-                IssuePriority.LOW,
-                LocalDate.now(),
-                LocalDate.now().plusDays(10),
-                TaskType.FEATURE
-        );
-
-        // Medium risk task
-        project.addTask(
-                "Refactor module",
-                "Improve maintainability",
-                IssueStatus.IN_PROGRESS,
-                IssuePriority.MEDIUM,
-                LocalDate.now().minusDays(3),
-                LocalDate.now().plusDays(2),
-                TaskType.FEATURE
-        );
-
-        // Very high risk task
-        project.addTask(
-                "Fix Login",
-                "Users can't login!",
-                IssueStatus.IN_PROGRESS,
-                IssuePriority.HIGH,
-                LocalDate.now().minusDays(10),
-                LocalDate.now().minusDays(1),
-                TaskType.BUG
-        );
-
-        // Initializing the RiskManager and adding creators
-        RiskManager riskManager = new RiskManager();
-
-        // Identify risks based on tasks in the project
-        riskManager.identifyRisks(project);  // Identify risks for the project
-
-        // Print risks and evaluate their probability/impact
-        System.out.println("Identified Risks: ");
-        for (Risk risk : riskManager.getRisks()) {
-            System.out.printf("%s | Prob: %.2f | Impact: %.2f%n",
-                    risk.getDescription(), risk.getProbability(), risk.getImpact());
-        }
-
-        // Evaluate risks
-        riskManager.evaluateRisks();
+//        User testUser = new User("Test User", "testuser@example.com", UserRole.ADMIN);
+//
+//
+//        // Initializing the Project with necessary parameters
+//        Project project = new Project(
+//                testUser,
+//                "Risk Analysis Project",
+//                "Project to test risk evaluation.",
+//                LocalDate.now().minusDays(10),
+//                LocalDate.now().plusDays(20),
+//                new BigDecimal("10000.00")
+//        );
+//
+//        project.addTask(
+//                "Fix Critical Bug",
+//                "Fix it now!",
+//                IssueStatus.IN_PROGRESS,
+//                IssuePriority.CRITICAL,
+//                LocalDate.now().minusDays(5),
+//                LocalDate.now(),
+//                TaskType.BUG
+//        );
+//
+//        // Low risk task
+//        project.addTask(
+//                "Add Help Page",
+//                "Not urgent",
+//                IssueStatus.TO_DO,
+//                IssuePriority.LOW,
+//                LocalDate.now(),
+//                LocalDate.now().plusDays(10),
+//                TaskType.FEATURE
+//        );
+//
+//        // Medium risk task
+//        project.addTask(
+//                "Refactor module",
+//                "Improve maintainability",
+//                IssueStatus.IN_PROGRESS,
+//                IssuePriority.MEDIUM,
+//                LocalDate.now().minusDays(3),
+//                LocalDate.now().plusDays(2),
+//                TaskType.FEATURE
+//        );
+//
+//        // Very high risk task
+//        project.addTask(
+//                "Fix Login",
+//                "Users can't login!",
+//                IssueStatus.IN_PROGRESS,
+//                IssuePriority.HIGH,
+//                LocalDate.now().minusDays(10),
+//                LocalDate.now().minusDays(1),
+//                TaskType.BUG
+//        );
+//
+//        // Initializing the RiskManager and adding creators
+//        RiskManager riskManager = new RiskManager();
+//
+//        // Identify risks based on tasks in the project
+//        riskManager.identifyRisks(project);  // Identify risks for the project
+//
+//        // Print risks and evaluate their probability/impact
+//        System.out.println("Identified Risks: ");
+//        for (Risk risk : riskManager.getRisks()) {
+//            System.out.printf("%s | Prob: %.2f | Impact: %.2f%n",
+//                    risk.getDescription(), risk.getProbability(), risk.getImpact());
+//        }
+//
+//        // Evaluate risks
+//        riskManager.evaluateRisks();
 
 
 

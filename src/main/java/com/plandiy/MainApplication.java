@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainApplication extends Application {
-    double x, y = 0;
 
     @Override
     public void start(Stage stage) throws IOException {

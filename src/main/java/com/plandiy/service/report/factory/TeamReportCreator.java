@@ -1,4 +1,7 @@
-package com.plandiy.service.report;
+package com.plandiy.service.report.factory;
+
+import com.plandiy.service.report.Report;
+import com.plandiy.service.report.TeamReport;
 
 import java.time.LocalDate;
 

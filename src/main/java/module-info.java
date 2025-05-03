@@ -41,4 +41,6 @@ module com.plandiy.coursework {
     opens com.plandiy.model.issue.task.factory to javafx.fxml;
     exports com.plandiy.service.risk;
     opens com.plandiy.service.risk to javafx.fxml;
+    exports com.plandiy.service.report.factory;
+    opens com.plandiy.service.report.factory to javafx.fxml;
 }

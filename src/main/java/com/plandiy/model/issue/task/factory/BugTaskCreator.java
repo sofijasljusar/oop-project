@@ -14,8 +14,4 @@ public class BugTaskCreator extends TaskCreator {
         return new BugTask(id, name, description, status, priority, dateOfStart, deadline);
     }
 
-    public Task createTask(String id, String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
-        return this.createTask(id, name, "", status, priority, dateOfStart, deadline);
-    }
-
 }

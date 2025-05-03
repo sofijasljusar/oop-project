@@ -5,6 +5,7 @@ import com.plandiy.model.resource.ResourceType;
 import com.plandiy.model.project.Project;
 import com.plandiy.model.user.User;
 import com.plandiy.model.user.UserRole;
+import com.plandiy.service.analytics.AnalyticsEngine;
 import com.plandiy.service.report.Report;
 import com.plandiy.service.report.ReportType;
 import com.plandiy.service.report.factory.BudgetReportCreator;
@@ -23,6 +24,7 @@ public class ProjectManagementSystem {
     private ArrayList<Resource> resources = new ArrayList<>();
 
     private static ProjectManagementSystem instance;
+    private final AnalyticsEngine analyticsEngine = new AnalyticsEngine();
 
     private ProjectManagementSystem() {
         // private constructor to prevent external instantiation of singleton instance
@@ -119,6 +121,13 @@ public class ProjectManagementSystem {
         };
         Report report = creator.createReport(start, end);
         report.generateReport();
+    }
+
+    public void runProjectAnalytics(String projectId) {
+        Project project = findProjectById(projectId);
+        analyticsEngine.printTeamProductivity(project);
+        System.out.println("Predicted end date: " + analyticsEngine.predictProjectEndDate(project));
+        analyticsEngine.identifyRisks(project);
     }
 
 }

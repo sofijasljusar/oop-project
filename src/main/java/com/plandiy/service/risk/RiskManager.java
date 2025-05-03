@@ -39,4 +39,7 @@ public class RiskManager {
         }
     }
 
+    public List<Risk> getRisks() {
+        return risks;
+    }
 }

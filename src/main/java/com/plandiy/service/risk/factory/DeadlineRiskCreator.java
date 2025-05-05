@@ -9,7 +9,7 @@ public class DeadlineRiskCreator extends RiskCreator {
 
     @Override
     public Risk createRisk(Task task) {
-        DeadlineMissedRisk risk = new DeadlineMissedRisk();
+        DeadlineMissedRisk risk = new DeadlineMissedRisk(task);
         risk.calculateProbability(task);
         risk.calculateImpact(task);
         return risk;

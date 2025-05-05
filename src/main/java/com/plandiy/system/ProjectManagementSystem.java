@@ -45,7 +45,6 @@ public class ProjectManagementSystem {
         return this.resources;
     }
 
-
     public void createUser(String name, String email, UserRole role) {
         users.add(new User(name, email, role));
     }
@@ -126,7 +125,7 @@ public class ProjectManagementSystem {
     public void runProjectAnalytics(String projectId) {
         Project project = findProjectById(projectId);
         analyticsEngine.printTeamProductivity(project);
-        System.out.println("Predicted end date: " + analyticsEngine.predictProjectEndDate(project));
+        System.out.println("\nPredicted end date: " + analyticsEngine.predictProjectEndDate(project));
         analyticsEngine.identifyRisks(project);
     }
 

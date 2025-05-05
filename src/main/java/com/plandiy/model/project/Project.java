@@ -226,7 +226,9 @@ public class Project implements Subject, ProgressContext {
 
     public void monitorRisks() {
         riskManager.identifyRisks(this);
+        System.out.println("\nIdentified risks:");
         riskManager.evaluateRisks();
+        System.out.println("\nManage risks:");
         riskManager.manageRisks();
     }
 

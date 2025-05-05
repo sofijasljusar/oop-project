@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class DeadlineMissedRisk extends Risk {
-    public DeadlineMissedRisk() {
-        super("Risk of deadline missed.", "Reassign resources or adjust timeline.", RiskType.DEADLINE_MISSED);
+    public DeadlineMissedRisk(Task task) {
+        super("Risk of deadline missed.", "Reassign resources or adjust timeline.", RiskType.DEADLINE_MISSED, task);
     }
 
     @Override

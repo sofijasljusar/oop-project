@@ -6,7 +6,7 @@ import com.plandiy.model.issue.Issue;
 public class Timeline {
 
     public void displayProjectTimeline(Project project) {
-        System.out.println("Timeline for Project: " + project.getName());
+        System.out.println("\nTimeline for Project: " + project.getName());
         System.out.println("Project Start: " + project.getDateOfStart());
         System.out.println("Project End: " + project.getDateOfEnd());
 

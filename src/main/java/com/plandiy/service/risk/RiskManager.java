@@ -18,13 +18,13 @@ public class RiskManager {
     private final List<Risk> risks = new ArrayList<>();
 
     public void identifyRisks(Project project) {
+        log.info("All tasks analyzed for risks:");
         for (Task task: project.getListOfTasks()) {
             if (task.getStatus() != IssueStatus.DONE) {
                 for (RiskCreator creator : creators) {
                     Risk risk = creator.createRisk(task);
-                    log.info(String.format("    [%s] Description: %s | Probability: %.2f | Impact: %.2f",
-                            risk.getDescription(), task.getId(), risk.getProbability(), risk.getImpact()));
-                    if (risk != null && (risk.getImpact() >= 0.5 || risk.getProbability() >= 0.5)) {
+                    log.info(risk.toString());
+                    if (risk.getImpact() >= 0.5 || risk.getProbability() >= 0.5) {
                         risks.add(risk);
                     }
                 }
@@ -34,14 +34,13 @@ public class RiskManager {
 
     public void evaluateRisks() {
         for (Risk risk: risks) {
-            System.out.printf("%s | Prob: %.2f | Impact: %.2f%n",
-                    risk.getDescription(), risk.getProbability(), risk.getImpact());
+            System.out.println(risk);
         }
     }
 
     public void manageRisks() {
         for (Risk risk : risks) {
-            System.out.println("Task: " + risk.getDescription() +
+            System.out.println(risk.getTask().getId() + ": " + risk.getDescription() +
                     " -> Strategy: " + risk.getMitigationStrategy());
         }
     }

@@ -14,6 +14,7 @@ import com.plandiy.service.notification.NotificationManager;
 import com.plandiy.service.notification.NotificationType;
 import com.plandiy.service.progress.ProgressContext;
 import com.plandiy.service.progress.ProgressStrategy;
+import com.plandiy.service.progress.TaskCompletionProgress;
 import com.plandiy.service.risk.RiskManager;
 
 import java.math.BigDecimal;
@@ -42,7 +43,7 @@ public class Project implements Subject, ProgressContext {
 
 
     private int taskCounter;
-    private ProgressStrategy progressStrategy;
+    private ProgressStrategy progressStrategy = new TaskCompletionProgress();
     private final RiskManager riskManager = new RiskManager();
     private final NotificationManager manager = new NotificationManager();
     private final Timeline timeline = new Timeline();

@@ -6,8 +6,21 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Utility class to show temporary toast-style popup messages in a JavaFX application.
+ * <p>
+ * This can be used to display brief notifications to the user,
+ * such as confirmations or alerts, with a fade-out effect.
+ */
 public class Toast {
 
+    /**
+     * Displays a toast message near the top center of the given stage.
+     *
+     * @param ownerStage       the stage on which the toast should be shown
+     * @param message          the message to display
+     * @param durationInMillis the duration (in milliseconds) before the toast disappears
+     */
     public static void show(Stage ownerStage, String message, int durationInMillis) {
         Label toastLabel = new Label(message);
         toastLabel.setStyle(

@@ -7,12 +7,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+/**
+ * Implementation of Dao for managing tasks in the system.
+ * Simulates a task data store and provides CRUD operations for tasks.
+ */
 public class DemoTaskDao implements Dao<Task> {
     private final Map<String, Task> taskMap = new HashMap<>();
     private static DemoTaskDao instance;
 
+    /**
+     * Private constructor for singleton pattern.
+     */
     private DemoTaskDao() {}
 
+    /**
+     * Singleton pattern to get the instance of DemoTaskDao.
+     *
+     * @return The singleton instance of DemoTaskDao.
+     */
     public static DemoTaskDao getInstance() {
         if (instance == null) {
             instance = new DemoTaskDao();

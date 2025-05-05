@@ -5,6 +5,10 @@ import com.plandiy.model.issue.IssueStatus;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a {@code FeatureTask} which is a specific type of {@code Task}
+ * intended for implementing new features.
+ */
 public class FeatureTask extends Task {
     public FeatureTask(String id, String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
         super(id, name, description, status, priority, dateOfStart, deadline, TaskType.FEATURE);

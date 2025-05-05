@@ -12,12 +12,23 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Implementation of Dao for managing projects in the system.
+ * Simulates a project data store and provides CRUD operations.
+ */
 public class DemoProjectDao implements Dao<Project> {
     private final Dao<User> userDao;
     private final Dao<Task> taskDao;
     private final Map<String, Project> projectMap = new HashMap<>();
     private static DemoProjectDao instance;
 
+    /**
+     * Private constructor to initialize the DemoProjectDao with user and task DAOs.
+     * It also creates demo projects and associated tasks.
+     *
+     * @param userDao The DAO for managing users.
+     * @param taskDao The DAO for managing tasks.
+     */
     private DemoProjectDao(Dao<User> userDao, Dao<Task> taskDao) {
         this.userDao = userDao;
         this.taskDao = taskDao;
@@ -105,6 +116,11 @@ public class DemoProjectDao implements Dao<Project> {
 
     }
 
+    /**
+     * Singleton pattern to get the instance of DemoProjectDao.
+     *
+     * @return The singleton instance of DemoProjectDao.
+     */
     public static DemoProjectDao getInstance(Dao<User> userDao, Dao<Task> taskDao) {
         if (instance == null) {
             instance = new DemoProjectDao(userDao, taskDao);
@@ -143,6 +159,9 @@ public class DemoProjectDao implements Dao<Project> {
         return new HashMap<>(projectMap);
     }
 
+    /**
+     * Creates demo tasks for the system.
+     */
     private void createTasks(Project project) {
         project.addTask(
                 "Research employee data protection regulations",

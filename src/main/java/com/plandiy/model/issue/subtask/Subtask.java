@@ -7,6 +7,10 @@ import com.plandiy.service.progress.ProgressStrategy;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a subtask, which is a specialized form of an Issue.
+ * Supports marking as blocking and tracking progress.
+ */
 public class Subtask extends Issue {
     private boolean isBlocking;
     private ProgressStrategy progressStrategy;
@@ -17,10 +21,16 @@ public class Subtask extends Issue {
         this.isBlocking = false;
     }
 
+    /**
+     * Returns whether the subtask is blocking progress.
+     */
     public boolean isBlocking() {
         return isBlocking;
     }
 
+    /**
+     * Returns whether the subtask is blocking progress.
+     */
     public void setBlocking(boolean blocking) {
         isBlocking = blocking;
     }
@@ -30,6 +40,9 @@ public class Subtask extends Issue {
         this.progressStrategy = strategy;
     }
 
+    /**
+     * Calculates the progress of the subtask using the assigned strategy.
+     */
     @Override
     public int calculateProgress() {
         return progressStrategy.calculateProgress(null, getDateOfStart(), getDeadline());

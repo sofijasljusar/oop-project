@@ -7,8 +7,23 @@ import com.plandiy.model.issue.IssueStatus;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Strategy implementation that calculates progress based on
+ * the number of completed tasks with medium or higher priority
+ * (MEDIUM, HIGH, CRITICAL).
+ */
 public class PriorityTasksProgress implements ProgressStrategy {
     // used in user, project, task with subtasks
+
+    /**
+     * Calculates progress as the percentage of high-priority issues
+     * (CRITICAL, HIGH, MEDIUM) that are marked as DONE.
+     *
+     * @param listOfIssues the list of issues to evaluate
+     * @param dateOfStart the start date of the context (unused)
+     * @param dateOfEnd the end date of the context (unused)
+     * @return the percentage of completed high-priority issues
+     */
     @Override
     public int calculateProgress(List<? extends Issue> listOfIssues, LocalDate dateOfStart, LocalDate dateOfEnd) {
 

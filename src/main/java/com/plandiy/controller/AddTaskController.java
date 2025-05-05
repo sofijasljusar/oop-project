@@ -208,7 +208,6 @@ public class AddTaskController implements Initializable {
         IssueStatus status = comboIssueStatus.getValue();
         IssuePriority priority = comboIssuePriority.getValue();
 
-        // todo: add empty fields validation - all required except description
         if (name.isEmpty() || start == null || end == null) {
             Toast.show(mainController.getPrimaryStage(), "All fields are required!", 3000);
             return;

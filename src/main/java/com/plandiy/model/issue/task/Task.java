@@ -11,7 +11,11 @@ import com.plandiy.service.progress.TaskCompletionProgress;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Task extends Issue { //todo Factory Method
+/**
+ * Represents a task, which is a type of Issue that may contain subtasks.
+ * Supports calculation of progress based on a strategy.
+ */
+public abstract class Task extends Issue {
     private final ArrayList<Subtask> listOfSubtasks =  new ArrayList<>();
     private final TaskType type;
 
@@ -38,10 +42,16 @@ public abstract class Task extends Issue { //todo Factory Method
         return getId() + "-" + subtaskCounter;
     }
 
+    /**
+     * Adds a new subtask to this task.
+     */
     public void addSubtask(String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
         listOfSubtasks.add(new Subtask(generateSubtaskId(), name, description, status, priority, dateOfStart, deadline));
     }
 
+    /**
+     * Removes the specified subtask from the task.
+     */
     public void deleteSubtask(Subtask childIssue) {
         listOfSubtasks.remove(childIssue);
     }
@@ -55,6 +65,9 @@ public abstract class Task extends Issue { //todo Factory Method
         this.progressStrategy = strategy;
     }
 
+    /**
+     * Calculates progress using the assigned strategy.
+     */
     @Override
     public int calculateProgress() {  //if task has no subtasks - 100 if completed, else 0
         if (progressStrategy instanceof TaskCompletionProgress) {

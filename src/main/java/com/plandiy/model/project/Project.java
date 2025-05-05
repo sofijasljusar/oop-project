@@ -24,7 +24,10 @@ import java.util.UUID;
 
 // TODO: class UML with all - + ~ #
 
-// Note: keep final for now, when add editing options - remove final, add setters
+/**
+ * Represents a project containing a list of tasks, contributors, and a lifecycle status.
+ * Implements the Subject for observer pattern and ProgressContext for progress tracking.
+ */
 public class Project implements Subject, ProgressContext {
     private final String id;
     private final String key;
@@ -48,6 +51,16 @@ public class Project implements Subject, ProgressContext {
     private final NotificationManager manager = new NotificationManager();
     private final Timeline timeline = new Timeline();
 
+    /**
+     * Constructs a new Project.
+     *
+     * @param owner       the project owner
+     * @param name        the name of the project
+     * @param description the description of the project
+     * @param dateOfStart the start date
+     * @param dateOfEnd   the end date
+     * @param budget      the total budget
+     */
     public Project(User owner,
                    String name,
                    String description,
@@ -68,6 +81,11 @@ public class Project implements Subject, ProgressContext {
         attach(owner); // todo
     }
 
+    /**
+     * Generates a unique project key from the project name.
+     *
+     * @return a 4-character project key
+     */
     private String generateKey() {
         String prefix = name.replaceAll("[^A-Za-z]", "").toUpperCase();
         return prefix.substring(0, Math.min(prefix.length(), 4));
@@ -135,6 +153,9 @@ public class Project implements Subject, ProgressContext {
         detach(user);
     }
 
+    /**
+     * Adds a task with default description to the project.
+     */
     public void addTask(String name, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, TaskType taskType) {
         Task task = switch (taskType) {
             case FEATURE -> new FeatureTask(generateTaskId(), name, status, priority, dateOfStart, deadline);
@@ -144,6 +165,11 @@ public class Project implements Subject, ProgressContext {
         listOfTasks.add(task);
     }
 
+    /**
+     * Adds a task with a detailed description and returns it.
+     *
+     * @return the created Task
+     */
     public Task addTask(String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, TaskType taskType) {
         Task task = switch (taskType) {
             case FEATURE -> new FeatureTask(generateTaskId(), name, description, status, priority, dateOfStart, deadline);
@@ -154,10 +180,18 @@ public class Project implements Subject, ProgressContext {
         return task;
     }
 
+    /**
+     * Removes a task from the project.
+     */
     public void deleteTask(Task task) {
         listOfTasks.remove(task);
     }
 
+    /**
+     * Finds a task by ID.
+     *
+     * @throws IllegalArgumentException if not found
+     */
     public Task findTaskById(String taskId) {
         for (Task task : listOfTasks) {
             if (task.getId().equals(taskId)) {
@@ -167,6 +201,9 @@ public class Project implements Subject, ProgressContext {
         throw new IllegalArgumentException("Task with ID not found: " + taskId);
     }
 
+    /**
+     * Assigns a task to a user, replacing any previously assigned user.
+     */
     public void assignTaskToUser(String taskId, User user) {
         Task task = findTaskById(taskId);
 
@@ -180,6 +217,9 @@ public class Project implements Subject, ProgressContext {
         task.attach(user);
     }
 
+    /**
+     * Updates the project status and notifies observers.
+     */
     public void updateStatus(ProjectStatus newStatus) {
         this.status = newStatus;
     }
@@ -193,6 +233,12 @@ public class Project implements Subject, ProgressContext {
     public int calculateProgress() {
         return progressStrategy.calculateProgress(listOfTasks, dateOfStart, dateOfEnd);
     }
+
+    /**
+     * Prints formatted project summary.
+     *
+     * @return formatted string
+     */
 
     public String projectInfo() {
         return "PROJECT" +
@@ -224,6 +270,9 @@ public class Project implements Subject, ProgressContext {
         }
     }
 
+    /**
+     * Identifies, evaluates, and manages risks using the RiskManager.
+     */
     public void monitorRisks() {
         riskManager.identifyRisks(this);
         System.out.println("\nIdentified risks:");
@@ -232,6 +281,9 @@ public class Project implements Subject, ProgressContext {
         riskManager.manageRisks();
     }
 
+    /**
+     * Displays the project timeline via the Timeline service.
+     */
     public void showTimeline() {
         timeline.displayProjectTimeline(this);
     }

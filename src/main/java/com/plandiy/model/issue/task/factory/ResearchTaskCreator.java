@@ -7,8 +7,14 @@ import com.plandiy.model.issue.task.Task;
 
 import java.time.LocalDate;
 
+/**
+ * Concrete creator for {@link ResearchTask} using the Factory Method pattern.
+ */
 public class ResearchTaskCreator extends TaskCreator {
 
+    /**
+     * Creates a {@link ResearchTask} instance.
+     */
     @Override
     public Task createTask(String id, String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
         return new ResearchTask(id, name, description, status, priority, dateOfStart, deadline);

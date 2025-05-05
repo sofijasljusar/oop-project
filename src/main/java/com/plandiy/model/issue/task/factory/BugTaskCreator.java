@@ -7,8 +7,14 @@ import com.plandiy.model.issue.task.Task;
 
 import java.time.LocalDate;
 
+/**
+ * Concrete creator for {@link BugTask} using the Factory Method pattern.
+ */
 public class BugTaskCreator extends TaskCreator {
 
+    /**
+     * Creates a {@link BugTask} instance.
+     */
     @Override
     public Task createTask(String id, String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline) {
         return new BugTask(id, name, description, status, priority, dateOfStart, deadline);

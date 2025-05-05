@@ -12,6 +12,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract base class representing a generic Issue in the system.
+ * Implements observer pattern for status change notifications
+ * and ProgressContext for progress calculation
+ */
 public abstract class Issue implements Subject, ProgressContext {
     private final String id;
     private String name;
@@ -75,20 +80,35 @@ public abstract class Issue implements Subject, ProgressContext {
 //        return reporter;
 //    }
 
+    /**
+     * Assigns a user to this issue.
+     *
+     * @param assignee The user to assign.
+     */
     public void assignTo(User assignee) {
         this.assignedTo = assignee;
     }
-    // for now not used, but provide option for assignee/reported to turn off/on notifications and other users to observe Issue
+
+    /**
+     * Attaches an observer to this issue.
+     */
     @Override
     public void attach(Observer observer) {
         observers.add(observer);
     }
+    // todo: for now not used, but provide option for assignee/reported to turn off/on notifications and other users to observe Issue
 
+    /**
+     * Detaches an observer from this issue.
+     */
     @Override
     public void detach(Observer observer) {
         observers.remove(observer);
     }
 
+    /**
+     * Notifies all observers of the issue's current status.
+     */
     @Override
     public void notifyObservers() {
         NotificationManager manager = new NotificationManager();
@@ -98,6 +118,9 @@ public abstract class Issue implements Subject, ProgressContext {
         }
     }
 
+    /**
+     * Updates the issue's status and notifies observers.
+     */
     public void updateStatus(IssueStatus newStatus) {
         this.status = newStatus;
         notifyObservers();
@@ -123,6 +146,9 @@ public abstract class Issue implements Subject, ProgressContext {
         this.deadline = deadline;
     }
 
+    /**
+     * Returns a string containing detailed info about the issue.
+     */
     public String getInfo() { //todo
         return "ISSUE" +
                 "\nID: " + id +

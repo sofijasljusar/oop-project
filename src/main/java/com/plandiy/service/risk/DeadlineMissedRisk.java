@@ -5,6 +5,11 @@ import com.plandiy.model.issue.task.Task;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * A specific implementation of Risk for tasks that may miss their deadlines.
+ * <p>
+ * This risk calculates its probability and impact based on the task's deadline and priority.
+ */
 public class DeadlineMissedRisk extends Risk {
     public DeadlineMissedRisk(Task task) {
         super("Risk of deadline missed.", "Reassign resources or adjust timeline.", RiskType.DEADLINE_MISSED, task);

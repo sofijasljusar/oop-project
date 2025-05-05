@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The RiskManager class handles identifying, evaluating, and managing risks for a project.
+ * <p>
+ * It contains a list of risk creators to generate different types of risks and a list
+ * of identified risks for the project.
+ */
 @Slf4j
 public class RiskManager {
     private final List<RiskCreator> creators = List.of(
@@ -17,6 +23,14 @@ public class RiskManager {
     );
     private final List<Risk> risks = new ArrayList<>();
 
+    /**
+     * Identifies risks in the provided project based on its tasks.
+     * <p>
+     * This method will loop through all tasks, identify risks using registered risk creators,
+     * and log those risks if their impact or probability is above a threshold (0.5).
+     *
+     * @param project the project whose tasks will be analyzed for risks
+     */
     public void identifyRisks(Project project) {
         log.info("All tasks analyzed for risks:");
         for (Task task: project.getListOfTasks()) {
@@ -32,12 +46,18 @@ public class RiskManager {
         }
     }
 
+    /**
+     * Evaluates and logs all identified risks.
+     */
     public void evaluateRisks() {
         for (Risk risk: risks) {
             System.out.println(risk);
         }
     }
 
+    /**
+     * Manages the identified risks by logging the mitigation strategies.
+     */
     public void manageRisks() {
         for (Risk risk : risks) {
             System.out.println(risk.getTask().getId() + ": " + risk.getDescription() +

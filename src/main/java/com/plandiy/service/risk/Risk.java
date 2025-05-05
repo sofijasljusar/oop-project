@@ -1,12 +1,15 @@
 package com.plandiy.service.risk;
 
-import com.plandiy.model.issue.IssuePriority;
-import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.Task;
-import com.plandiy.model.issue.task.TaskType;
 
-import java.time.LocalDate;
 
+/**
+ * Abstract class representing a risk associated with a task.
+ * <p>
+ * This class holds the common properties and methods for all types of risks,
+ * including description, probability, impact, and mitigation strategy.
+ * Subclasses must define the logic for calculating the probability and impact of the risk.
+ */
 public abstract class Risk {
     private String description;
     private double probability;
@@ -15,6 +18,14 @@ public abstract class Risk {
     private RiskType type;
     private final Task task;
 
+    /**
+     * Constructor for Risk class.
+     *
+     * @param description         a description of the risk
+     * @param mitigationStrategy  a strategy for mitigating the risk
+     * @param type                the type of the risk
+     * @param task                the task associated with the risk
+     */
     protected Risk(String description, String mitigationStrategy, RiskType type, Task task) {
         this.description = description;
         this.mitigationStrategy = mitigationStrategy;
@@ -22,7 +33,18 @@ public abstract class Risk {
         this.task = task;
     }
 
+    /**
+     * Calculates the probability of the risk.
+     *
+     * @param task the task associated with the risk
+     */
     public abstract void calculateProbability(Task task);
+
+    /**
+     * Calculates the impact of the risk.
+     *
+     * @param task the task associated with the risk
+     */
     public abstract void calculateImpact(Task task);
 
 

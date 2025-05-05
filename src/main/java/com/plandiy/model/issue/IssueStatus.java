@@ -1,5 +1,9 @@
 package com.plandiy.model.issue;
 
+/**
+ * Enum representing possible statuses of an Issue.
+ * Each status is associated with a corresponding icon filename.
+ */
 public enum IssueStatus {
     TO_DO("To_Do.png"),
     IN_PROGRESS("In_Progress.png"),
@@ -13,6 +17,9 @@ public enum IssueStatus {
         this.iconFileName = iconFileName;
     }
 
+    /**
+     * Returns the icon filename associated with the status.
+     */
     public String getIconFileName() {
         return iconFileName;
     }

@@ -7,14 +7,20 @@ import com.plandiy.system.ProjectManagementSystem;
 
 import java.util.*;
 
+/**
+ * Implementation of Dao for managing users in the system.
+ * Simulates a user data store and provides CRUD operations for users.
+ */
 public class DemoUserDao implements Dao<User> {
 
     // Simulate a database with a Map: key = email
     private static final Map<String, User> userMap = new HashMap<>();
     private static DemoUserDao instance;
 
+    /**
+     * Private constructor for singleton pattern.
+     */
     private DemoUserDao() {
-        // Use the create() method to add demo users
         create(new User("Alice Johnson", "alice.johnson@example.com", UserRole.MANAGER));
         create(new User("Bob Smith", "bob.smith@example.com", UserRole.TEAMMATE));
         create(new User("Charlie Davis", "charlie.davis@example.com", UserRole.TEAMMATE));
@@ -22,6 +28,11 @@ public class DemoUserDao implements Dao<User> {
         create(new User("Evan Garcia", "evan.garcia@example.com", UserRole.TEAMMATE));
     }
 
+    /**
+     * Singleton pattern to get the instance of DemoUserDao.
+     *
+     * @return The singleton instance of DemoUserDao.
+     */
     public static DemoUserDao getInstance() {
         if (instance == null) {
             instance = new DemoUserDao();

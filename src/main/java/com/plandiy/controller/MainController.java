@@ -235,11 +235,9 @@
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.initStyle(javafx.stage.StageStyle.UNDECORATED);
 
-                // Force layout pass so we can get the proper dimensions
                 parent.applyCss();
                 parent.layout();
 
-                // Now get proper width/height
                 double dialogWidth = parent.prefWidth(-1);
                 double dialogHeight = parent.prefHeight(-1);
 
@@ -256,8 +254,8 @@
 
 
         public void addTaskToTable(Task task) {
-            data.add(task); // 'data' is the ObservableList bound to your TableView
-            tbVTasks.refresh(); // ensure the table updates
+            data.add(task);
+            tbVTasks.refresh();
 
             Toast.show(getPrimaryStage(), "Task added!", 3000);
 

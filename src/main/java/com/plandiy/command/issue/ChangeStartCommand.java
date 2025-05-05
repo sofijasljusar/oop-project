@@ -5,11 +5,20 @@ import com.plandiy.model.issue.Issue;
 
 import java.time.LocalDate;
 
+/**
+ * Command for changing the start date of an {@link Issue}.
+ */
 public class ChangeStartCommand implements Command {
     private final Issue issue;
     private final LocalDate newDateOfStart;
     private LocalDate oldDateOfStart;
 
+    /**
+     * Constructs a ChangeStartCommand.
+     *
+     * @param issue the issue to modify
+     * @param newDateOfStart the new start date
+     */
     public ChangeStartCommand (Issue issue, LocalDate newDateOfStart) {
         this.issue = issue;
         this.newDateOfStart = newDateOfStart;
@@ -18,7 +27,7 @@ public class ChangeStartCommand implements Command {
 
     @Override
     public boolean execute() {
-        oldDateOfStart = issue.getDateOfStart();       // store the original value
+        oldDateOfStart = issue.getDateOfStart();
         issue.updateDateOfStart(newDateOfStart);
         return true;
     }

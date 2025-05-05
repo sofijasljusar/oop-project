@@ -5,6 +5,9 @@ import com.plandiy.service.risk.DeadlineMissedRisk;
 import com.plandiy.service.risk.Risk;
 import com.plandiy.service.risk.RiskType;
 
+/**
+ * Concrete creator for creating deadline-related risks for tasks.
+ */
 public class DeadlineRiskCreator extends RiskCreator {
 
     @Override

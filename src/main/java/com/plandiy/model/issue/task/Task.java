@@ -52,8 +52,8 @@ public abstract class Task extends Issue {
     /**
      * Removes the specified subtask from the task.
      */
-    public void deleteSubtask(Subtask childIssue) {
-        listOfSubtasks.remove(childIssue);
+    public void deleteSubtask(Subtask subtask) {
+        listOfSubtasks.remove(subtask);
     }
 
     public TaskType getType() {

@@ -1,13 +1,15 @@
 # Object-Oriented Programming Coursework
 
-This project was completed as the final project for the Object-Oriented Programming course, which I took during my second year of university.
+This coursework was completed as the final project for the Object-Oriented Programming course, which I took during my second year of university.
 
-## 📚 Project Overview
+## 📖 Project Overview
 
 The main objective was to apply the core OOP principles.
 In addition to the system logic, a demonstration page was developed to show how the project might look in the future.
 
-## 🚀 How to Run
+As a result, a solid foundation was created for the system, allowing for easy extensions.
+
+## 💻 How to Run
 
 1. **Clone the repository**
    ```bash

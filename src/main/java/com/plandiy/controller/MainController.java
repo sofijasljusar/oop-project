@@ -96,17 +96,19 @@
                             // Add hover effect for underline
                             label.setOnMouseEntered(e -> label.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.8); -fx-underline: true; -fx-cursor: hand"));
                             label.setOnMouseExited(e -> label.setStyle("-fx-text-fill: rgba(0, 0, 0, 0.8);"));
-//                            label.setOnMouseClicked(e -> {
-//                                Task task = getTableView().getItems().get(getIndex());
-//                                showDialogue("task-detail", controller -> {
-//                                    EditTaskController c = (EditTaskController) controller;
-//                                    c.setTask(task);
-//                                });
-//                            });
                             label.setOnMouseClicked(e -> {
-                                Toast.show(getPrimaryStage(), "Feature in development :D", 2000);
-                                }
-                            );
+                                Task task = getTableView().getItems().get(getIndex());
+                                showDialogue("edit-task", controller -> {
+                                    EditTaskController c = (EditTaskController) controller;
+                                    c.setTask(task);
+                                    Project project = projectDao.read("STAF");
+                                    c.setup(project, MainController.this);
+                                });
+                            });
+//                            label.setOnMouseClicked(e -> {
+//                                Toast.show(getPrimaryStage(), "Feature in development :D", 2000);
+//                                }
+//                            );
 
                             setGraphic(label);
                         }
@@ -255,10 +257,12 @@
 
         public void addTaskToTable(Task task) {
             data.add(task);
-            tbVTasks.refresh();
-
+            refreshTaskTable();
             Toast.show(getPrimaryStage(), "Task added!", 3000);
+        }
 
+        public void refreshTaskTable() {
+            tbVTasks.refresh();
         }
 
 

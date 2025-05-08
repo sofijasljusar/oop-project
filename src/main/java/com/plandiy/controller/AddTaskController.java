@@ -31,10 +31,6 @@ public class AddTaskController implements Initializable {
     private final Dao<Task> taskDao = DemoTaskDao.getInstance();
     private MainController mainController;  // Add a reference to MainController
 
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
-
     @FXML
     private Button btnClose;
 

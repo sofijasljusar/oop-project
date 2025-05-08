@@ -17,11 +17,14 @@ import java.util.ArrayList;
  */
 public abstract class Task extends Issue {
     private final ArrayList<Subtask> listOfSubtasks =  new ArrayList<>();
-    private final TaskType type;
+    private TaskType type;
 
     private int subtaskCounter = 0;
     private ProgressStrategy progressStrategy = new TaskCompletionProgress();
 
+    public void updateType(TaskType type) {
+        this.type = type;
+    }
 
 
     public Task(String id, String name, String description, IssueStatus status, IssuePriority priority, LocalDate dateOfStart, LocalDate deadline, TaskType type) {

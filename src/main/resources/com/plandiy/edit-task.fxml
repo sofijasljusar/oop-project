@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="454.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plandiy.controller.AddTaskController">
+<AnchorPane prefHeight="454.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plandiy.controller.EditTaskController">
     <children>
-        <TextField fx:id="txtName" stylesheets="@css/styling.css" layoutX="47.0" layoutY="95.0" prefHeight="30.0" prefWidth="260.0" promptText="Name" />
+        <TextField fx:id="txtName" layoutX="47.0" layoutY="95.0" prefHeight="30.0" prefWidth="260.0" promptText="Name" stylesheets="@css/styling.css" />
         <Pane layoutY="-1.0" prefHeight="53.0" prefWidth="475.0" style="-fx-background-color: #52438F;">
             <children>
-                <Label layoutX="49.0" layoutY="12.0" prefHeight="30.0" prefWidth="67.0" style="-fx-font-size: 14px" text="Create task" textFill="WHITE" />
+                <Label layoutX="49.0" layoutY="12.0" prefHeight="30.0" prefWidth="67.0" style="-fx-font-size: 14px" text="Edit task" textFill="WHITE" />
                 <ComboBox fx:id="comboTaskType" layoutX="126.0" layoutY="14.0" prefHeight="20.0" prefWidth="120.0" styleClass="taskTypeDropdown" stylesheets="@css/styling.css" />
                 <Button fx:id="btnClose" depthTest="DISABLE" graphicTextGap="0.0" layoutX="440.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="20.0" prefWidth="20.0" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-width: 1px; -fx-border-color: #FFFFFF; -fx-border-radius: 4px;">
                     <graphic>
@@ -28,12 +28,13 @@
                     </graphic>
                 </Button>
             </children></Pane>
-        <TextArea fx:id="txtDescription" stylesheets="@css/styling.css" layoutX="48.0" layoutY="136.0" prefHeight="189.0" prefWidth="260.0" promptText="Description" />
-        <ComboBox fx:id="comboIssueStatus" styleClass="issueStatusDropdown" stylesheets="@css/styling.css" layoutX="338.0" layoutY="135.0" prefHeight="20.0" prefWidth="120.0" />
-        <DatePicker fx:id="startDate" layoutX="337.0" layoutY="212.0" prefHeight="26.0" prefWidth="120.0" promptText="Start Date" stylesheets="@css/styling.css"/>
-        <ComboBox fx:id="comboIssuePriority" styleClass="issuePriorityDropdown" stylesheets="@css/styling.css" layoutX="339.0" layoutY="172.0" prefHeight="20.0" prefWidth="120.0" />
-        <DatePicker fx:id="endDate" layoutX="337.0" layoutY="251.0" prefHeight="26.0" prefWidth="120.0" promptText="End Date" stylesheets="@css/styling.css"/>
-        <Button fx:id="btnAddTask" onAction="#handleAddTask" styleClass="button1" layoutX="49.0" layoutY="361.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="258.0" stylesheets="@css/styling.css" text="Add Task :)" textFill="WHITE" />
+        <TextArea fx:id="txtDescription" layoutX="48.0" layoutY="136.0" prefHeight="189.0" prefWidth="260.0" promptText="Description" stylesheets="@css/styling.css" />
+        <ComboBox fx:id="comboIssueStatus" layoutX="338.0" layoutY="135.0" prefHeight="20.0" prefWidth="120.0" styleClass="issueStatusDropdown" stylesheets="@css/styling.css" />
+        <DatePicker fx:id="startDate" layoutX="338.0" layoutY="211.0" prefHeight="20.0" prefWidth="120.0" promptText="Start Date" stylesheets="@css/styling.css" />
+        <ComboBox fx:id="comboIssuePriority" layoutX="338.0" layoutY="172.0" prefHeight="20.0" prefWidth="120.0" styleClass="issuePriorityDropdown" stylesheets="@css/styling.css" />
+        <DatePicker fx:id="endDate" layoutX="338.0" layoutY="251.0" prefHeight="20.0" prefWidth="120.0" promptText="End Date" stylesheets="@css/styling.css" />
+        <Button fx:id="btnEditTask" layoutX="49.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleEditTask" prefHeight="26.0" prefWidth="258.0" styleClass="button1" stylesheets="@css/styling.css" text="Save changes" textFill="WHITE" />
         <Label layoutX="345.0" layoutY="98.0" prefHeight="21.0" prefWidth="60.0" style="-fx-font-size: 14px" text="Details" />
+        <ComboBox fx:id="assignee" layoutX="338.0" layoutY="292.0" prefHeight="20.0" prefWidth="120.0" styleClass="issueStatusDropdown" stylesheets="@css/styling.css" />
     </children>
 </AnchorPane>

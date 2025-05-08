@@ -68,6 +68,7 @@ public class AddTaskController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        txtName.setFocusTraversable(false);
         comboTaskType.setItems(FXCollections.observableArrayList(TaskType.values()));
         comboTaskType.setCellFactory(cb -> new ListCell<>() {
             @Override

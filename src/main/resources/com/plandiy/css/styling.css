@@ -209,11 +209,11 @@
 
 .date-picker > .arrow-button {
     -fx-background-color: transparent;
-    -fx-background-size: 20px 20px; /* adjust as needed */
+    -fx-background-size: 20px 20px;
 }
 
 .date-picker > .arrow-button .arrow {
-    -fx-background-color: #52438F; /* Or any color */
+    -fx-background-color: #52438F;
     -fx-pref-height: 14px;
     -fx-pref-width: 14px;
 }

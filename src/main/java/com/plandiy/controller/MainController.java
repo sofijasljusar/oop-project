@@ -68,6 +68,9 @@
         @FXML
         private Button btnAddTask;
 
+        @FXML
+        private Button btnDeleteTask;
+
         public static Stage pStage;
 
         @FXML
@@ -216,6 +219,29 @@
                     AddTaskController c = (AddTaskController) controller;
                     Project project = projectDao.read("STAF");
                     c.setup(project, this);
+                });
+            } else if (event.getSource() == btnDeleteTask) {
+                Task selectedTask = (Task) tbVTasks.getSelectionModel().getSelectedItem();
+
+                if (selectedTask == null) {
+                    Toast.show(getPrimaryStage(), "No task selected!", 2500);
+                    return;
+                }
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Task");
+                alert.setHeaderText("Are you sure you want to delete this task?");
+                alert.setContentText("Task: " + selectedTask.getName());
+
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        // Remove from DAO and table
+                        taskDao.delete(selectedTask.getId());
+                        data.remove(selectedTask); // Remove from ObservableList
+                        refreshTaskTable();
+                        Toast.show(getPrimaryStage(), "Task deleted!", 2500);
+                        System.out.println(taskDao.getAll().size());
+                    }
                 });
             }
         }

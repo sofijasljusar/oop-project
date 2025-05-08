@@ -240,7 +240,6 @@
                         data.remove(selectedTask); // Remove from ObservableList
                         refreshTaskTable();
                         Toast.show(getPrimaryStage(), "Task deleted!", 2500);
-                        System.out.println(taskDao.getAll().size());
                     }
                 });
             }

@@ -6,6 +6,7 @@ import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.resource.Resource;
 import com.plandiy.model.user.User;
+import com.plandiy.model.user.UserRole;
 import com.plandiy.observer.Observer;
 import com.plandiy.observer.Subject;
 import com.plandiy.service.Timeline;
@@ -79,6 +80,8 @@ public class Project implements Subject, ProgressContext {
         this.key = generateKey();
 
         attach(owner); // todo
+        User unassignedUser = new User("Unassigned", "", UserRole.TEAMMATE);  // Or use an empty string for a profile picture
+        this.addContributor(unassignedUser);
     }
 
     /**

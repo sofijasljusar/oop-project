@@ -2,14 +2,17 @@ package com.plandiy.controller;
 
 import com.plandiy.model.dao.Dao;
 import com.plandiy.model.dao.DemoTaskDao;
+import com.plandiy.model.dao.DemoUserDao;
 import com.plandiy.model.issue.IssuePriority;
 import com.plandiy.model.issue.IssueStatus;
 import com.plandiy.model.issue.task.Task;
 import com.plandiy.model.issue.task.TaskType;
 import com.plandiy.model.project.Project;
+import com.plandiy.model.user.User;
 import com.plandiy.util.IconCache;
 import com.plandiy.util.Toast;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,10 +64,8 @@ public class AddTaskController implements Initializable {
 
     private Project project;
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
+    @FXML
+    private ComboBox<User> assignee;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -208,12 +209,14 @@ public class AddTaskController implements Initializable {
         TaskType type = comboTaskType.getValue();
         IssueStatus status = comboIssueStatus.getValue();
         IssuePriority priority = comboIssuePriority.getValue();
+        User assignedTo = assignee.getValue();
 
         if (name.isEmpty() || start == null || end == null) {
             Toast.show(mainController.getPrimaryStage(), "All fields are required!", 3000);
             return;
         }
         Task newTask = project.addTask(name, description, status, priority, start, end, type);
+        newTask.assignTo(assignedTo);
         taskDao.create(newTask);
         System.out.println(taskDao.getAll().size());
         // Update the TableView
@@ -222,6 +225,33 @@ public class AddTaskController implements Initializable {
         Stage stage = (Stage) btnAddTask.getScene().getWindow();
         stage.close();
     }
+
+    public void setup(Project project, MainController mainController) {
+        this.project = project;
+        this.mainController = mainController;
+
+        ObservableList<User> users = FXCollections.observableArrayList(project.getContributors());
+        assignee.setItems(users);
+        assignee.setValue(users.getFirst());
+
+        // Setup assignee cell rendering again here
+        assignee.setCellFactory(cb -> new ListCell<>() {
+            @Override
+            protected void updateItem(User item, boolean empty) {
+                super.updateItem(item, empty);
+                setText((empty || item == null) ? null : item.getName());
+            }
+        });
+
+        assignee.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(User item, boolean empty) {
+                super.updateItem(item, empty);
+                setText((empty || item == null) ? null : item.getName());
+            }
+        });
+    }
+
 
 
 }

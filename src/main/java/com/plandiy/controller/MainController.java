@@ -212,8 +212,8 @@
             if (event.getSource() == btnAddTask) {
                 showDialogue("add-task", controller-> {
                     AddTaskController c = (AddTaskController) controller;
-                    c.setProject(projectDao.read("STAF"));
-                    c.setMainController(this);
+                    Project project = projectDao.read("STAF");
+                    c.setup(project, this);
                 });
             }
         }

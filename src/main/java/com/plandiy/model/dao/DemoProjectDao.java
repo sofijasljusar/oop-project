@@ -44,6 +44,8 @@ public class DemoProjectDao implements Dao<Project> {
                 new BigDecimal("50000")
         );
 
+        userDao.getAll().values().forEach(project::addContributor);
+
         createTasks(project);
         List<User> users = new ArrayList<>(userDao.getAll().values());
         Random random = new Random();

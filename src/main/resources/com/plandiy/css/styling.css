@@ -221,3 +221,27 @@
 .text-field, .text-area {
     -fx-font-size: 14px;
 }
+
+.custom-alert {
+    -fx-background-color: white;
+    -fx-border-color: #6F5CC2;
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #52438F;
+}
+
+.custom-alert .header-panel {
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6F5CC2;
+}
+
+.custom-alert .content {
+    -fx-text-fill: #52438F;
+}
+
+.custom-alert .button-bar .button {
+    -fx-background-color: #6F5CC2;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+}

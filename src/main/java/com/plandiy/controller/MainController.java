@@ -26,9 +26,11 @@
     import javafx.scene.control.cell.PropertyValueFactory;
     import javafx.scene.image.Image;
     import javafx.scene.image.ImageView;
+    import javafx.scene.layout.Pane;
     import javafx.scene.layout.VBox;
     import javafx.stage.Modality;
     import javafx.stage.Stage;
+    import javafx.stage.StageStyle;
 
     import java.io.IOException;
     import java.net.URL;
@@ -209,6 +211,9 @@
             tcName.setMinWidth(100);
             tcName.setMaxWidth(Double.MAX_VALUE);
             tcName.setResizable(true);
+            btnDeleteTask.disableProperty().bind(
+                    tbVTasks.getSelectionModel().selectedItemProperty().isNull()
+            );
 
         }
 
@@ -229,9 +234,32 @@
                 }
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setGraphic(null);
+                alert.setResizable(false);
                 alert.setTitle("Delete Task");
                 alert.setHeaderText("Are you sure you want to delete this task?");
                 alert.setContentText("Task: " + selectedTask.getName());
+
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStyleClass().add("custom-alert");
+                alert.getDialogPane().setStyle("-fx-font-family: 'Arial'; -fx-font-weight: normal; -fx-font-size: 14px;");
+                Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+                alertStage.initStyle(StageStyle.TRANSPARENT);
+                Pane headerPane = new Pane();
+                headerPane.setStyle("-fx-background-color: #6F5CC2;");
+                headerPane.setPrefHeight(53);
+
+                Label headerLabel = new Label("Are you sure you want to delete this task?");
+                headerLabel.setStyle("-fx-font-family: 'Arial'; -fx-font-weight: normal; -fx-font-size: 16px; -fx-text-fill: white;");
+                headerPane.getChildren().add(headerLabel);
+                headerLabel.layoutXProperty().bind(headerPane.widthProperty().subtract(headerLabel.widthProperty()).divide(2));
+                headerLabel.layoutYProperty().bind(headerPane.heightProperty().subtract(headerLabel.heightProperty()).divide(2));
+
+                alert.getDialogPane().setHeader(headerPane);
+
+                dialogPane.getStylesheets().add(
+                        getClass().getResource("/com/plandiy/css/styling.css").toExternalForm()
+                );
 
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
